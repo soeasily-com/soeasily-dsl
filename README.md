@@ -79,21 +79,6 @@ Deploy instantly, embed in your SaaS, or fine-tune with our visual editor. Multi
 
 ---
 
-## 📦 Installation
-
-```bash
-npm install @soeasily/schemas
-```
-
-## ✅ Validate Schema Files
-
-```bash
-node tools/validate.js schemas/v1/soeasily-workflow.json
-node tools/validate.js schemas/v1/soeasily-action.json
-```
-
----
-
 ## 📚 Example Workflow Structure
 
 ```json
