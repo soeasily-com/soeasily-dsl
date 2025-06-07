@@ -143,12 +143,24 @@
             padding: 24px;
             text-align: center;
             transition: all 0.2s ease;
+            cursor: pointer;
         }
 
         .schema-card:hover {
             border-color: #0969da;
             transform: translateY(-4px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .schema-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .schema-card-link:hover {
+            text-decoration: none;
+            color: inherit;
         }
 
         .schema-title {
@@ -246,20 +258,20 @@
         <div class="container">
             <h2 class="section-title">Available Schemas</h2>
             <div class="schema-grid">
-                <a target="_blank" href="v1/soeasily-dsl.json" class="schema-link">
+                <a target="_blank" href="v1/soeasily-dsl.json" class="schema-card-link">
                     <div class="schema-card">
                         <h3 class="schema-title">SoEasily DSL</h3>
                         <p class="schema-version">Version 1.0</p>
                         <p class="schema-version">The actions and rules schema for defining workflows</p>
-                        <a target="_blank" href="v1/soeasily-dsl.json" class="schema-link">View Schema →</a>
+                        <span class="schema-link">View Schema →</span>
                     </div>
                 </a>
-                <a target="_blank" href="v1/soeasily-action.json" class="schema-link">
+                <a target="_blank" href="v1/soeasily-action.json" class="schema-card-link">
                     <div class="schema-card">
                         <h3 class="schema-title">SoEasily Actions</h3>
                         <p class="schema-version">Version 1.0</p>
                         <p class="schema-version">The cornerstone for integrating external platforms</p>
-                        <a target="_blank" href="v1/soeasily-action.json" class="schema-link">View Schema →</a>
+                        <span class="schema-link">View Schema →</span>
                     </div>
                 </a>
             </div>
