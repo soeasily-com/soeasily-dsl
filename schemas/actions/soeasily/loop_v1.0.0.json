@@ -1,50 +1,86 @@
 {
-  "id": "soeasily/switch",
+  "id": "soeasily/loop",
   "version": "1.0.0",
   "author": {
     "name": "SoEasily",
     "url": "https://soeasily.com"
   },
   "documentation": {
-    "title": "Switch",
-    "description": "Routes the workflow down different branches based on the value of a specified input field. Define the routing rules in the 'condition' fields of the outgoing connections.",
+    "title": "Loop Data",
+    "description": "Iterates over an array from the input data. The connected sequence of actions will be executed for each item in the array.",
     "category": "control_flow",
-    "tags": ["switch", "case", "branch", "route", "multi-way"],
+    "tags": ["loop", "for-each", "iterate", "array", "list"],
     "collection": {
       "name": "Control Flow",
-      "display_order": 1
+      "display_order": 3
     },
-    "icon_svg_name": "git_compare.svg"
+    "icon_svg_name": "repeat.svg"
   },
-  "handler": "soeasily.control.switch@1",
+  "handler": "soeasily.control.loop@1",
   "config_schema": {
-    "title": "Switch Configuration",
+    "title": "Loop Data Configuration",
     "type": "object",
-    "properties": {},
-    "additionalProperties": false
+    "properties": {
+      "array_path": {
+        "type": "string",
+        "title": "Array Path",
+        "description": "A JSONata expression pointing to the array in the input data to iterate over.",
+        "examples": ["source.body.line_items"]
+      }
+    },
+    "required": ["array_path"]
   },
   "input_schema": {
-    "title": "Switch Input",
-    "description": "Accepts any JSON object. The 'condition' on outgoing connections will reference a field within this object.",
+    "title": "Loop Data Input",
+    "description": "An object containing the array to be looped over.",
     "type": "object"
   },
   "output_schema": {
-    "title": "Switch Output",
-    "description": "Passes the input data through unchanged to the chosen branch.",
-    "type": "object"
+    "title": "Loop Data Output (Per Iteration)",
+    "description": "For each iteration, this action outputs an object containing the current item's value and its index.",
+    "type": "object",
+    "properties": {
+      "item": {
+        "description": "The current item from the source array."
+      },
+      "index": {
+        "type": "integer",
+        "description": "The zero-based index of the current item."
+      }
+    },
+    "required": ["item", "index"]
   },
   "tests": [
     {
-      "name": "Route based on status field",
-      "description": "Ensures the input data is passed through correctly, ready for evaluation by outgoing connections.",
-      "config": {},
+      "name": "Loop over an array of user objects",
+      "description": "Provides the expected output for the *first* iteration of a loop over a list of users.",
+      "config": {
+        "array_path": "source.users"
+      },
       "input": {
-        "ticket": { "id": "tkt-456", "status": "pending_approval" },
-        "user": "user-abc"
+        "users": [
+          { "id": "usr_1", "name": "Alice" },
+          { "id": "usr_2", "name": "Bob" },
+          { "id": "usr_3", "name": "Charlie" }
+        ]
       },
       "expected_output": {
-        "ticket": { "id": "tkt-456", "status": "pending_approval" },
-        "user": "user-abc"
+        "item": { "id": "usr_1", "name": "Alice" },
+        "index": 0
+      }
+    },
+    {
+      "name": "Loop over a simple array of strings",
+      "description": "Provides the expected output for the *second* iteration of a loop over a list of strings.",
+      "config": {
+        "array_path": "source.tags"
+      },
+      "input": {
+        "tags": ["new", "priority", "escalated"]
+      },
+      "expected_output": {
+        "item": "priority",
+        "index": 1
       }
     }
   ]
