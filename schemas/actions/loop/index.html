@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loop Data - SoEasily Action Schema</title>
+    <title>Loop Data - SoEasily Core Actions</title>
     <link
         href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
         rel="stylesheet"
     />
+    <link rel="icon" type="image/png" href="/public/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
+    <link rel="shortcut icon" href="/public/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png" />
     <style>
         html, body {
             font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
@@ -16,15 +20,33 @@
             background-color: #ffffff;
         }
 
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 24px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 48px;
+            padding: 0 24px;
         }
 
         .logo {
@@ -32,158 +54,110 @@
             height: 80px;
             border-radius: 50%;
             object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
             margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
         }
 
         .breadcrumb {
-            font-size: 14px;
-            color: #656d76;
-            margin-bottom: 16px;
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
         }
 
-        .breadcrumb a {
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
             color: #0969da;
             text-decoration: none;
         }
 
-        .breadcrumb a:hover {
+        .breadcrumb-nav a:hover {
             text-decoration: underline;
         }
 
-        .title {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: #24292f;
-        }
-
-        .subtitle {
-            font-size: 18px;
-            color: #656d76;
-            margin-bottom: 16px;
-        }
-
-        .category-badge {
+        .tag {
             display: inline-block;
-            background-color: #ddf4ff;
-            color: #0969da;
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 500;
-            margin-bottom: 32px;
-        }
-
-        .section {
-            margin-bottom: 48px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: #24292f;
-            border-bottom: 1px solid #d1d9e0;
-            padding-bottom: 8px;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        .info-card {
-            background: #f6f8fa;
-            border: 1px solid #d1d9e0;
-            border-radius: 8px;
-            padding: 20px;
-        }
-
-        .info-card h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #24292f;
-        }
-
-        .info-card p {
-            font-size: 14px;
+            background-color: #f6f8fa;
             color: #656d76;
-            margin: 0;
-            line-height: 1.5;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
         }
 
         .schema-section {
-            background: white;
-            border: 1px solid #d1d9e0;
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 24px;
-        }
-
-        .schema-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: #24292f;
-        }
-
-        .code-block {
-            background: #f6f8fa;
-            border: 1px solid #d1d9e0;
-            border-radius: 6px;
-            padding: 16px;
-            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-            font-size: 14px;
-            overflow-x: auto;
-            margin-bottom: 16px;
-        }
-
-        .property-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 16px;
-        }
-
-        .property-table th,
-        .property-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #d1d9e0;
-        }
-
-        .property-table th {
             background-color: #f6f8fa;
-            font-weight: 600;
-            color: #24292f;
-        }
-
-        .property-table td {
-            font-size: 14px;
-            color: #24292f;
-        }
-
-        .property-table .type {
-            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-            background: #f6f8fa;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 12px;
-        }
-
-        .required {
-            color: #d1242f;
-            font-weight: 600;
         }
 
         .test-case {
-            background: #f6f8fa;
+            background: white;
             border: 1px solid #d1d9e0;
             border-radius: 8px;
             padding: 20px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .test-title {
@@ -193,236 +167,461 @@
             color: #24292f;
         }
 
-        .test-description {
-            font-size: 14px;
+        .test-desc {
             color: #656d76;
             margin-bottom: 16px;
+            font-size: 14px;
         }
 
-        .json-link {
-            display: inline-flex;
-            align-items: center;
-            background: #0969da;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.2s ease;
-            margin-top: 24px;
+        .loop-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
         }
 
-        .json-link:hover {
-            background: #0550ae;
-            color: white;
+        .loop-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
         }
 
-        .json-icon {
-            width: 16px;
-            height: 16px;
-            margin-right: 8px;
+        .loop-flow {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+        }
+
+        .loop-step {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #7c3aed;
+        }
+
+        .iteration-flow {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+        }
+
+        .iteration-step {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #059669;
         }
 
         @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
             .container {
-                padding: 20px 16px;
+                padding: 0 16px;
             }
             
-            .title {
-                font-size: 24px;
-            }
-            
-            .info-grid {
+            .feature-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
-            <div class="breadcrumb">
-                <a href="../../index.html">Schemas</a> / 
-                <a href="../index.html">Actions</a> / 
-                <a href="../soeasily/index.html">Core Actions</a> / 
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../">SoEasily Schemas</a> / 
+                <a href="../">Actions</a> / 
                 Loop Data
-            </div>
-            <h1 class="title">Loop Data</h1>
-            <p class="subtitle">Iterates over an array from the input data. The connected sequence of actions will be executed for each item in the array.</p>
-            <span class="category-badge">Control Flow</span>
-        </div>
-
-        <!-- Overview -->
-        <div class="section">
-            <h2 class="section-title">Overview</h2>
-            <div class="info-grid">
-                <div class="info-card">
-                    <h3>Action ID</h3>
-                    <p>soeasily/loop</p>
-                </div>
-                <div class="info-card">
-                    <h3>Version</h3>
-                    <p>1.0.0</p>
-                </div>
-                <div class="info-card">
-                    <h3>Handler</h3>
-                    <p>soeasily.control.loop@1</p>
-                </div>
-                <div class="info-card">
-                    <h3>Tags</h3>
-                    <p>loop, for-each, iterate, array, list</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Configuration Schema -->
-        <div class="section">
-            <h2 class="section-title">Configuration</h2>
-            <div class="schema-section">
-                <h3 class="schema-title">Required Configuration</h3>
-                <table class="property-table">
-                    <thead>
-                        <tr>
-                            <th>Property</th>
-                            <th>Type</th>
-                            <th>Required</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>array_path</code></td>
-                            <td><span class="type">string</span></td>
-                            <td><span class="required">Yes</span></td>
-                            <td>A JSONata expression pointing to the array in the input data to iterate over.</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <h4>Example Configuration:</h4>
-                <div class="code-block">{
-  "array_path": "source.body.line_items"
-}</div>
-            </div>
-        </div>
-
-        <!-- Input Schema -->
-        <div class="section">
-            <h2 class="section-title">Input Schema</h2>
-            <div class="schema-section">
-                <h3 class="schema-title">Expected Input</h3>
-                <p>An object containing the array to be looped over. The structure depends on the array_path configuration.</p>
-                
-                <h4>Example Input:</h4>
-                <div class="code-block">{
-  "users": [
-    { "id": "usr_1", "name": "Alice" },
-    { "id": "usr_2", "name": "Bob" },
-    { "id": "usr_3", "name": "Charlie" }
-  ]
-}</div>
-            </div>
-        </div>
-
-        <!-- Output Schema -->
-        <div class="section">
-            <h2 class="section-title">Output Schema</h2>
-            <div class="schema-section">
-                <h3 class="schema-title">Output Per Iteration</h3>
-                <p>For each iteration, this action outputs an object containing the current item's value and its index.</p>
-                
-                <table class="property-table">
-                    <thead>
-                        <tr>
-                            <th>Property</th>
-                            <th>Type</th>
-                            <th>Required</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>item</code></td>
-                            <td><span class="type">any</span></td>
-                            <td><span class="required">Yes</span></td>
-                            <td>The current item from the source array.</td>
-                        </tr>
-                        <tr>
-                            <td><code>index</code></td>
-                            <td><span class="type">integer</span></td>
-                            <td><span class="required">Yes</span></td>
-                            <td>The zero-based index of the current item.</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h4>Example Output (First Iteration):</h4>
-                <div class="code-block">{
-  "item": { "id": "usr_1", "name": "Alice" },
-  "index": 0
-}</div>
-            </div>
-        </div>
-
-        <!-- Test Cases -->
-        <div class="section">
-            <h2 class="section-title">Test Cases</h2>
-            
-            <div class="test-case">
-                <h3 class="test-title">Loop over an array of user objects</h3>
-                <p class="test-description">Provides the expected output for the first iteration of a loop over a list of users.</p>
-                
-                <h4>Configuration:</h4>
-                <div class="code-block">{
-  "array_path": "source.users"
-}</div>
-
-                <h4>Input:</h4>
-                <div class="code-block">{
-  "users": [
-    { "id": "usr_1", "name": "Alice" },
-    { "id": "usr_2", "name": "Bob" },
-    { "id": "usr_3", "name": "Charlie" }
-  ]
-}</div>
-
-                <h4>Expected Output:</h4>
-                <div class="code-block">{
-  "item": { "id": "usr_1", "name": "Alice" },
-  "index": 0
-}</div>
-            </div>
-
-            <div class="test-case">
-                <h3 class="test-title">Loop over a simple array of strings</h3>
-                <p class="test-description">Provides the expected output for the second iteration of a loop over a list of strings.</p>
-                
-                <h4>Configuration:</h4>
-                <div class="code-block">{
-  "array_path": "source.tags"
-}</div>
-
-                <h4>Input:</h4>
-                <div class="code-block">{
-  "tags": ["new", "priority", "escalated"]
-}</div>
-
-                <h4>Expected Output:</h4>
-                <div class="code-block">{
-  "item": "priority",
-  "index": 1
-}</div>
-            </div>
-        </div>
-
-        <!-- JSON Schema Link -->
-        <div class="section">
-            <a href="../soeasily/loop_v1.0.0.json" class="json-link">
-                <img src="../../../public/assets/json-file.svg" alt="JSON" class="json-icon">
-                View Complete JSON Schema
-            </a>
+            </nav>
         </div>
     </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Loop Data</h1>
+            <p class="hero-subtitle">
+                Iterates over an array from the input data. The connected sequence of actions will be executed for each item in the array.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Loop Data action enables powerful iteration patterns in your workflows. Process arrays of data by executing a sequence of actions for each item, with access to both the current item and its index. Perfect for batch processing, data transformation, and repetitive operations that need to handle multiple records efficiently.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Array Iteration</h3>
+                    <p class="feature-desc">Process each item in an array with a defined sequence of actions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Item & Index Access</h3>
+                    <p class="feature-desc">Access both the current item value and its zero-based index position.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 JSONata Path Support</h3>
+                    <p class="feature-desc">Use flexible JSONata expressions to target arrays anywhere in your data.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">loop</span>
+                <span class="tag">for-each</span>
+                <span class="tag">iterate</span>
+                <span class="tag">array</span>
+                <span class="tag">list</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loop Examples Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Loop Examples</h2>
+            <p class="section-desc">
+                See how Loop Data processes different types of arrays and data structures.
+            </p>
+            
+            <div class="loop-example">
+                <h3 class="loop-title">User Processing Loop</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Process a list of users, sending welcome emails to each</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input Array:</h4>
+                <pre><code>{
+  "users": [
+    { "id": "usr_1", "name": "Alice", "email": "alice@example.com" },
+    { "id": "usr_2", "name": "Bob", "email": "bob@example.com" },
+    { "id": "usr_3", "name": "Charlie", "email": "charlie@example.com" }
+  ]
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Loop Flow:</h4>
+                <div class="loop-flow">
+                    <div class="loop-step">Iteration 1: Alice → Send Welcome Email → Success</div>
+                    <div class="loop-step">Iteration 2: Bob → Send Welcome Email → Success</div>
+                    <div class="loop-step">Iteration 3: Charlie → Send Welcome Email → Success</div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">First Iteration Output:</h4>
+                <pre><code>{
+  "item": { "id": "usr_1", "name": "Alice", "email": "alice@example.com" },
+  "index": 0
+}</code></pre>
+            </div>
+
+            <div class="loop-example">
+                <h3 class="loop-title">Order Line Items Processing</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Calculate totals for each line item in an order</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "array_path": "source.order.line_items"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input Data:</h4>
+                <pre><code>{
+  "order": {
+    "id": "ord_123",
+    "line_items": [
+      { "product": "Widget A", "quantity": 2, "price": 10.00 },
+      { "product": "Widget B", "quantity": 1, "price": 25.00 },
+      { "product": "Widget C", "quantity": 3, "price": 5.00 }
+    ]
+  }
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Processing Flow:</h4>
+                <div class="iteration-flow">
+                    <div class="iteration-step">Item 1: Widget A (qty: 2, price: $10) → Calculate: $20</div>
+                    <div class="iteration-step">Item 2: Widget B (qty: 1, price: $25) → Calculate: $25</div>
+                    <div class="iteration-step">Item 3: Widget C (qty: 3, price: $5) → Calculate: $15</div>
+                </div>
+            </div>
+
+            <div class="loop-example">
+                <h3 class="loop-title">Tag Processing</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Process a simple array of string tags</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input:</h4>
+                <pre><code>{
+  "tags": ["new", "priority", "escalated", "customer-facing"]
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Second Iteration Output:</h4>
+                <pre><code>{
+  "item": "priority",
+  "index": 1
+}</code></pre>
+            </div>
+
+            <div class="loop-example">
+                <h3 class="loop-title">Nested Data Processing</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Access arrays deep within nested data structures</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "array_path": "source.response.data.items"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input Structure:</h4>
+                <pre><code>{
+  "response": {
+    "status": "success",
+    "data": {
+      "total": 3,
+      "items": [
+        { "id": 1, "status": "active" },
+        { "id": 2, "status": "pending" },
+        { "id": 3, "status": "inactive" }
+      ]
+    }
+  }
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                The Loop Data action requires a single configuration parameter to specify which array to iterate over.
+            </p>
+            
+            <pre><code>{
+  "title": "Loop Data Configuration",
+  "type": "object",
+  "properties": {
+    "array_path": {
+      "type": "string",
+      "title": "Array Path",
+      "description": "A JSONata expression pointing to the array in the input data to iterate over.",
+      "examples": ["source.body.line_items", "source.users", "source.response.data.items"]
+    }
+  },
+  "required": ["array_path"],
+  "additionalProperties": false
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">An object containing the array to be looped over.</p>
+                    <pre><code>{
+  "title": "Loop Data Input",
+  "description": "An object containing the array to be looped over.",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema (Per Iteration)</h3>
+                    <p class="feature-desc">For each iteration, outputs the current item and its index.</p>
+                    <pre><code>{
+  "title": "Loop Data Output (Per Iteration)",
+  "type": "object",
+  "properties": {
+    "item": {
+      "description": "The current item from the source array."
+    },
+    "index": {
+      "type": "integer",
+      "description": "The zero-based index of the current item."
+    }
+  },
+  "required": ["item", "index"]
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loop Patterns Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Loop Patterns</h2>
+            <p class="section-desc">
+                Typical patterns for using loops effectively in your workflows.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="loop-example">
+                    <h3 class="loop-title">Batch Processing</h3>
+                    <p style="color: #656d76; margin-bottom: 16px;">Process large datasets in manageable chunks</p>
+                    <div class="loop-flow">
+                        <div class="loop-step">Loop → Process Item → Store Result → Continue</div>
+                    </div>
+                </div>
+                <div class="loop-example">
+                    <h3 class="loop-title">Data Transformation</h3>
+                    <p style="color: #656d76; margin-bottom: 16px;">Transform each item and collect results</p>
+                    <div class="loop-flow">
+                        <div class="loop-step">Loop → Transform → Validate → Collect</div>
+                    </div>
+                </div>
+                <div class="loop-example">
+                    <h3 class="loop-title">Notification Broadcasting</h3>
+                    <p style="color: #656d76; margin-bottom: 16px;">Send notifications to multiple recipients</p>
+                    <div class="loop-flow">
+                        <div class="loop-step">Loop → Format Message → Send → Log Result</div>
+                    </div>
+                </div>
+                <div class="loop-example">
+                    <h3 class="loop-title">Conditional Processing</h3>
+                    <p style="color: #656d76; margin-bottom: 16px;">Apply different logic based on item properties</p>
+                    <div class="loop-flow">
+                        <div class="loop-step">Loop → Check Condition → Route → Process</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">📧 Email Campaigns</h3>
+                    <p class="feature-desc">Send personalized emails to a list of subscribers with individual tracking and customization.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">💳 Payment Processing</h3>
+                    <p class="feature-desc">Process multiple payment transactions, handling each with appropriate validation and error handling.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Migration</h3>
+                    <p class="feature-desc">Migrate records from one system to another, transforming and validating each item individually.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 API Synchronization</h3>
+                    <p class="feature-desc">Sync data between systems by processing arrays of records with API calls for each item.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Report Generation</h3>
+                    <p class="feature-desc">Generate individual reports or documents for each item in a dataset.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🏷️ Bulk Operations</h3>
+                    <p class="feature-desc">Perform bulk updates, deletions, or modifications on arrays of database records.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Efficient Array Paths</h3>
+                    <p class="feature-desc">
+                        Use precise JSONata expressions:
+                        <br>• <code>source.users</code> for simple arrays
+                        <br>• <code>source.response.data.items</code> for nested data
+                        <br>• <code>source.orders[status='pending']</code> for filtered arrays
+                        <br>• Test paths with sample data first
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Performance Considerations</h3>
+                    <p class="feature-desc">
+                        Optimize for large datasets:
+                        <br>• Consider batch size limitations
+                        <br>• Implement error handling per iteration
+                        <br>• Use timeouts for long-running operations
+                        <br>• Monitor memory usage with large arrays
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Error Handling</h3>
+                    <p class="feature-desc">
+                        Handle failures gracefully:
+                        <br>• Use Error Handler for individual item failures
+                        <br>• Log failed items for retry processing
+                        <br>• Continue processing remaining items
+                        <br>• Implement circuit breaker patterns
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Data Validation</h3>
+                    <p class="feature-desc">
+                        Validate data before processing:
+                        <br>• Check array exists and is not empty
+                        <br>• Validate item structure within loop
+                        <br>• Handle null or undefined items
+                        <br>• Use conditional logic for optional fields
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/loop</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Control Flow</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Control Flow</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.control.loop@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
