@@ -3,6 +3,9 @@
 name: Publish Live (schemas.soeasily.com)
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
