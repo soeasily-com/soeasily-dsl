@@ -149,7 +149,81 @@
                 padding: 12px;
             }
         }
-    </style>
+    
+        .schema-display {
+            font-size: 11px;
+            background-color: #f6f8fa;
+            padding: 8px;
+            border-radius: 4px;
+            max-width: 300px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .schemas-table th:nth-child(4),
+        .schemas-table td:nth-child(4) {
+            min-width: 150px;
+        }
+
+        .schemas-table th:nth-child(5),
+        .schemas-table th:nth-child(6),
+        .schemas-table th:nth-child(7),
+        .schemas-table td:nth-child(5),
+        .schemas-table td:nth-child(6),
+        .schemas-table td:nth-child(7) {
+            min-width: 300px;
+            max-width: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .schemas-table {
+                font-size: 12px;
+            }
+            
+            .schema-display {
+                font-size: 10px;
+                max-width: 200px;
+            }
+        }
+        
+        .schema-display {
+            font-size: 11px;
+            background-color: #f6f8fa;
+            padding: 8px;
+            border-radius: 4px;
+            max-width: 300px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .schemas-table th:nth-child(4),
+        .schemas-table td:nth-child(4) {
+            min-width: 150px;
+        }
+
+        .schemas-table th:nth-child(5),
+        .schemas-table th:nth-child(6),
+        .schemas-table th:nth-child(7),
+        .schemas-table td:nth-child(5),
+        .schemas-table td:nth-child(6),
+        .schemas-table td:nth-child(7) {
+            min-width: 300px;
+            max-width: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .schemas-table {
+                font-size: 12px;
+            }
+            
+            .schema-display {
+                font-size: 10px;
+                max-width: 200px;
+            }
+        }
+        </style>
 </head>
 <body>
     <div class="container">
@@ -168,6 +242,10 @@
                         <th>Action</th>
                         <th>Description</th>
                         <th>Schema</th>
+                        <th>Action ID</th>
+                        <th>Input Schema</th>
+                        <th>Output Schema</th>
+                        <th>Config Schema</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -183,6 +261,25 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/manual_trigger</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Manual Trigger Input",
+  "description": "This trigger does not accept input from other actions."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Manual Trigger Output",
+  "description": "The output is dynamic and conforms to the structure defined in the 'Input Form Schema' configuration."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Manual Trigger Configuration",
+  "description": "",
+  "properties": [
+    "payload_schema"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -196,6 +293,34 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/schedule_trigger</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Schedule Trigger Input",
+  "description": "This trigger does not accept input from other actions."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Schedule Trigger Output",
+  "description": "Provides the timestamp of when the workflow was triggered.",
+  "properties": [
+    "triggered_at"
+  ],
+  "required": [
+    "triggered_at"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Schedule Configuration",
+  "description": "",
+  "properties": [
+    "cron_expression"
+  ],
+  "required": [
+    "cron_expression"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -209,8 +334,38 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
-                    </tr>
-                </tbody>
+                        <td><code>soeasily/webhook_trigger</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Webhook Trigger Input",
+  "description": "This trigger does not accept input from other actions."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Webhook Trigger Output",
+  "description": "The payload of the incoming HTTP request.",
+  "properties": [
+    "method",
+    "headers",
+    "query_params",
+    "body"
+  ],
+  "required": [
+    "method",
+    "headers",
+    "query_params",
+    "body"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Webhook Configuration",
+  "description": "",
+  "properties": [
+    "authentication"
+  ]
+}</pre></td>
+                    </tr></tbody>
             </table>
         </div>
 
@@ -223,6 +378,10 @@
                         <th>Action</th>
                         <th>Description</th>
                         <th>Schema</th>
+                        <th>Action ID</th>
+                        <th>Input Schema</th>
+                        <th>Output Schema</th>
+                        <th>Config Schema</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -238,6 +397,22 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/conditional</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Conditional Input",
+  "description": "Accepts any JSON object from a preceding action."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Conditional Output",
+  "description": "Passes the input data through unchanged to be used by the subsequent branch."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Conditional Configuration",
+  "description": "This action requires no configuration. Branching logic is defined on its outgoing connections."
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -251,6 +426,22 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/switch</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Switch Input",
+  "description": "Accepts any JSON object. The 'condition' on outgoing connections will reference a field within this object."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Switch Output",
+  "description": "Passes the input data through unchanged to the chosen branch."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Switch Configuration",
+  "description": ""
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -264,6 +455,36 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/loop</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Loop Data Input",
+  "description": "An object containing the array to be looped over."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Loop Data Output (Per Iteration)",
+  "description": "For each iteration, this action outputs an object containing the current item's value and its index.",
+  "properties": [
+    "item",
+    "index"
+  ],
+  "required": [
+    "item",
+    "index"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Loop Data Configuration",
+  "description": "",
+  "properties": [
+    "array_path"
+  ],
+  "required": [
+    "array_path"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -277,6 +498,22 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/merge_branches</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Merge Branches Input",
+  "description": "Receives data from exactly one of the incoming branches."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Merge Branches Output",
+  "description": "Passes through the data it received from the executed branch."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Merge Branches Configuration",
+  "description": ""
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -290,6 +527,28 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/wait_state</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Wait Input",
+  "description": "Accepts any JSON object."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Wait Output",
+  "description": "Passes the input data through unchanged after the delay."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Wait Configuration",
+  "description": "",
+  "properties": [
+    "duration_milliseconds"
+  ],
+  "required": [
+    "duration_milliseconds"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -303,6 +562,28 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/execute_workflow</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Execute Workflow Input",
+  "description": "The data to pass as input to the trigger action of the sub-workflow."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Execute Workflow Output",
+  "description": "The final data output from the executed sub-workflow."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Execute Workflow Configuration",
+  "description": "",
+  "properties": [
+    "workflow_id"
+  ],
+  "required": [
+    "workflow_id"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -316,6 +597,29 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/stop_workflow</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Stop Workflow Input",
+  "description": "Accepts any data, which is discarded as the workflow halts."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Stop Workflow Output",
+  "description": "This action produces no output as it terminates the workflow."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Stop Workflow Configuration",
+  "description": "",
+  "properties": [
+    "status",
+    "message"
+  ],
+  "required": [
+    "status"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -329,8 +633,28 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
-                    </tr>
-                </tbody>
+                        <td><code>soeasily/error_handler</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Error Handler Input",
+  "description": "Receives a standardized error object.",
+  "properties": [
+    "error",
+    "failed_action",
+    "timestamp"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Error Handler Output",
+  "description": "Passes the received error object through unchanged."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Error Handler Configuration",
+  "description": ""
+}</pre></td>
+                    </tr></tbody>
             </table>
         </div>
 
@@ -343,6 +667,10 @@
                         <th>Action</th>
                         <th>Description</th>
                         <th>Schema</th>
+                        <th>Action ID</th>
+                        <th>Input Schema</th>
+                        <th>Output Schema</th>
+                        <th>Config Schema</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -358,6 +686,28 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/set_data</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Set Data Input",
+  "description": "The source object to be modified."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Set Data Output",
+  "description": "The modified object."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Set Data Configuration",
+  "description": "",
+  "properties": [
+    "fields"
+  ],
+  "required": [
+    "fields"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -371,6 +721,28 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/transform_data</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Transform Data Input",
+  "description": ""
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Transform Data Output",
+  "description": "The result of the JSONata transformation."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Transform Data Configuration",
+  "description": "",
+  "properties": [
+    "expression"
+  ],
+  "required": [
+    "expression"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -384,6 +756,31 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/query_data</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Query Data Input",
+  "description": ""
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Query Data Output",
+  "description": "",
+  "properties": [
+    "result"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Query Data Configuration",
+  "description": "",
+  "properties": [
+    "expression"
+  ],
+  "required": [
+    "expression"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -397,8 +794,43 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
-                    </tr>
-                </tbody>
+                        <td><code>soeasily/convert_data</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Convert Data Input",
+  "description": "",
+  "properties": [
+    "data"
+  ],
+  "required": [
+    "data"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Convert Data Output",
+  "description": "",
+  "properties": [
+    "data"
+  ],
+  "required": [
+    "data"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Convert Data Format Configuration",
+  "description": "",
+  "properties": [
+    "source_format",
+    "target_format"
+  ],
+  "required": [
+    "source_format",
+    "target_format"
+  ]
+}</pre></td>
+                    </tr></tbody>
             </table>
         </div>
 
@@ -411,6 +843,10 @@
                         <th>Action</th>
                         <th>Description</th>
                         <th>Schema</th>
+                        <th>Action ID</th>
+                        <th>Input Schema</th>
+                        <th>Output Schema</th>
+                        <th>Config Schema</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -426,6 +862,36 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/execute_code</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Execute Code Input",
+  "description": "Data made available to the script in a variable named 'input'."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Execute Code Output",
+  "description": "",
+  "properties": [
+    "result"
+  ],
+  "required": [
+    "result"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Execute Code Configuration",
+  "description": "",
+  "properties": [
+    "language",
+    "code"
+  ],
+  "required": [
+    "language",
+    "code"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -439,8 +905,39 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
-                    </tr>
-                </tbody>
+                        <td><code>soeasily/execute_command</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Execute Command Input",
+  "description": "This action does not use input data directly, but data can be passed to the command via expressions in the 'command' config field."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Execute Command Output",
+  "description": "",
+  "properties": [
+    "stdout",
+    "stderr",
+    "exit_code"
+  ],
+  "required": [
+    "stdout",
+    "stderr",
+    "exit_code"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Execute Command Configuration",
+  "description": "",
+  "properties": [
+    "command"
+  ],
+  "required": [
+    "command"
+  ]
+}</pre></td>
+                    </tr></tbody>
             </table>
         </div>
 
@@ -453,6 +950,10 @@
                         <th>Action</th>
                         <th>Description</th>
                         <th>Schema</th>
+                        <th>Action ID</th>
+                        <th>Input Schema</th>
+                        <th>Output Schema</th>
+                        <th>Config Schema</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -468,6 +969,43 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/http_request</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "HTTP Request Input",
+  "description": ""
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "HTTP Request Output",
+  "description": "",
+  "properties": [
+    "status_code",
+    "headers",
+    "body"
+  ],
+  "required": [
+    "status_code",
+    "headers",
+    "body"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "HTTP Request Configuration",
+  "description": "",
+  "properties": [
+    "method",
+    "url",
+    "headers",
+    "query_params",
+    "body"
+  ],
+  "required": [
+    "method",
+    "url"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -481,8 +1019,42 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
-                    </tr>
-                </tbody>
+                        <td><code>soeasily/graphql_request</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "GraphQL Request Input",
+  "description": ""
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "GraphQL Request Output",
+  "description": "",
+  "properties": [
+    "status_code",
+    "data",
+    "errors"
+  ],
+  "required": [
+    "status_code",
+    "data"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "GraphQL Request Configuration",
+  "description": "",
+  "properties": [
+    "endpoint",
+    "query",
+    "variables",
+    "headers"
+  ],
+  "required": [
+    "endpoint",
+    "query"
+  ]
+}</pre></td>
+                    </tr></tbody>
             </table>
         </div>
 
@@ -495,6 +1067,10 @@
                         <th>Action</th>
                         <th>Description</th>
                         <th>Schema</th>
+                        <th>Action ID</th>
+                        <th>Input Schema</th>
+                        <th>Output Schema</th>
+                        <th>Config Schema</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -510,6 +1086,37 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/llm_prompt</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "LLM Prompt Input",
+  "description": ""
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "LLM Prompt Output",
+  "description": "",
+  "properties": [
+    "generated_text"
+  ],
+  "required": [
+    "generated_text"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "LLM Prompt Configuration",
+  "description": "",
+  "properties": [
+    "model",
+    "prompt",
+    "temperature"
+  ],
+  "required": [
+    "model",
+    "prompt"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -523,8 +1130,43 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
-                    </tr>
-                </tbody>
+                        <td><code>soeasily/agent_executor</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Agent Executor Input",
+  "description": "",
+  "properties": [
+    "input"
+  ],
+  "required": [
+    "input"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Agent Executor Output",
+  "description": "",
+  "properties": [
+    "final_answer"
+  ],
+  "required": [
+    "final_answer"
+  ]
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Agent Executor Configuration",
+  "description": "",
+  "properties": [
+    "objective",
+    "tools"
+  ],
+  "required": [
+    "objective",
+    "tools"
+  ]
+}</pre></td>
+                    </tr></tbody>
             </table>
         </div>
 
@@ -537,6 +1179,10 @@
                         <th>Action</th>
                         <th>Description</th>
                         <th>Schema</th>
+                        <th>Action ID</th>
+                        <th>Input Schema</th>
+                        <th>Output Schema</th>
+                        <th>Config Schema</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -552,6 +1198,28 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
+                        <td><code>soeasily/debug_log</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Debug Log Input",
+  "description": ""
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Debug Log Output",
+  "description": "The output is identical to the input."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "Debug Log Configuration",
+  "description": "",
+  "properties": [
+    "message"
+  ],
+  "required": [
+    "message"
+  ]
+}</pre></td>
                     </tr>
                     <tr>
                         <td>
@@ -565,8 +1233,23 @@
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
                             </a>
                         </td>
-                    </tr>
-                </tbody>
+                        <td><code>soeasily/no_operation</code></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "No Operation Input",
+  "description": ""
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "No Operation Output",
+  "description": "The output is identical to the input."
+}</pre></td>
+                        <td><pre class="schema-display">{
+  "type": "object",
+  "title": "No Operation Configuration",
+  "description": ""
+}</pre></td>
+                    </tr></tbody>
             </table>
         </div>
     </div>
