@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Handler - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .error-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .error-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .error-flow {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+        }
+
+        .error-step {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #dc2626;
+        }
+
+        .success-flow {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+        }
+
+        .success-step {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #059669;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../">SoEasily Schemas</a> / 
+                <a href="../">Actions</a> / 
+                Error Handler
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Error Handler</h1>
+            <p class="hero-subtitle">
+                Catches errors from a failed action. The input will be a standardized error object containing details about the failure, which can then be used for notifications or logging.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Error Handler action is your safety net for workflow resilience. When actions fail, instead of stopping the entire workflow, the Error Handler catches these failures and provides structured error information that you can use for logging, notifications, retry logic, or graceful degradation. Essential for building robust, production-ready workflows that handle failures elegantly.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🛡️ Graceful Failure Handling</h3>
+                    <p class="feature-desc">Catch and process errors instead of letting workflows crash unexpectedly.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Structured Error Data</h3>
+                    <p class="feature-desc">Receive standardized error objects with details about what failed and when.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Recovery Workflows</h3>
+                    <p class="feature-desc">Enable retry logic, fallback actions, and alternative processing paths.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">error</span>
+                <span class="tag">catch</span>
+                <span class="tag">fail</span>
+                <span class="tag">exception</span>
+                <span class="tag">handle</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Error Handling Examples Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Error Handling Examples</h2>
+            <p class="section-desc">
+                See how Error Handler catches and processes different types of failures.
+            </p>
+            
+            <div class="error-example">
+                <h3 class="error-title">API Request Failure</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Handle failed HTTP requests with proper error information</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Normal Flow:</h4>
+                <div class="success-flow">
+                    <div class="success-step">HTTP Request → Success → Continue Workflow</div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Error Flow:</h4>
+                <div class="error-flow">
+                    <div class="error-step">HTTP Request → 404 Error → Error Handler → Log & Notify</div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Error Handler Input:</h4>
+                <pre><code>{
+  "error": "API returned status 404",
+  "failed_action": "http_request_users",
+  "timestamp": "2025-06-07T15:30:00Z",
+  "details": {
+    "status_code": 404,
+    "url": "https://api.example.com/users/123",
+    "method": "GET"
+  }
+}</code></pre>
+            </div>
+
+            <div class="error-example">
+                <h3 class="error-title">Database Connection Failure</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Handle database connectivity issues</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Error Handler Input:</h4>
+                <pre><code>{
+  "error": "Database connection timeout",
+  "failed_action": "query_user_data",
+  "timestamp": "2025-06-07T15:31:15Z",
+  "details": {
+    "timeout": 30000,
+    "host": "db.example.com",
+    "database": "users"
+  }
+}</code></pre>
+            </div>
+
+            <div class="error-example">
+                <h3 class="error-title">Validation Error</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Handle data validation failures</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Error Handler Input:</h4>
+                <pre><code>{
+  "error": "Invalid email format",
+  "failed_action": "validate_user_input",
+  "timestamp": "2025-06-07T15:32:00Z",
+  "details": {
+    "field": "email",
+    "value": "invalid-email",
+    "expected_format": "email"
+  }
+}</code></pre>
+            </div>
+
+            <div class="error-example">
+                <h3 class="error-title">External Service Unavailable</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Handle third-party service outages</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Error Handler Input:</h4>
+                <pre><code>{
+  "error": "Payment service unavailable",
+  "failed_action": "process_payment",
+  "timestamp": "2025-06-07T15:33:30Z",
+  "details": {
+    "service": "stripe",
+    "status_code": 503,
+    "retry_after": 300
+  }
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                The Error Handler action requires no configuration - it automatically catches errors from failed actions.
+            </p>
+            
+            <pre><code>{
+  "title": "Error Handler Configuration",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Receives a standardized error object from failed actions.</p>
+                    <pre><code>{
+  "title": "Error Handler Input",
+  "description": "Receives a standardized error object.",
+  "type": "object",
+  "properties": {
+    "error": { "type": "string" },
+    "failed_action": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">Passes the error object through unchanged for further processing.</p>
+                    <pre><code>{
+  "title": "Error Handler Output",
+  "description": "Passes the received error object through unchanged.",
+  "type": "object"
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Error Recovery Patterns Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Error Recovery Patterns</h2>
+            <p class="section-desc">
+                Common patterns for handling different types of errors in your workflows.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="error-example">
+                    <h3 class="error-title">Retry with Backoff</h3>
+                    <p style="color: #656d76; margin-bottom: 16px;">Retry failed operations with increasing delays</p>
+                    <div class="error-flow">
+                        <div class="error-step">Error Handler → Wait → Retry Action → Success/Fail</div>
+                    </div>
+                </div>
+                <div class="error-example">
+                    <h3 class="error-title">Fallback Processing</h3>
+                    <p style="color: #656d76; margin-bottom: 16px;">Use alternative methods when primary fails</p>
+                    <div class="error-flow">
+                        <div class="error-step">Error Handler → Switch → Fallback Action → Continue</div>
+                    </div>
+                </div>
+                <div class="error-example">
+                    <h3 class="error-title">Notification & Logging</h3>
+                    <p style="color: #656d76; margin-bottom: 16px;">Alert teams and log errors for investigation</p>
+                    <div class="error-flow">
+                        <div class="error-step">Error Handler → Log Error → Send Alert → Stop</div>
+                    </div>
+                </div>
+                <div class="error-example">
+                    <h3 class="error-title">Graceful Degradation</h3>
+                    <p style="color: #656d76; margin-bottom: 16px;">Continue with reduced functionality</p>
+                    <div class="error-flow">
+                        <div class="error-step">Error Handler → Set Default → Continue Workflow</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Retry Logic</h3>
+                    <p class="feature-desc">Implement sophisticated retry mechanisms with exponential backoff for transient failures.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📧 Error Notifications</h3>
+                    <p class="feature-desc">Send alerts to development teams or administrators when critical operations fail.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Error Logging</h3>
+                    <p class="feature-desc">Log detailed error information for debugging, monitoring, and compliance purposes.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔀 Fallback Workflows</h3>
+                    <p class="feature-desc">Route to alternative processing paths when primary operations fail.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛡️ Circuit Breaker</h3>
+                    <p class="feature-desc">Implement circuit breaker patterns to prevent cascading failures in distributed systems.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Error Analytics</h3>
+                    <p class="feature-desc">Collect error metrics and patterns for system reliability analysis and improvement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Specific Error Handling</h3>
+                    <p class="feature-desc">
+                        Handle different error types appropriately:
+                        <br>• Network errors → Retry with backoff
+                        <br>• Validation errors → Return to user
+                        <br>• System errors → Alert administrators
+                        <br>• Business logic errors → Log and continue
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Error Context</h3>
+                    <p class="feature-desc">
+                        Preserve important context in error handling:
+                        <br>• Original input data
+                        <br>• User or session information
+                        <br>• Workflow execution state
+                        <br>• Timestamp and environment details
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Retry Strategies</h3>
+                    <p class="feature-desc">
+                        Implement smart retry logic:
+                        <br>• Exponential backoff for rate limits
+                        <br>• Maximum retry attempts
+                        <br>• Different strategies per error type
+                        <br>• Circuit breaker for persistent failures
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Error Documentation</h3>
+                    <p class="feature-desc">
+                        Document error handling patterns:
+                        <br>• Expected error scenarios
+                        <br>• Recovery procedures
+                        <br>• Escalation paths
+                        <br>• Monitoring and alerting setup
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/error_handler</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Utility</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Utilities</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.utility.error_handler@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
