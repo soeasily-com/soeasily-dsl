@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transform Data - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .transform-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .transform-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 16px;
+            align-items: center;
+            margin: 16px 0;
+        }
+
+        .arrow {
+            font-size: 24px;
+            color: #ea580c;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .before-after {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../index.html">SoEasily Schemas</a> / 
+                <a href="../index.html">Actions</a> / 
+                Transform Data
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Transform Data</h1>
+            <p class="hero-subtitle">
+                Reshapes the input data into a completely new structure using a JSONata expression. Ideal for formatting data before sending it to an external API.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Transform Data action is your data reshaping powerhouse. Using JSONata expressions, it can completely restructure, filter, aggregate, and format your data to match any required output format. Whether you're preparing data for an API call, creating reports, or normalizing data from different sources, this action provides the flexibility you need.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Complete Restructuring</h3>
+                    <p class="feature-desc">Transform any input structure into any output structure using powerful JSONata expressions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Aggregation</h3>
+                    <p class="feature-desc">Sum, count, group, filter, and perform complex calculations on your data.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 API Formatting</h3>
+                    <p class="feature-desc">Perfect for formatting data to match external API requirements and schemas.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">transform</span>
+                <span class="tag">map</span>
+                <span class="tag">reshape</span>
+                <span class="tag">format</span>
+                <span class="tag">jsonata</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transform Examples Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Transform Examples</h2>
+            <p class="section-desc">
+                See how Transform Data can reshape your data with these practical examples.
+            </p>
+            
+            <div class="transform-example">
+                <h3 class="transform-title">User Data for API</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Transform internal user data to match an external API format</p>
+                
+                <div class="before-after">
+                    <div>
+                        <h4 style="margin: 0 0 8px 0; color: #24292f;">Input:</h4>
+                        <pre><code>{
+  "user_id": "u-123",
+  "email": "test@example.com",
+  "name": "John Doe",
+  "created_at": "2024-01-15"
+}</code></pre>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div>
+                        <h4 style="margin: 0 0 8px 0; color: #24292f;">Output:</h4>
+                        <pre><code>{
+  "customer": {
+    "id": "u-123",
+    "contact": "test@example.com",
+    "tags": ["new-signup"]
+  }
+}</code></pre>
+                    </div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">JSONata Expression:</h4>
+                <pre><code>{
+  "customer": {
+    "id": user_id,
+    "contact": email,
+    "tags": ["new-signup"]
+  }
+}</code></pre>
+            </div>
+
+            <div class="transform-example">
+                <h3 class="transform-title">Order Summary</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Calculate totals and format order data</p>
+                
+                <div class="before-after">
+                    <div>
+                        <h4 style="margin: 0 0 8px 0; color: #24292f;">Input:</h4>
+                        <pre><code>{
+  "order_id": "ord-456",
+  "items": [
+    {"name": "Widget A", "price": 10, "qty": 2},
+    {"name": "Widget B", "price": 15, "qty": 1}
+  ]
+}</code></pre>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div>
+                        <h4 style="margin: 0 0 8px 0; color: #24292f;">Output:</h4>
+                        <pre><code>{
+  "order": "ord-456",
+  "total": 35,
+  "item_count": 3,
+  "summary": "2x Widget A, 1x Widget B"
+}</code></pre>
+                    </div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">JSONata Expression:</h4>
+                <pre><code>{
+  "order": order_id,
+  "total": $sum(items.(price * qty)),
+  "item_count": $sum(items.qty),
+  "summary": $join(items.(qty & "x " & name), ", ")
+}</code></pre>
+            </div>
+
+            <div class="transform-example">
+                <h3 class="transform-title">Array Filtering & Mapping</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Filter and transform array data</p>
+                
+                <div class="before-after">
+                    <div>
+                        <h4 style="margin: 0 0 8px 0; color: #24292f;">Input:</h4>
+                        <pre><code>{
+  "users": [
+    {"name": "Alice", "age": 25, "active": true},
+    {"name": "Bob", "age": 17, "active": false},
+    {"name": "Carol", "age": 30, "active": true}
+  ]
+}</code></pre>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div>
+                        <h4 style="margin: 0 0 8px 0; color: #24292f;">Output:</h4>
+                        <pre><code>{
+  "active_adults": [
+    {"username": "Alice", "category": "adult"},
+    {"username": "Carol", "category": "adult"}
+  ]
+}</code></pre>
+                    </div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">JSONata Expression:</h4>
+                <pre><code>{
+  "active_adults": users[active = true and age >= 18].{
+    "username": name,
+    "category": "adult"
+  }
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure the Transform Data action with a JSONata expression that defines the output structure.
+            </p>
+            
+            <pre><code>{
+  "title": "Transform Data Configuration",
+  "type": "object",
+  "properties": {
+    "expression": {
+      "type": "string",
+      "title": "JSONata Expression",
+      "description": "A single JSONata expression that defines the entire new output object."
+    }
+  },
+  "required": ["expression"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Accepts any JSON object to be transformed.</p>
+                    <pre><code>{
+  "title": "Transform Data Input",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">The result of the JSONata transformation - structure depends on your expression.</p>
+                    <pre><code>{
+  "title": "Transform Data Output",
+  "description": "The result of the JSONata transformation."
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JSONata Reference Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">JSONata Quick Reference</h2>
+            <p class="section-desc">
+                Common JSONata patterns for data transformation.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Basic Operations</h3>
+                    <pre><code>// Field access
+user.name
+
+// Array access
+items[0]
+
+// Conditional
+age >= 18 ? "adult" : "minor"</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Array Functions</h3>
+                    <pre><code>// Filter
+items[price > 10]
+
+// Map
+items.name
+
+// Sum
+$sum(items.price)</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">String Functions</h3>
+                    <pre><code>// Concatenate
+$join(items.name, ", ")
+
+// Uppercase
+$uppercase(name)
+
+// Substring
+$substring(text, 0, 10)</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Object Construction</h3>
+                    <pre><code>// New object
+{
+  "id": user_id,
+  "full_name": first & " " & last
+}
+
+// Merge objects
+user ~> {"updated": $now()}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔗 API Integration</h3>
+                    <p class="feature-desc">Format data to match external API requirements and schemas before making requests.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Report Generation</h3>
+                    <p class="feature-desc">Aggregate and summarize data for reports, dashboards, and analytics.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Data Normalization</h3>
+                    <p class="feature-desc">Standardize data from different sources into a consistent format.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📧 Template Data</h3>
+                    <p class="feature-desc">Prepare data for email templates, notifications, and document generation.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Data Filtering</h3>
+                    <p class="feature-desc">Extract specific fields and filter out unnecessary data for downstream processing.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🧮 Calculations</h3>
+                    <p class="feature-desc">Perform mathematical operations, aggregations, and complex calculations on data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/transform_data</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Data Operation</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Data Operations</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.data.transform@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
