@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Execute Command - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .command-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .command-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .terminal-output {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+            margin: 12px 0;
+        }
+
+        .command-line {
+            background: #374151;
+            border: 1px solid #4b5563;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 16px;
+            color: #f9fafb;
+            margin: 8px 0;
+            font-weight: 600;
+        }
+
+        .output-section {
+            margin: 16px 0;
+        }
+
+        .output-label {
+            font-weight: 600;
+            color: #24292f;
+            margin-bottom: 8px;
+        }
+
+        .stdout {
+            color: #10b981;
+        }
+
+        .stderr {
+            color: #ef4444;
+        }
+
+        .exit-code {
+            color: #6b7280;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 24px 0;
+        }
+
+        .warning-title {
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 8px;
+        }
+
+        .warning-text {
+            color: #92400e;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../index.html">SoEasily Schemas</a> / 
+                <a href="../index.html">Actions</a> / 
+                Execute Command
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Execute Command</h1>
+            <p class="hero-subtitle">
+                Executes a shell command in the execution environment. Captures stdout, stderr, and the exit code for comprehensive command execution control.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Execute Command action brings the full power of the command line to your workflows. Execute shell commands, run scripts, interact with system utilities, and integrate with command-line tools. Perfect for system administration tasks, file operations, data processing with CLI tools, and integrating with existing shell-based automation.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🖥️ Full Shell Access</h3>
+                    <p class="feature-desc">Execute any shell command available in the execution environment.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Complete Output Capture</h3>
+                    <p class="feature-desc">Capture stdout, stderr, and exit codes for comprehensive command monitoring.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔧 System Integration</h3>
+                    <p class="feature-desc">Integrate with existing command-line tools and system utilities.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">command</span>
+                <span class="tag">shell</span>
+                <span class="tag">execute</span>
+                <span class="tag">cli</span>
+                <span class="tag">bash</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Warning -->
+    <section class="section">
+        <div class="container">
+            <div class="warning-box">
+                <div class="warning-title">⚠️ Security Considerations</div>
+                <div class="warning-text">
+                    Execute Command runs with the permissions of the workflow execution environment. Always validate and sanitize any dynamic input used in commands. Avoid executing commands with user-provided input without proper validation to prevent command injection attacks.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Command Examples Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Command Examples</h2>
+            <p class="section-desc">
+                See how Execute Command runs various shell commands and captures their output.
+            </p>
+            
+            <div class="command-example">
+                <h3 class="command-title">Basic Echo Command</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Simple command execution with text output</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Command:</h4>
+                <div class="command-line">echo 'Hello, SoEasily!'</div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output:</h4>
+                <div class="terminal-output">
+                    <div class="output-section">
+                        <div class="output-label">stdout:</div>
+                        <div class="stdout">Hello, SoEasily!</div>
+                    </div>
+                    <div class="output-section">
+                        <div class="output-label">stderr:</div>
+                        <div class="stderr">(empty)</div>
+                    </div>
+                    <div class="output-section">
+                        <div class="output-label">exit_code:</div>
+                        <div class="exit-code">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-example">
+                <h3 class="command-title">File System Operations</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">List directory contents with detailed information</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Command:</h4>
+                <div class="command-line">ls -la /tmp</div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output:</h4>
+                <div class="terminal-output">
+                    <div class="output-section">
+                        <div class="output-label">stdout:</div>
+                        <div class="stdout">total 8
+drwxrwxrwt  10 root  wheel  320 Jan  7 14:30 .
+drwxr-xr-x   6 root  wheel  192 Jan  1 00:00 ..
+-rw-r--r--   1 user  staff   42 Jan  7 14:25 example.txt</div>
+                    </div>
+                    <div class="output-section">
+                        <div class="output-label">stderr:</div>
+                        <div class="stderr">(empty)</div>
+                    </div>
+                    <div class="output-section">
+                        <div class="output-label">exit_code:</div>
+                        <div class="exit-code">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-example">
+                <h3 class="command-title">Data Processing with CLI Tools</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Process JSON data using jq command-line tool</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Command:</h4>
+                <div class="command-line">echo '{"users":[{"name":"Alice","age":30},{"name":"Bob","age":25}]}' | jq '.users[].name'</div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output:</h4>
+                <div class="terminal-output">
+                    <div class="output-section">
+                        <div class="output-label">stdout:</div>
+                        <div class="stdout">"Alice"
+"Bob"</div>
+                    </div>
+                    <div class="output-section">
+                        <div class="output-label">stderr:</div>
+                        <div class="stderr">(empty)</div>
+                    </div>
+                    <div class="output-section">
+                        <div class="output-label">exit_code:</div>
+                        <div class="exit-code">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-example">
+                <h3 class="command-title">Error Handling Example</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Command that fails and produces error output</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Command:</h4>
+                <div class="command-line">cat /nonexistent/file.txt</div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output:</h4>
+                <div class="terminal-output">
+                    <div class="output-section">
+                        <div class="output-label">stdout:</div>
+                        <div class="stdout">(empty)</div>
+                    </div>
+                    <div class="output-section">
+                        <div class="output-label">stderr:</div>
+                        <div class="stderr">cat: /nonexistent/file.txt: No such file or directory</div>
+                    </div>
+                    <div class="output-section">
+                        <div class="output-label">exit_code:</div>
+                        <div class="exit-code">1</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-example">
+                <h3 class="command-title">System Information</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Get system information using standard utilities</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Command:</h4>
+                <div class="command-line">uname -a</div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output:</h4>
+                <div class="terminal-output">
+                    <div class="output-section">
+                        <div class="output-label">stdout:</div>
+                        <div class="stdout">Linux workflow-runner 5.4.0-74-generic #83-Ubuntu SMP Sat May 8 02:35:39 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux</div>
+                    </div>
+                    <div class="output-section">
+                        <div class="output-label">stderr:</div>
+                        <div class="stderr">(empty)</div>
+                    </div>
+                    <div class="output-section">
+                        <div class="output-label">exit_code:</div>
+                        <div class="exit-code">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure the Execute Command action with the shell command to run.
+            </p>
+            
+            <pre><code>{
+  "title": "Execute Command Configuration",
+  "type": "object",
+  "properties": {
+    "command": {
+      "type": "string",
+      "title": "Command",
+      "description": "The shell command to execute."
+    }
+  },
+  "required": ["command"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Input data can be referenced in the command using expressions, but is not used directly.</p>
+                    <pre><code>{
+  "title": "Execute Command Input",
+  "description": "This action does not use input data directly, but data can be passed to the command via expressions in the 'command' config field.",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">Returns comprehensive command execution results.</p>
+                    <pre><code>{
+  "title": "Execute Command Output",
+  "type": "object",
+  "properties": {
+    "stdout": { "type": "string" },
+    "stderr": { "type": "string" },
+    "exit_code": { "type": "integer" }
+  },
+  "required": ["stdout", "stderr", "exit_code"]
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Common Commands Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Command Patterns</h2>
+            <p class="section-desc">
+                Useful command patterns for common workflow tasks.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">File Operations</h3>
+                    <pre><code># List files
+ls -la /path/to/directory
+
+# Copy files
+cp source.txt destination.txt
+
+# Move/rename files
+mv oldname.txt newname.txt
+
+# Create directories
+mkdir -p /path/to/new/directory
+
+# Remove files/directories
+rm -rf /path/to/remove</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Text Processing</h3>
+                    <pre><code># Search in files
+grep "pattern" file.txt
+
+# Count lines/words
+wc -l file.txt
+
+# Sort and unique
+sort file.txt | uniq
+
+# Replace text
+sed 's/old/new/g' file.txt
+
+# Extract columns
+cut -d',' -f1,3 data.csv</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Data Processing</h3>
+                    <pre><code># JSON processing
+jq '.field' data.json
+
+# CSV processing
+csvcut -c 1,3 data.csv
+
+# XML processing
+xmllint --format data.xml
+
+# Base64 encoding/decoding
+echo "text" | base64
+echo "dGV4dA==" | base64 -d</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Network Operations</h3>
+                    <pre><code># Download files
+curl -O https://example.com/file.txt
+
+# HTTP requests
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"key":"value"}' https://api.example.com
+
+# Check connectivity
+ping -c 3 example.com
+
+# DNS lookup
+nslookup example.com</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">System Information</h3>
+                    <pre><code># System info
+uname -a
+
+# Disk usage
+df -h
+
+# Memory usage
+free -h
+
+# Process list
+ps aux
+
+# Environment variables
+env | grep PATH</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Archive Operations</h3>
+                    <pre><code># Create tar archive
+tar -czf archive.tar.gz directory/
+
+# Extract tar archive
+tar -xzf archive.tar.gz
+
+# Create zip archive
+zip -r archive.zip directory/
+
+# Extract zip archive
+unzip archive.zip</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🗂️ File Management</h3>
+                    <p class="feature-desc">Organize files, create backups, manage directory structures, and perform batch file operations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Processing</h3>
+                    <p class="feature-desc">Process CSV files, transform JSON data, manipulate text files, and extract information.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔧 System Administration</h3>
+                    <p class="feature-desc">Monitor system resources, manage services, check system status, and perform maintenance tasks.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🌐 Network Operations</h3>
+                    <p class="feature-desc">Download files, make HTTP requests, test connectivity, and interact with web services.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📦 Package Management</h3>
+                    <p class="feature-desc">Install software packages, update dependencies, and manage development environments.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Integration</h3>
+                    <p class="feature-desc">Integrate with existing shell scripts, command-line tools, and legacy systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🛡️ Security</h3>
+                    <p class="feature-desc">
+                        Secure command execution:
+                        <br>• Validate all dynamic input
+                        <br>• Avoid user-provided command injection
+                        <br>• Use absolute paths for commands
+                        <br>• Limit command permissions where possible
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Error Handling</h3>
+                    <p class="feature-desc">
+                        Handle command failures gracefully:
+                        <br>• Check exit codes for success/failure
+                        <br>• Use Error Handler for failed commands
+                        <br>• Parse stderr for error information
+                        <br>• Implement retry logic for transient failures
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Output Processing</h3>
+                    <p class="feature-desc">
+                        Process command output effectively:
+                        <br>• Parse stdout for structured data
+                        <br>• Use Transform Data for output processing
+                        <br>• Handle large output appropriately
+                        <br>• Consider output encoding issues
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">⚡ Performance</h3>
+                    <p class="feature-desc">
+                        Optimize command execution:
+                        <br>• Use efficient command options
+                        <br>• Avoid unnecessary command chaining
+                        <br>• Consider command timeout limits
+                        <br>• Monitor resource usage for long-running commands
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/execute_command</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Execution & Scripting</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Execution</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.execution.command@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
