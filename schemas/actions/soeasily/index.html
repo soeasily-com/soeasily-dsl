@@ -223,6 +223,44 @@
                 max-width: 200px;
             }
         }
+        
+        .schema-display {
+            font-size: 10px;
+            background-color: #f6f8fa;
+            padding: 8px;
+            border-radius: 4px;
+            max-width: 350px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        .schemas-table th:nth-child(4),
+        .schemas-table td:nth-child(4) {
+            min-width: 150px;
+        }
+
+        .schemas-table th:nth-child(5),
+        .schemas-table th:nth-child(6),
+        .schemas-table th:nth-child(7),
+        .schemas-table td:nth-child(5),
+        .schemas-table td:nth-child(6),
+        .schemas-table td:nth-child(7) {
+            min-width: 350px;
+            max-width: 350px;
+        }
+
+        @media (max-width: 768px) {
+            .schemas-table {
+                font-size: 12px;
+            }
+            
+            .schema-display {
+                font-size: 9px;
+                max-width: 250px;
+            }
+        }
         </style>
 </head>
 <body>
@@ -263,22 +301,32 @@
                         </td>
                         <td><code>soeasily/manual_trigger</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Manual Trigger Input",
-  "description": "This trigger does not accept input from other actions."
+  "description": "This trigger does not accept input from other actions.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Manual Trigger Output",
-  "description": "The output is dynamic and conforms to the structure defined in the 'Input Form Schema' configuration."
+  "description": "The output is dynamic and conforms to the structure defined in the 'Input Form Schema' configuration.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Manual Trigger Configuration",
-  "description": "",
-  "properties": [
-    "payload_schema"
-  ]
+  "type": "object",
+  "properties": {
+    "payload_schema": {
+      "title": "Input Form Schema",
+      "description": "A JSON Schema defining the input form presented to the user at runtime. The data provided will become the output of this trigger.",
+      "type": "object",
+      "default": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  },
+  "additionalProperties": false
 }</pre></td>
                     </tr>
                     <tr>
@@ -295,28 +343,40 @@
                         </td>
                         <td><code>soeasily/schedule_trigger</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Schedule Trigger Input",
-  "description": "This trigger does not accept input from other actions."
+  "description": "This trigger does not accept input from other actions.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Schedule Trigger Output",
   "description": "Provides the timestamp of when the workflow was triggered.",
-  "properties": [
-    "triggered_at"
-  ],
+  "type": "object",
+  "properties": {
+    "triggered_at": {
+      "description": "The ISO 8601 timestamp of the trigger execution time.",
+      "type": "string",
+      "format": "date-time"
+    }
+  },
   "required": [
     "triggered_at"
   ]
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Schedule Configuration",
-  "description": "",
-  "properties": [
-    "cron_expression"
-  ],
+  "type": "object",
+  "properties": {
+    "cron_expression": {
+      "title": "CRON Expression",
+      "description": "A standard CRON expression to define the schedule (e.g., '0 9 * * MON-FRI').",
+      "type": "string",
+      "examples": [
+        "0 * * * *"
+      ]
+    }
+  },
   "required": [
     "cron_expression"
   ]
@@ -336,20 +396,39 @@
                         </td>
                         <td><code>soeasily/webhook_trigger</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Webhook Trigger Input",
-  "description": "This trigger does not accept input from other actions."
+  "description": "This trigger does not accept input from other actions.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Webhook Trigger Output",
   "description": "The payload of the incoming HTTP request.",
-  "properties": [
-    "method",
-    "headers",
-    "query_params",
-    "body"
-  ],
+  "type": "object",
+  "properties": {
+    "method": {
+      "description": "The HTTP method of the request (e.g., 'GET', 'POST').",
+      "type": "string"
+    },
+    "headers": {
+      "description": "An object containing the request headers.",
+      "type": "object"
+    },
+    "query_params": {
+      "description": "An object containing the URL query parameters.",
+      "type": "object"
+    },
+    "body": {
+      "description": "The parsed request body. Can be JSON, a string, or null.",
+      "type": [
+        "object",
+        "array",
+        "string",
+        "null"
+      ]
+    }
+  },
   "required": [
     "method",
     "headers",
@@ -358,12 +437,20 @@
   ]
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Webhook Configuration",
-  "description": "",
-  "properties": [
-    "authentication"
-  ]
+  "type": "object",
+  "properties": {
+    "authentication": {
+      "description": "Specify if any authentication is required to trigger the webhook.",
+      "type": "string",
+      "enum": [
+        "none",
+        "token"
+      ],
+      "default": "none"
+    }
+  },
+  "additionalProperties": false
 }</pre></td>
                     </tr></tbody>
             </table>
@@ -399,19 +486,21 @@
                         </td>
                         <td><code>soeasily/conditional</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Conditional Input",
-  "description": "Accepts any JSON object from a preceding action."
+  "description": "Accepts any JSON object from a preceding action.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Conditional Output",
-  "description": "Passes the input data through unchanged to be used by the subsequent branch."
+  "description": "Passes the input data through unchanged to be used by the subsequent branch.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Conditional Configuration",
-  "description": "This action requires no configuration. Branching logic is defined on its outgoing connections."
+  "type": "object",
+  "description": "This action requires no configuration. Branching logic is defined on its outgoing connections.",
+  "properties": {},
+  "additionalProperties": false
 }</pre></td>
                     </tr>
                     <tr>
@@ -428,19 +517,20 @@
                         </td>
                         <td><code>soeasily/switch</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Switch Input",
-  "description": "Accepts any JSON object. The 'condition' on outgoing connections will reference a field within this object."
+  "description": "Accepts any JSON object. The 'condition' on outgoing connections will reference a field within this object.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Switch Output",
-  "description": "Passes the input data through unchanged to the chosen branch."
+  "description": "Passes the input data through unchanged to the chosen branch.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Switch Configuration",
-  "description": ""
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
 }</pre></td>
                     </tr>
                     <tr>
@@ -457,30 +547,41 @@
                         </td>
                         <td><code>soeasily/loop</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Loop Data Input",
-  "description": "An object containing the array to be looped over."
+  "description": "An object containing the array to be looped over.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Loop Data Output (Per Iteration)",
   "description": "For each iteration, this action outputs an object containing the current item's value and its index.",
-  "properties": [
-    "item",
-    "index"
-  ],
+  "type": "object",
+  "properties": {
+    "item": {
+      "description": "The current item from the source array."
+    },
+    "index": {
+      "type": "integer",
+      "description": "The zero-based index of the current item."
+    }
+  },
   "required": [
     "item",
     "index"
   ]
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Loop Data Configuration",
-  "description": "",
-  "properties": [
-    "array_path"
-  ],
+  "type": "object",
+  "properties": {
+    "array_path": {
+      "type": "string",
+      "title": "Array Path",
+      "description": "A JSONata expression pointing to the array in the input data to iterate over.",
+      "examples": [
+        "source.body.line_items"
+      ]
+    }
+  },
   "required": [
     "array_path"
   ]
@@ -500,19 +601,20 @@
                         </td>
                         <td><code>soeasily/merge_branches</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Merge Branches Input",
-  "description": "Receives data from exactly one of the incoming branches."
+  "description": "Receives data from exactly one of the incoming branches.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Merge Branches Output",
-  "description": "Passes through the data it received from the executed branch."
+  "description": "Passes through the data it received from the executed branch.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Merge Branches Configuration",
-  "description": ""
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
 }</pre></td>
                     </tr>
                     <tr>
@@ -529,22 +631,26 @@
                         </td>
                         <td><code>soeasily/wait_state</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Wait Input",
-  "description": "Accepts any JSON object."
+  "description": "Accepts any JSON object.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Wait Output",
-  "description": "Passes the input data through unchanged after the delay."
+  "description": "Passes the input data through unchanged after the delay.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Wait Configuration",
-  "description": "",
-  "properties": [
-    "duration_milliseconds"
-  ],
+  "type": "object",
+  "properties": {
+    "duration_milliseconds": {
+      "type": "integer",
+      "title": "Wait Duration (milliseconds)",
+      "description": "The number of seconds the workflow should pause.",
+      "minimum": 100
+    }
+  },
   "required": [
     "duration_milliseconds"
   ]
@@ -564,22 +670,25 @@
                         </td>
                         <td><code>soeasily/execute_workflow</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Execute Workflow Input",
-  "description": "The data to pass as input to the trigger action of the sub-workflow."
+  "description": "The data to pass as input to the trigger action of the sub-workflow.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Execute Workflow Output",
-  "description": "The final data output from the executed sub-workflow."
+  "description": "The final data output from the executed sub-workflow.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Execute Workflow Configuration",
-  "description": "",
-  "properties": [
-    "workflow_id"
-  ],
+  "type": "object",
+  "properties": {
+    "workflow_id": {
+      "type": "string",
+      "title": "Workflow ID",
+      "description": "The ID of the SoEasily workflow to execute."
+    }
+  },
   "required": [
     "workflow_id"
   ]
@@ -599,23 +708,34 @@
                         </td>
                         <td><code>soeasily/stop_workflow</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Stop Workflow Input",
-  "description": "Accepts any data, which is discarded as the workflow halts."
+  "description": "Accepts any data, which is discarded as the workflow halts.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Stop Workflow Output",
-  "description": "This action produces no output as it terminates the workflow."
+  "description": "This action produces no output as it terminates the workflow.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Stop Workflow Configuration",
-  "description": "",
-  "properties": [
-    "status",
-    "message"
-  ],
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "succeeded",
+        "failed"
+      ],
+      "description": "The final status to assign to the workflow run."
+    },
+    "message": {
+      "type": "string",
+      "description": "An optional message to record as the reason for stopping."
+    }
+  },
   "required": [
     "status"
   ]
@@ -635,24 +755,32 @@
                         </td>
                         <td><code>soeasily/error_handler</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Error Handler Input",
   "description": "Receives a standardized error object.",
-  "properties": [
-    "error",
-    "failed_action",
-    "timestamp"
-  ]
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string"
+    },
+    "failed_action": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Error Handler Output",
-  "description": "Passes the received error object through unchanged."
+  "description": "Passes the received error object through unchanged.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Error Handler Configuration",
-  "description": ""
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
 }</pre></td>
                     </tr></tbody>
             </table>
@@ -688,22 +816,28 @@
                         </td>
                         <td><code>soeasily/set_data</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Set Data Input",
-  "description": "The source object to be modified."
+  "description": "The source object to be modified.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Set Data Output",
-  "description": "The modified object."
+  "description": "The modified object.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Set Data Configuration",
-  "description": "",
-  "properties": [
-    "fields"
-  ],
+  "type": "object",
+  "properties": {
+    "fields": {
+      "type": "object",
+      "title": "Fields to Set",
+      "description": "An object where keys are the field names to add/modify and values are the JSONata expressions to generate the data.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
   "required": [
     "fields"
   ]
@@ -723,22 +857,23 @@
                         </td>
                         <td><code>soeasily/transform_data</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Transform Data Input",
-  "description": ""
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Transform Data Output",
   "description": "The result of the JSONata transformation."
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Transform Data Configuration",
-  "description": "",
-  "properties": [
-    "expression"
-  ],
+  "type": "object",
+  "properties": {
+    "expression": {
+      "type": "string",
+      "title": "JSONata Expression",
+      "description": "A single JSONata expression that defines the entire new output object."
+    }
+  },
   "required": [
     "expression"
   ]
@@ -758,25 +893,27 @@
                         </td>
                         <td><code>soeasily/query_data</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Query Data Input",
-  "description": ""
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Query Data Output",
-  "description": "",
-  "properties": [
-    "result"
-  ]
+  "properties": {
+    "result": {
+      "description": "The result of the JSONata query."
+    }
+  }
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Query Data Configuration",
-  "description": "",
-  "properties": [
-    "expression"
-  ],
+  "type": "object",
+  "properties": {
+    "expression": {
+      "type": "string",
+      "title": "JSONata Query",
+      "description": "A JSONata expression to query the input data."
+    }
+  },
   "required": [
     "expression"
   ]
@@ -796,35 +933,52 @@
                         </td>
                         <td><code>soeasily/convert_data</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Convert Data Input",
-  "description": "",
-  "properties": [
-    "data"
-  ],
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "string",
+      "description": "The raw data string to be converted."
+    }
+  },
   "required": [
     "data"
   ]
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Convert Data Output",
-  "description": "",
-  "properties": [
-    "data"
-  ],
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "string",
+      "description": "The data in the new format."
+    }
+  },
   "required": [
     "data"
   ]
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Convert Data Format Configuration",
-  "description": "",
-  "properties": [
-    "source_format",
-    "target_format"
-  ],
+  "type": "object",
+  "properties": {
+    "source_format": {
+      "type": "string",
+      "enum": [
+        "json",
+        "xml",
+        "csv"
+      ]
+    },
+    "target_format": {
+      "type": "string",
+      "enum": [
+        "json",
+        "xml",
+        "csv"
+      ]
+    }
+  },
   "required": [
     "source_format",
     "target_format"
@@ -864,29 +1018,40 @@
                         </td>
                         <td><code>soeasily/execute_code</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Execute Code Input",
-  "description": "Data made available to the script in a variable named 'input'."
+  "description": "Data made available to the script in a variable named 'input'.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Execute Code Output",
-  "description": "",
-  "properties": [
-    "result"
-  ],
+  "type": "object",
+  "properties": {
+    "result": {
+      "description": "The value returned by the executed code."
+    }
+  },
   "required": [
     "result"
   ]
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Execute Code Configuration",
-  "description": "",
-  "properties": [
-    "language",
-    "code"
-  ],
+  "type": "object",
+  "properties": {
+    "language": {
+      "type": "string",
+      "enum": [
+        "javascript"
+      ],
+      "default": "javascript",
+      "description": "The programming language of the code snippet."
+    },
+    "code": {
+      "type": "string",
+      "title": "Code Snippet",
+      "description": "The code to execute. The input data is available as a variable named 'input'."
+    }
+  },
   "required": [
     "language",
     "code"
@@ -907,19 +1072,24 @@
                         </td>
                         <td><code>soeasily/execute_command</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Execute Command Input",
-  "description": "This action does not use input data directly, but data can be passed to the command via expressions in the 'command' config field."
+  "description": "This action does not use input data directly, but data can be passed to the command via expressions in the 'command' config field.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Execute Command Output",
-  "description": "",
-  "properties": [
-    "stdout",
-    "stderr",
-    "exit_code"
-  ],
+  "type": "object",
+  "properties": {
+    "stdout": {
+      "type": "string"
+    },
+    "stderr": {
+      "type": "string"
+    },
+    "exit_code": {
+      "type": "integer"
+    }
+  },
   "required": [
     "stdout",
     "stderr",
@@ -927,12 +1097,15 @@
   ]
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Execute Command Configuration",
-  "description": "",
-  "properties": [
-    "command"
-  ],
+  "type": "object",
+  "properties": {
+    "command": {
+      "type": "string",
+      "title": "Command",
+      "description": "The shell command to execute."
+    }
+  },
   "required": [
     "command"
   ]
@@ -971,19 +1144,21 @@
                         </td>
                         <td><code>soeasily/http_request</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "HTTP Request Input",
-  "description": ""
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "HTTP Request Output",
-  "description": "",
-  "properties": [
-    "status_code",
-    "headers",
-    "body"
-  ],
+  "type": "object",
+  "properties": {
+    "status_code": {
+      "type": "integer"
+    },
+    "headers": {
+      "type": "object"
+    },
+    "body": {}
+  },
   "required": [
     "status_code",
     "headers",
@@ -991,16 +1166,37 @@
   ]
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "HTTP Request Configuration",
-  "description": "",
-  "properties": [
-    "method",
-    "url",
-    "headers",
-    "query_params",
-    "body"
-  ],
+  "type": "object",
+  "properties": {
+    "method": {
+      "type": "string",
+      "enum": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "default": "GET"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "headers": {
+      "type": "object"
+    },
+    "query_params": {
+      "type": "object"
+    },
+    "body": {
+      "type": [
+        "object",
+        "string"
+      ]
+    }
+  },
   "required": [
     "method",
     "url"
@@ -1021,34 +1217,46 @@
                         </td>
                         <td><code>soeasily/graphql_request</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "GraphQL Request Input",
-  "description": ""
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "GraphQL Request Output",
-  "description": "",
-  "properties": [
-    "status_code",
-    "data",
-    "errors"
-  ],
+  "type": "object",
+  "properties": {
+    "status_code": {
+      "type": "integer"
+    },
+    "data": {
+      "type": "object"
+    },
+    "errors": {
+      "type": "array"
+    }
+  },
   "required": [
     "status_code",
     "data"
   ]
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "GraphQL Request Configuration",
-  "description": "",
-  "properties": [
-    "endpoint",
-    "query",
-    "variables",
-    "headers"
-  ],
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "query": {
+      "type": "string"
+    },
+    "variables": {
+      "type": "object"
+    },
+    "headers": {
+      "type": "object"
+    }
+  },
   "required": [
     "endpoint",
     "query"
@@ -1088,30 +1296,40 @@
                         </td>
                         <td><code>soeasily/llm_prompt</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "LLM Prompt Input",
-  "description": ""
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "LLM Prompt Output",
-  "description": "",
-  "properties": [
-    "generated_text"
-  ],
+  "type": "object",
+  "properties": {
+    "generated_text": {
+      "type": "string"
+    }
+  },
   "required": [
     "generated_text"
   ]
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "LLM Prompt Configuration",
-  "description": "",
-  "properties": [
-    "model",
-    "prompt",
-    "temperature"
-  ],
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "The identifier of the LLM to use (e.g., 'gpt-4-turbo')."
+    },
+    "prompt": {
+      "type": "string",
+      "description": "The prompt to send to the model."
+    },
+    "temperature": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2,
+      "default": 0.7
+    }
+  },
   "required": [
     "model",
     "prompt"
@@ -1132,35 +1350,47 @@
                         </td>
                         <td><code>soeasily/agent_executor</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Agent Executor Input",
-  "description": "",
-  "properties": [
-    "input"
-  ],
+  "type": "object",
+  "properties": {
+    "input": {
+      "type": "string",
+      "description": "The initial input or query for the agent."
+    }
+  },
   "required": [
     "input"
   ]
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Agent Executor Output",
-  "description": "",
-  "properties": [
-    "final_answer"
-  ],
+  "type": "object",
+  "properties": {
+    "final_answer": {
+      "type": "string",
+      "description": "The final result or answer produced by the agent."
+    }
+  },
   "required": [
     "final_answer"
   ]
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Agent Executor Configuration",
-  "description": "",
-  "properties": [
-    "objective",
-    "tools"
-  ],
+  "type": "object",
+  "properties": {
+    "objective": {
+      "type": "string",
+      "description": "The high-level goal for the agent to achieve."
+    },
+    "tools": {
+      "type": "array",
+      "description": "A list of action IDs that this agent is allowed to use.",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
   "required": [
     "objective",
     "tools"
@@ -1200,22 +1430,23 @@
                         </td>
                         <td><code>soeasily/debug_log</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Debug Log Input",
-  "description": ""
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Debug Log Output",
-  "description": "The output is identical to the input."
+  "description": "The output is identical to the input.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "Debug Log Configuration",
-  "description": "",
-  "properties": [
-    "message"
-  ],
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "A message to include with the log entry. Can contain expressions."
+    }
+  },
   "required": [
     "message"
   ]
@@ -1235,19 +1466,19 @@
                         </td>
                         <td><code>soeasily/no_operation</code></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "No Operation Input",
-  "description": ""
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "No Operation Output",
-  "description": "The output is identical to the input."
+  "description": "The output is identical to the input.",
+  "type": "object"
 }</pre></td>
                         <td><pre class="schema-display">{
-  "type": "object",
   "title": "No Operation Configuration",
-  "description": ""
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
 }</pre></td>
                     </tr></tbody>
             </table>
