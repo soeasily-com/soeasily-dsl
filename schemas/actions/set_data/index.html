@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Data - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .example-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .example-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 16px;
+            align-items: center;
+            margin: 16px 0;
+        }
+
+        .arrow {
+            font-size: 24px;
+            color: #ea580c;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .before-after {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../index.html">SoEasily Schemas</a> / 
+                <a href="../index.html">Actions</a> / 
+                Set Data
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Set Data</h1>
+            <p class="hero-subtitle">
+                Adds new fields or modifies existing fields in the data payload. Define key-value pairs where the value is a JSONata expression.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Set Data action is your go-to tool for adding new fields or updating existing ones in your data payload. Unlike Transform Data which reshapes the entire structure, Set Data preserves the original data while selectively adding or modifying specific fields. Perfect for enriching data, adding calculated fields, updating statuses, or preparing data for subsequent actions.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Selective Updates</h3>
+                    <p class="feature-desc">Add new fields or modify existing ones while preserving the rest of your data structure.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🧮 Dynamic Values</h3>
+                    <p class="feature-desc">Use JSONata expressions to calculate field values based on existing data.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Data Enrichment</h3>
+                    <p class="feature-desc">Enhance your data with computed fields, timestamps, or derived values.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">set</span>
+                <span class="tag">modify</span>
+                <span class="tag">update</span>
+                <span class="tag">assign</span>
+                <span class="tag">variable</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Set Data Examples</h2>
+            <p class="section-desc">
+                See how Set Data can enhance your data with these practical examples.
+            </p>
+            
+            <div class="example-card">
+                <h3 class="example-title">Add Calculated Fields</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Create a full name field and update status</p>
+                
+                <div class="before-after">
+                    <div>
+                        <h4 style="margin: 0 0 8px 0; color: #24292f;">Input:</h4>
+                        <pre><code>{
+  "first": "John",
+  "last": "Doe",
+  "status": "new"
+}</code></pre>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div>
+                        <h4 style="margin: 0 0 8px 0; color: #24292f;">Output:</h4>
+                        <pre><code>{
+  "first": "John",
+  "last": "Doe",
+  "status": "processed",
+  "full_name": "John Doe"
+}</code></pre>
+                    </div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "fields": {
+    "full_name": "first & ' ' & last",
+    "status": "'processed'"
+  }
+}</code></pre>
+            </div>
+
+            <div class="example-card">
+                <h3 class="example-title">Add Timestamps and Metadata</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Enrich data with processing timestamps and metadata</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "fields": {
+    "processed_at": "$now()",
+    "processed_by": "'workflow-engine'",
+    "version": "1.0",
+    "is_valid": "email != null and $contains(email, '@')"
+  }
+}</code></pre>
+            </div>
+
+            <div class="example-card">
+                <h3 class="example-title">Calculate Order Totals</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Add calculated fields for order processing</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "fields": {
+    "subtotal": "$sum(items.(price * quantity))",
+    "tax": "$round(subtotal * 0.08, 2)",
+    "total": "$round(subtotal + tax, 2)",
+    "item_count": "$count(items)",
+    "order_date": "$now()"
+  }
+}</code></pre>
+            </div>
+
+            <div class="example-card">
+                <h3 class="example-title">User Classification</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Add user category and permissions based on existing data</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "fields": {
+    "user_type": "age >= 18 ? 'adult' : 'minor'",
+    "can_purchase": "age >= 18 and verified = true",
+    "display_name": "name ? name : email",
+    "account_age_days": "$floor(($now() - $toMillis(created_at)) / 86400000)"
+  }
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure the Set Data action with field definitions using JSONata expressions.
+            </p>
+            
+            <pre><code>{
+  "title": "Set Data Configuration",
+  "type": "object",
+  "properties": {
+    "fields": {
+      "type": "object",
+      "title": "Fields to Set",
+      "description": "An object where keys are the field names to add/modify and values are the JSONata expressions to generate the data.",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "required": ["fields"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">The source object to be modified.</p>
+                    <pre><code>{
+  "title": "Set Data Input",
+  "description": "The source object to be modified.",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">The modified object with new or updated fields.</p>
+                    <pre><code>{
+  "title": "Set Data Output",
+  "description": "The modified object.",
+  "type": "object"
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JSONata Patterns Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common JSONata Patterns</h2>
+            <p class="section-desc">
+                Useful JSONata expressions for setting field values.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Static Values</h3>
+                    <pre><code>// String literal
+"status": "'active'"
+
+// Number literal
+"priority": "1"
+
+// Boolean literal
+"is_processed": "true"</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Field References</h3>
+                    <pre><code>// Copy existing field
+"backup_email": "email"
+
+// Nested field access
+"city": "address.city"
+
+// Array element
+"first_item": "items[0]"</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">String Operations</h3>
+                    <pre><code>// Concatenation
+"full_name": "first & ' ' & last"
+
+// Uppercase
+"code": "$uppercase(product_code)"
+
+// Email domain
+"domain": "$substringAfter(email, '@')"</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Calculations</h3>
+                    <pre><code>// Math operations
+"total": "price * quantity"
+
+// Array sum
+"order_total": "$sum(items.price)"
+
+// Percentage
+"discount_pct": "$round(discount / price * 100, 1)"</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Conditionals</h3>
+                    <pre><code>// Ternary operator
+"category": "age >= 18 ? 'adult' : 'minor'"
+
+// Null coalescing
+"display_name": "name ? name : 'Anonymous'"
+
+// Complex conditions
+"shipping": "total > 50 ? 0 : 9.99"</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Date/Time</h3>
+                    <pre><code>// Current timestamp
+"created_at": "$now()"
+
+// Formatted date
+"date_str": "$fromMillis($now(), '[Y0001]-[M01]-[D01]')"
+
+// Days since
+"days_old": "$floor(($now() - created_timestamp) / 86400000)"</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Enrichment</h3>
+                    <p class="feature-desc">Add calculated fields, metadata, and derived values to enhance your data.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🏷️ Status Updates</h3>
+                    <p class="feature-desc">Update processing status, workflow state, or approval flags.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">⏰ Timestamps</h3>
+                    <p class="feature-desc">Add processing timestamps, expiration dates, or audit trails.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🧮 Calculations</h3>
+                    <p class="feature-desc">Compute totals, averages, percentages, or other mathematical values.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔗 Data Preparation</h3>
+                    <p class="feature-desc">Prepare data for API calls by adding required fields or formatting.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">👤 User Context</h3>
+                    <p class="feature-desc">Add user permissions, categories, or personalization data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/set_data</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Data Operation</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Data Operations</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.data.set@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

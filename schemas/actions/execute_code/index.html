@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Execute Code - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #7c2d12 0%, #dc2626 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .code-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .code-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../index.html">SoEasily Schemas</a> / 
+                <a href="../index.html">Actions</a> / 
+                Execute Code
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Execute Code</h1>
+            <p class="hero-subtitle">
+                Executes a snippet of code in a sandboxed environment. The input data is available within the script's scope, and the script's return value becomes the action's output.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Execute Code action brings the full power of programming languages into your workflows. Write custom JavaScript code to perform complex calculations, data manipulations, business logic, or any custom processing that can't be achieved with standard actions. Perfect for custom algorithms, data validation, complex transformations, and integrating with external libraries.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔒 Sandboxed Execution</h3>
+                    <p class="feature-desc">Code runs in a secure, isolated environment with access to input data and standard libraries.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Access</h3>
+                    <p class="feature-desc">Input data is automatically available as the 'input' variable in your code scope.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">⚡ Flexible Output</h3>
+                    <p class="feature-desc">Return any data structure from your code to be used by subsequent workflow actions.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">code</span>
+                <span class="tag">script</span>
+                <span class="tag">run</span>
+                <span class="tag">execute</span>
+                <span class="tag">javascript</span>
+                <span class="tag">python</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Examples Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Code Examples</h2>
+            <p class="section-desc">
+                Practical examples showing how to use Execute Code for different scenarios.
+            </p>
+            
+            <div class="code-example">
+                <h3 class="code-title">Simple Calculation</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Add two numbers from the input data</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input:</h4>
+                <pre><code>{ "a": 5, "b": 10 }</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">JavaScript Code:</h4>
+                <pre><code>return input.a + input.b;</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output:</h4>
+                <pre><code>{ "result": 15 }</code></pre>
+            </div>
+
+            <div class="code-example">
+                <h3 class="code-title">Data Validation</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Validate user data and return validation results</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">JavaScript Code:</h4>
+                <pre><code>const user = input.user;
+const errors = [];
+
+if (!user.email || !user.email.includes('@')) {
+  errors.push('Invalid email address');
+}
+
+if (!user.age || user.age < 18) {
+  errors.push('Must be 18 or older');
+}
+
+return {
+  isValid: errors.length === 0,
+  errors: errors,
+  user: user
+};</code></pre>
+            </div>
+
+            <div class="code-example">
+                <h3 class="code-title">Array Processing</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Process an array of items and calculate statistics</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">JavaScript Code:</h4>
+                <pre><code>const items = input.items || [];
+
+const total = items.reduce((sum, item) => sum + item.price, 0);
+const average = items.length > 0 ? total / items.length : 0;
+const maxPrice = Math.max(...items.map(item => item.price));
+const minPrice = Math.min(...items.map(item => item.price));
+
+return {
+  count: items.length,
+  total: total,
+  average: Math.round(average * 100) / 100,
+  maxPrice: maxPrice,
+  minPrice: minPrice,
+  expensiveItems: items.filter(item => item.price > average)
+};</code></pre>
+            </div>
+
+            <div class="code-example">
+                <h3 class="code-title">String Processing</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Clean and format text data</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">JavaScript Code:</h4>
+                <pre><code>const text = input.text || '';
+
+// Clean and format the text
+const cleaned = text
+  .trim()
+  .toLowerCase()
+  .replace(/[^a-z0-9\s]/g, '')
+  .replace(/\s+/g, ' ');
+
+const words = cleaned.split(' ').filter(word => word.length > 0);
+const wordCount = words.length;
+const uniqueWords = [...new Set(words)];
+
+return {
+  original: text,
+  cleaned: cleaned,
+  wordCount: wordCount,
+  uniqueWordCount: uniqueWords.length,
+  words: words,
+  uniqueWords: uniqueWords
+};</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure the Execute Code action with the programming language and code to execute.
+            </p>
+            
+            <pre><code>{
+  "title": "Execute Code Configuration",
+  "type": "object",
+  "properties": {
+    "language": {
+      "type": "string",
+      "enum": ["javascript"],
+      "default": "javascript",
+      "description": "The programming language of the code snippet."
+    },
+    "code": {
+      "type": "string",
+      "title": "Code Snippet",
+      "description": "The code to execute. The input data is available as a variable named 'input'."
+    }
+  },
+  "required": ["language", "code"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Data made available to the script in a variable named 'input'.</p>
+                    <pre><code>{
+  "title": "Execute Code Input",
+  "description": "Data made available to the script in a variable named 'input'.",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">The value returned by the executed code.</p>
+                    <pre><code>{
+  "title": "Execute Code Output",
+  "type": "object",
+  "properties": {
+    "result": {
+      "description": "The value returned by the executed code."
+    }
+  },
+  "required": ["result"]
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🧮 Complex Calculations</h3>
+                    <p class="feature-desc">Perform mathematical operations, financial calculations, or statistical analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">✅ Data Validation</h3>
+                    <p class="feature-desc">Implement custom validation rules and business logic checks.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Data Transformation</h3>
+                    <p class="feature-desc">Complex data manipulations that go beyond standard transform actions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Business Logic</h3>
+                    <p class="feature-desc">Implement custom business rules and decision-making algorithms.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Analysis</h3>
+                    <p class="feature-desc">Analyze datasets, calculate metrics, and generate insights.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔗 API Processing</h3>
+                    <p class="feature-desc">Process API responses and prepare data for external services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Error Handling</h3>
+                    <pre><code>try {
+  // Your code here
+  return result;
+} catch (error) {
+  return { error: error.message };
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Validation</h3>
+                    <pre><code>if (!input || typeof input !== 'object') {
+  return { error: 'Invalid input data' };
+}
+
+const value = input.value || 0;</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Return Structured Data</h3>
+                    <pre><code>return {
+  success: true,
+  data: processedData,
+  metadata: {
+    processedAt: new Date().toISOString(),
+    itemCount: items.length
+  }
+};</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/execute_code</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Execution & Scripting</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Execution</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.execution.code@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
