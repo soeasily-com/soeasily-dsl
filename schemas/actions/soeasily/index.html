@@ -314,29 +314,20 @@
             <table class="schemas-table">
                 <thead>
                     <tr>
+                        <th>Action ID</th>
                         <th>Action</th>
                         <th>Description</th>
-                        <th>Schema</th>
-                        <th>Action ID</th>
                         <th>Input Schema</th>
                         <th>Output Schema</th>
                         <th>Config Schema</th>
+                        <th>Schema</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div class="action-title">Manual Trigger</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Starts a workflow manually from the SoEasily UI. Can be configured with a custom JSON Schema to present a form for providing data when the workflow is run.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/manual_trigger_v1.0.0.json" class="json-link">
-                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                                        <tr>
                         <td><code>soeasily/manual_trigger</code></td>
+                        <td><div class="action-title">Manual Trigger</div></td>
+                        <td><div class="action-description">Starts a workflow manually from the SoEasily UI. Can be configured with a custom JSON Schema to present a form for providing data when the workflow is run.</div></td>
                         <td><pre class="schema-display">{
   "title": "Manual Trigger Input",
   "description": "This trigger does not accept input from other actions.",
@@ -365,20 +356,14 @@
   },
   "additionalProperties": false
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Schedule Trigger</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Automatically starts a workflow based on a CRON schedule. Supports complex scheduling patterns and timezone configurations.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/schedule_trigger_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/manual_trigger_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/schedule_trigger</code></td>
+                        <td><div class="action-title">Schedule Trigger</div></td>
+                        <td><div class="action-description">Automatically starts a workflow based on a CRON schedule. Supports complex scheduling patterns and timezone configurations.</div></td>
                         <td><pre class="schema-display">{
   "title": "Schedule Trigger Input",
   "description": "This trigger does not accept input from other actions.",
@@ -418,20 +403,14 @@
     "cron_expression"
   ]
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Webhook Trigger</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Starts a workflow when an HTTP request is received at a specific endpoint. Supports various HTTP methods and authentication options.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/webhook_trigger_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/schedule_trigger_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/webhook_trigger</code></td>
+                        <td><div class="action-title">Webhook Trigger</div></td>
+                        <td><div class="action-description">Starts a workflow when an HTTP request is received at a specific endpoint. Supports various HTTP methods and authentication options.</div></td>
                         <td><pre class="schema-display">{
   "title": "Webhook Trigger Input",
   "description": "This trigger does not accept input from other actions.",
@@ -489,6 +468,9 @@
   },
   "additionalProperties": false
 }</pre></td>
+                        <td><a href="./soeasily/webhook_trigger_v1.0.0.json" class="json-link">
+                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
+                            </a></td>
                     </tr></tbody>
             </table>
         </div>
@@ -499,29 +481,20 @@
             <table class="schemas-table">
                 <thead>
                     <tr>
+                        <th>Action ID</th>
                         <th>Action</th>
                         <th>Description</th>
-                        <th>Schema</th>
-                        <th>Action ID</th>
                         <th>Input Schema</th>
                         <th>Output Schema</th>
                         <th>Config Schema</th>
+                        <th>Schema</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div class="action-title">Conditional</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Routes the workflow down different branches based on a condition. Supports complex logical expressions and data comparisons.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/conditional_v1.0.0.json" class="json-link">
-                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                                        <tr>
                         <td><code>soeasily/conditional</code></td>
+                        <td><div class="action-title">Conditional</div></td>
+                        <td><div class="action-description">Routes the workflow down different branches based on a condition. Supports complex logical expressions and data comparisons.</div></td>
                         <td><pre class="schema-display">{
   "title": "Conditional Input",
   "description": "Accepts any JSON object from a preceding action.",
@@ -539,20 +512,14 @@
   "properties": {},
   "additionalProperties": false
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Switch</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Routes the workflow down different branches based on the value of a specified input field. Define routing rules in the outgoing connections.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/switch_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/conditional_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/switch</code></td>
+                        <td><div class="action-title">Switch</div></td>
+                        <td><div class="action-description">Routes the workflow down different branches based on the value of a specified input field. Define routing rules in the outgoing connections.</div></td>
                         <td><pre class="schema-display">{
   "title": "Switch Input",
   "description": "Accepts any JSON object. The 'condition' on outgoing connections will reference a field within this object.",
@@ -569,20 +536,14 @@
   "properties": {},
   "additionalProperties": false
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Loop</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Repeats a sequence of actions for each item in an array or until a condition is met. Supports iteration control and data aggregation.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/loop_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/switch_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/loop</code></td>
+                        <td><div class="action-title">Loop</div></td>
+                        <td><div class="action-description">Repeats a sequence of actions for each item in an array or until a condition is met. Supports iteration control and data aggregation.</div></td>
                         <td><pre class="schema-display">{
   "title": "Loop Data Input",
   "description": "An object containing the array to be looped over.",
@@ -623,20 +584,14 @@
     "array_path"
   ]
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Merge Branches</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Combines multiple execution paths back into one. Only passes through the data from the single branch that was executed.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/merge_branches_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/loop_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/merge_branches</code></td>
+                        <td><div class="action-title">Merge Branches</div></td>
+                        <td><div class="action-description">Combines multiple execution paths back into one. Only passes through the data from the single branch that was executed.</div></td>
                         <td><pre class="schema-display">{
   "title": "Merge Branches Input",
   "description": "Receives data from exactly one of the incoming branches.",
@@ -653,20 +608,14 @@
   "properties": {},
   "additionalProperties": false
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Wait State</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Pauses workflow execution for a specified duration or until a specific time. Supports various delay formats and scheduling options.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/wait_state_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/merge_branches_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/wait_state</code></td>
+                        <td><div class="action-title">Wait State</div></td>
+                        <td><div class="action-description">Pauses workflow execution for a specified duration or until a specific time. Supports various delay formats and scheduling options.</div></td>
                         <td><pre class="schema-display">{
   "title": "Wait Input",
   "description": "Accepts any JSON object.",
@@ -692,20 +641,14 @@
     "duration_milliseconds"
   ]
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Execute Workflow</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Executes another workflow (a 'sub-workflow') using the input data provided. The current workflow waits for completion and receives the output.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/execute_workflow_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/wait_state_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/execute_workflow</code></td>
+                        <td><div class="action-title">Execute Workflow</div></td>
+                        <td><div class="action-description">Executes another workflow (a 'sub-workflow') using the input data provided. The current workflow waits for completion and receives the output.</div></td>
                         <td><pre class="schema-display">{
   "title": "Execute Workflow Input",
   "description": "The data to pass as input to the trigger action of the sub-workflow.",
@@ -730,20 +673,14 @@
     "workflow_id"
   ]
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Stop Workflow</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Immediately halts the execution of the workflow and marks its final status as 'succeeded' or 'failed'.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/stop_workflow_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/execute_workflow_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/stop_workflow</code></td>
+                        <td><div class="action-title">Stop Workflow</div></td>
+                        <td><div class="action-description">Immediately halts the execution of the workflow and marks its final status as 'succeeded' or 'failed'.</div></td>
                         <td><pre class="schema-display">{
   "title": "Stop Workflow Input",
   "description": "Accepts any data, which is discarded as the workflow halts.",
@@ -777,20 +714,14 @@
     "status"
   ]
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Error Handler</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Catches and handles errors from previous actions in the workflow. Provides error recovery and alternative execution paths.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/error_handler_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/stop_workflow_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/error_handler</code></td>
+                        <td><div class="action-title">Error Handler</div></td>
+                        <td><div class="action-description">Catches and handles errors from previous actions in the workflow. Provides error recovery and alternative execution paths.</div></td>
                         <td><pre class="schema-display">{
   "title": "Error Handler Input",
   "description": "Receives a standardized error object.",
@@ -819,6 +750,9 @@
   "properties": {},
   "additionalProperties": false
 }</pre></td>
+                        <td><a href="./soeasily/error_handler_v1.0.0.json" class="json-link">
+                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
+                            </a></td>
                     </tr></tbody>
             </table>
         </div>
@@ -839,19 +773,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div class="action-title">Set Data</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Creates or modifies data objects by setting specific fields to static values or expressions. Useful for data initialization and transformation.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/set_data_v1.0.0.json" class="json-link">
-                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                                        <tr>
                         <td><code>soeasily/set_data</code></td>
+                        <td><div class="action-title">Set Data</div></td>
+                        <td><div class="action-description">Creates or modifies data objects by setting specific fields to static values or expressions. Useful for data initialization and transformation.</div></td>
                         <td><pre class="schema-display">{
   "title": "Set Data Input",
   "description": "The source object to be modified.",
@@ -879,20 +804,14 @@
     "fields"
   ]
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Transform Data</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Transforms input data using JSONata expressions. Supports complex data manipulation, filtering, and restructuring operations.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/transform_data_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/set_data_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/transform_data</code></td>
+                        <td><div class="action-title">Transform Data</div></td>
+                        <td><div class="action-description">Transforms input data using JSONata expressions. Supports complex data manipulation, filtering, and restructuring operations.</div></td>
                         <td><pre class="schema-display">{
   "title": "Transform Data Input",
   "type": "object"
@@ -915,20 +834,14 @@
     "expression"
   ]
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Query Data</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Extracts specific data from the input using JSONata queries. Perfect for filtering, selecting, and extracting subsets of data.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/query_data_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/transform_data_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/query_data</code></td>
+                        <td><div class="action-title">Query Data</div></td>
+                        <td><div class="action-description">Extracts specific data from the input using JSONata queries. Perfect for filtering, selecting, and extracting subsets of data.</div></td>
                         <td><pre class="schema-display">{
   "title": "Query Data Input",
   "type": "object"
@@ -955,20 +868,14 @@
     "expression"
   ]
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Convert Data</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Converts data between different formats (JSON, XML, CSV, etc.). Supports various encoding and transformation options.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/convert_data_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/query_data_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/convert_data</code></td>
+                        <td><div class="action-title">Convert Data</div></td>
+                        <td><div class="action-description">Converts data between different formats (JSON, XML, CSV, etc.). Supports various encoding and transformation options.</div></td>
                         <td><pre class="schema-display">{
   "title": "Convert Data Input",
   "type": "object",
@@ -1021,6 +928,9 @@
     "target_format"
   ]
 }</pre></td>
+                        <td><a href="./soeasily/convert_data_v1.0.0.json" class="json-link">
+                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
+                            </a></td>
                     </tr></tbody>
             </table>
         </div>
@@ -1041,19 +951,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div class="action-title">Execute Code</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Executes custom JavaScript code in a sandboxed environment. Provides access to input data and allows custom logic implementation.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/execute_code_v1.0.0.json" class="json-link">
-                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                                        <tr>
                         <td><code>soeasily/execute_code</code></td>
+                        <td><div class="action-title">Execute Code</div></td>
+                        <td><div class="action-description">Executes custom JavaScript code in a sandboxed environment. Provides access to input data and allows custom logic implementation.</div></td>
                         <td><pre class="schema-display">{
   "title": "Execute Code Input",
   "description": "Data made available to the script in a variable named 'input'.",
@@ -1094,20 +995,14 @@
     "code"
   ]
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Execute Command</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Executes shell commands and system operations. Captures output, handles errors, and supports various execution environments.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/execute_command_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/execute_code_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/execute_command</code></td>
+                        <td><div class="action-title">Execute Command</div></td>
+                        <td><div class="action-description">Executes shell commands and system operations. Captures output, handles errors, and supports various execution environments.</div></td>
                         <td><pre class="schema-display">{
   "title": "Execute Command Input",
   "description": "This action does not use input data directly, but data can be passed to the command via expressions in the 'command' config field.",
@@ -1147,6 +1042,9 @@
     "command"
   ]
 }</pre></td>
+                        <td><a href="./soeasily/execute_command_v1.0.0.json" class="json-link">
+                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
+                            </a></td>
                     </tr></tbody>
             </table>
         </div>
@@ -1167,19 +1065,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div class="action-title">HTTP Request</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Makes HTTP requests to external APIs and services. Supports all HTTP methods, authentication, headers, and response handling.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/http_request_v1.0.0.json" class="json-link">
-                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                                        <tr>
                         <td><code>soeasily/http_request</code></td>
+                        <td><div class="action-title">HTTP Request</div></td>
+                        <td><div class="action-description">Makes HTTP requests to external APIs and services. Supports all HTTP methods, authentication, headers, and response handling.</div></td>
                         <td><pre class="schema-display">{
   "title": "HTTP Request Input",
   "type": "object"
@@ -1239,20 +1128,14 @@
     "url"
   ]
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">GraphQL Request</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Executes GraphQL queries and mutations against GraphQL endpoints. Supports variables, fragments, and error handling.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/graphql_request_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/http_request_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/graphql_request</code></td>
+                        <td><div class="action-title">GraphQL Request</div></td>
+                        <td><div class="action-description">Executes GraphQL queries and mutations against GraphQL endpoints. Supports variables, fragments, and error handling.</div></td>
                         <td><pre class="schema-display">{
   "title": "GraphQL Request Input",
   "type": "object"
@@ -1299,6 +1182,9 @@
     "query"
   ]
 }</pre></td>
+                        <td><a href="./soeasily/graphql_request_v1.0.0.json" class="json-link">
+                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
+                            </a></td>
                     </tr></tbody>
             </table>
         </div>
@@ -1319,19 +1205,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div class="action-title">LLM Prompt</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Sends prompts to Large Language Models and retrieves generated text responses. Supports various AI providers and model configurations.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/llm_prompt_v1.0.0.json" class="json-link">
-                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                                        <tr>
                         <td><code>soeasily/llm_prompt</code></td>
+                        <td><div class="action-title">LLM Prompt</div></td>
+                        <td><div class="action-description">Sends prompts to Large Language Models and retrieves generated text responses. Supports various AI providers and model configurations.</div></td>
                         <td><pre class="schema-display">{
   "title": "LLM Prompt Input",
   "type": "object"
@@ -1372,20 +1249,14 @@
     "prompt"
   ]
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">Agent Executor</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Executes a sequence of actions driven by a Large Language Model to achieve a high-level objective. The agent has access to defined tools.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/agent_executor_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/llm_prompt_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/agent_executor</code></td>
+                        <td><div class="action-title">Agent Executor</div></td>
+                        <td><div class="action-description">Executes a sequence of actions driven by a Large Language Model to achieve a high-level objective. The agent has access to defined tools.</div></td>
                         <td><pre class="schema-display">{
   "title": "Agent Executor Input",
   "type": "object",
@@ -1433,6 +1304,9 @@
     "tools"
   ]
 }</pre></td>
+                        <td><a href="./soeasily/agent_executor_v1.0.0.json" class="json-link">
+                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
+                            </a></td>
                     </tr></tbody>
             </table>
         </div>
@@ -1453,19 +1327,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div class="action-title">Debug Log</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Logs data for debugging and monitoring purposes. Outputs structured log entries with configurable levels and formatting.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/debug_log_v1.0.0.json" class="json-link">
-                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                                        <tr>
                         <td><code>soeasily/debug_log</code></td>
+                        <td><div class="action-title">Debug Log</div></td>
+                        <td><div class="action-description">Logs data for debugging and monitoring purposes. Outputs structured log entries with configurable levels and formatting.</div></td>
                         <td><pre class="schema-display">{
   "title": "Debug Log Input",
   "type": "object"
@@ -1488,20 +1353,14 @@
     "message"
   ]
 }</pre></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="action-title">No Operation</div>
-                        </td>
-                        <td>
-                            <div class="action-description">Passes input data through unchanged. Useful for testing, placeholders, and workflow structure during development.</div>
-                        </td>
-                        <td>
-                            <a href="./soeasily/no_operation_v1.0.0.json" class="json-link">
+                        <td><a href="./soeasily/debug_log_v1.0.0.json" class="json-link">
                                 <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
-                            </a>
-                        </td>
+                            </a></td>
+                    </tr>
+                                        <tr>
                         <td><code>soeasily/no_operation</code></td>
+                        <td><div class="action-title">No Operation</div></td>
+                        <td><div class="action-description">Passes input data through unchanged. Useful for testing, placeholders, and workflow structure during development.</div></td>
                         <td><pre class="schema-display">{
   "title": "No Operation Input",
   "type": "object"
@@ -1517,6 +1376,9 @@
   "properties": {},
   "additionalProperties": false
 }</pre></td>
+                        <td><a href="./soeasily/no_operation_v1.0.0.json" class="json-link">
+                                <img src="/public/assets/json-file.svg" alt="JSON" class="json-icon">
+                            </a></td>
                     </tr></tbody>
             </table>
         </div>
