@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Data - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .query-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .query-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .query-expression {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 16px;
+            color: #9a3412;
+            margin: 8px 0;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../index.html">SoEasily Schemas</a> / 
+                <a href="../index.html">Actions</a> / 
+                Query Data
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Query Data</h1>
+            <p class="hero-subtitle">
+                Extracts a subset of data from the input object using a JSONata query. Useful for filtering arrays, selecting specific values, or checking for existence.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Query Data action harnesses the power of JSONata to extract, filter, and manipulate data with precision. Whether you need to find specific items in arrays, extract nested values, perform calculations, or check for data existence, Query Data provides a flexible and powerful solution. Perfect for data analysis, filtering workflows, and extracting insights from complex data structures.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Powerful Querying</h3>
+                    <p class="feature-desc">Use JSONata expressions to perform complex data queries and transformations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Array Filtering</h3>
+                    <p class="feature-desc">Filter arrays based on conditions, find specific items, or extract subsets of data.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Precise Extraction</h3>
+                    <p class="feature-desc">Extract specific values from nested objects and complex data structures.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">query</span>
+                <span class="tag">filter</span>
+                <span class="tag">select</span>
+                <span class="tag">find</span>
+                <span class="tag">jsonata</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Query Examples Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Query Examples</h2>
+            <p class="section-desc">
+                See how Query Data extracts and filters data using JSONata expressions.
+            </p>
+            
+            <div class="query-example">
+                <h3 class="query-title">Filter Products by Price</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Find products with price greater than 100</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">JSONata Expression:</h4>
+                <div class="query-expression">products[price > 100]</div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input Data:</h4>
+                <pre><code>{
+  "products": [
+    { "name": "Basic", "price": 50, "category": "software" },
+    { "name": "Pro", "price": 150, "category": "software" },
+    { "name": "Enterprise", "price": 300, "category": "software" }
+  ]
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Query Result:</h4>
+                <pre><code>{
+  "result": [
+    { "name": "Pro", "price": 150, "category": "software" },
+    { "name": "Enterprise", "price": 300, "category": "software" }
+  ]
+}</code></pre>
+            </div>
+
+            <div class="query-example">
+                <h3 class="query-title">Extract User Names</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Get just the names from a list of users</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">JSONata Expression:</h4>
+                <div class="query-expression">users.name</div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input Data:</h4>
+                <pre><code>{
+  "users": [
+    { "id": 1, "name": "Alice", "role": "admin" },
+    { "id": 2, "name": "Bob", "role": "user" },
+    { "id": 3, "name": "Charlie", "role": "user" }
+  ]
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Query Result:</h4>
+                <pre><code>{
+  "result": ["Alice", "Bob", "Charlie"]
+}</code></pre>
+            </div>
+
+            <div class="query-example">
+                <h3 class="query-title">Find Active Orders</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Filter orders by status and extract specific fields</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">JSONata Expression:</h4>
+                <div class="query-expression">orders[status = "active"].{id: id, total: total}</div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input Data:</h4>
+                <pre><code>{
+  "orders": [
+    { "id": "ord-1", "status": "active", "total": 150.00, "customer": "Alice" },
+    { "id": "ord-2", "status": "completed", "total": 75.00, "customer": "Bob" },
+    { "id": "ord-3", "status": "active", "total": 200.00, "customer": "Charlie" }
+  ]
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Query Result:</h4>
+                <pre><code>{
+  "result": [
+    { "id": "ord-1", "total": 150.00 },
+    { "id": "ord-3", "total": 200.00 }
+  ]
+}</code></pre>
+            </div>
+
+            <div class="query-example">
+                <h3 class="query-title">Calculate Total Revenue</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Sum up order totals for completed orders</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">JSONata Expression:</h4>
+                <div class="query-expression">$sum(orders[status = "completed"].total)</div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Query Result:</h4>
+                <pre><code>{
+  "result": 275.00
+}</code></pre>
+            </div>
+
+            <div class="query-example">
+                <h3 class="query-title">Check Data Existence</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Check if any high-priority items exist</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">JSONata Expression:</h4>
+                <div class="query-expression">$exists(items[priority = "high"])</div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Query Result:</h4>
+                <pre><code>{
+  "result": true
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure the Query Data action with a JSONata expression to extract or filter data.
+            </p>
+            
+            <pre><code>{
+  "title": "Query Data Configuration",
+  "type": "object",
+  "properties": {
+    "expression": {
+      "type": "string",
+      "title": "JSONata Query",
+      "description": "A JSONata expression to query the input data."
+    }
+  },
+  "required": ["expression"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Accepts any JSON object to be queried with the JSONata expression.</p>
+                    <pre><code>{
+  "title": "Query Data Input",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">Returns the query result in a structured format.</p>
+                    <pre><code>{
+  "title": "Query Data Output",
+  "properties": {
+    "result": {
+      "description": "The result of the JSONata query."
+    }
+  }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JSONata Patterns Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common JSONata Patterns</h2>
+            <p class="section-desc">
+                Useful JSONata expressions for common data querying tasks.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Array Filtering</h3>
+                    <pre><code>// Filter by condition
+items[price > 100]
+
+// Filter by multiple conditions
+users[age >= 18 and status = "active"]
+
+// Filter by nested property
+orders[customer.type = "premium"]</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Field Selection</h3>
+                    <pre><code>// Extract single field
+users.name
+
+// Extract multiple fields
+users.{name: name, email: email}
+
+// Rename fields
+users.{fullName: name, id: userId}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Aggregation Functions</h3>
+                    <pre><code>// Sum values
+$sum(orders.total)
+
+// Count items
+$count(users[status = "active"])
+
+// Average calculation
+$average(products.price)</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Existence Checks</h3>
+                    <pre><code>// Check if data exists
+$exists(user.email)
+
+// Check if array has items
+$count(items) > 0
+
+// Check for specific values
+"admin" in user.roles</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Sorting & Limiting</h3>
+                    <pre><code>// Sort by field
+products^(price)
+
+// Sort descending
+products^(>price)
+
+// Get first N items
+products[0..2]</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">String Operations</h3>
+                    <pre><code>// String contains
+users[name ~> /john/i]
+
+// String concatenation
+users.{fullName: firstName & " " & lastName}
+
+// String length
+$length(description)</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Analysis</h3>
+                    <p class="feature-desc">Extract insights from complex datasets, calculate metrics, and generate reports.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Search & Filter</h3>
+                    <p class="feature-desc">Find specific records based on criteria, filter lists, and extract relevant data.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">✅ Data Validation</h3>
+                    <p class="feature-desc">Check for required fields, validate data existence, and verify data quality.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Data Preparation</h3>
+                    <p class="feature-desc">Prepare data for other actions by extracting and reshaping relevant information.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📈 Business Logic</h3>
+                    <p class="feature-desc">Implement business rules, calculate derived values, and make data-driven decisions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Conditional Processing</h3>
+                    <p class="feature-desc">Extract data conditionally to drive workflow branching and decision making.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Specific Queries</h3>
+                    <p class="feature-desc">
+                        Write precise queries for better performance:
+                        <br>• Use specific field names instead of wildcards
+                        <br>• Filter early to reduce data processing
+                        <br>• Combine conditions efficiently
+                        <br>• Avoid overly complex nested expressions
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛡️ Error Handling</h3>
+                    <p class="feature-desc">
+                        Handle edge cases gracefully:
+                        <br>• Check for null/undefined values
+                        <br>• Use default values with <code>?:</code> operator
+                        <br>• Validate array existence before filtering
+                        <br>• Test queries with various data shapes
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Clear Expressions</h3>
+                    <p class="feature-desc">
+                        Write readable and maintainable queries:
+                        <br>• Use descriptive field names
+                        <br>• Break complex queries into steps
+                        <br>• Comment complex logic
+                        <br>• Test expressions with sample data
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">⚡ Performance Tips</h3>
+                    <p class="feature-desc">
+                        Optimize query performance:
+                        <br>• Filter before transforming data
+                        <br>• Use existence checks for optional fields
+                        <br>• Limit results when appropriate
+                        <br>• Consider data structure for efficiency
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/query_data</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Data Operation</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Data Operations</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.data.query@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
