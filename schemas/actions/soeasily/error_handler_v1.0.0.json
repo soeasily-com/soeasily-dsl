@@ -1,0 +1,58 @@
+{
+  "id": "soeasily/error_handler",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Error Handler",
+    "description": "Catches errors from a failed action. The input will be a standardized error object containing details about the failure, which can then be used for notifications or logging.",
+    "category": "utility",
+    "tags": ["error", "catch", "fail", "exception", "handle"],
+    "collection": {
+      "name": "Utilities",
+      "display_order": 10
+    },
+    "icon_svg_name": "error_outline.svg"
+  },
+  "handler": "soeasily.utility.error_handler@1",
+  "config_schema": {
+    "title": "Error Handler Configuration",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "input_schema": {
+    "title": "Error Handler Input",
+    "description": "Receives a standardized error object.",
+    "type": "object",
+    "properties": {
+      "error": { "type": "string" },
+      "failed_action": { "type": "string" },
+      "timestamp": { "type": "string", "format": "date-time" }
+    }
+  },
+  "output_schema": {
+    "title": "Error Handler Output",
+    "description": "Passes the received error object through unchanged.",
+    "type": "object"
+  },
+  "tests": [
+    {
+      "name": "Catch an API error",
+      "description": "Tests the pass-through of a standard error object.",
+      "config": {},
+      "input": {
+        "error": "API returned status 404",
+        "failed_action": "http_request_users",
+        "timestamp": "2025-06-07T15:30:00Z"
+      },
+      "expected_output": {
+        "error": "API returned status 404",
+        "failed_action": "http_request_users",
+        "timestamp": "2025-06-07T15:30:00Z"
+      }
+    }
+  ]
+}

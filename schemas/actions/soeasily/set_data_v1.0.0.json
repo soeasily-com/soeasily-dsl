@@ -1,0 +1,62 @@
+{
+  "id": "soeasily/set_data",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Set Data",
+    "description": "Adds new fields or modifies existing fields in the data payload. Define key-value pairs where the value is a JSONata expression.",
+    "category": "data_operation",
+    "tags": ["set", "modify", "update", "assign", "variable"],
+    "collection": {
+      "name": "Data Operations",
+      "display_order": 0
+    },
+    "icon_svg_name": "edit.svg"
+  },
+  "handler": "soeasily.data.set@1",
+  "config_schema": {
+    "title": "Set Data Configuration",
+    "type": "object",
+    "properties": {
+      "fields": {
+        "type": "object",
+        "title": "Fields to Set",
+        "description": "An object where keys are the field names to add/modify and values are the JSONata expressions to generate the data.",
+        "additionalProperties": { "type": "string" }
+      }
+    },
+    "required": ["fields"]
+  },
+  "input_schema": {
+    "title": "Set Data Input",
+    "description": "The source object to be modified.",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "Set Data Output",
+    "description": "The modified object.",
+    "type": "object"
+  },
+  "tests": [
+    {
+      "name": "Add a new field and modify an existing one",
+      "description": "Tests creating a 'full_name' field and updating a 'status' field.",
+      "config": {
+        "fields": {
+          "full_name": "$join([source.first, ' ', source.last])",
+          "status": "'processed'"
+        }
+      },
+      "input": { "first": "John", "last": "Doe", "status": "new" },
+      "expected_output": {
+        "first": "John",
+        "last": "Doe",
+        "full_name": "John Doe",
+        "status": "processed"
+      }
+    }
+  ]
+}

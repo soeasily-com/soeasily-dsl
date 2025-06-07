@@ -1,0 +1,71 @@
+{
+  "id": "soeasily/http_request",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "HTTP Request",
+    "description": "Makes a customizable HTTP request to a specified URL and returns the full response, including status code, headers, and body.",
+    "category": "integration_generic",
+    "tags": ["http", "https", "api", "rest", "request", "get", "post"],
+    "collection": {
+      "name": "Integrations",
+      "display_order": 0
+    },
+    "icon_svg_name": "http.svg"
+  },
+  "handler": "soeasily.integrations.http@1",
+  "config_schema": {
+    "title": "HTTP Request Configuration",
+    "type": "object",
+    "properties": {
+      "method": {
+        "type": "string",
+        "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"],
+        "default": "GET"
+      },
+      "url": { "type": "string", "format": "uri" },
+      "headers": { "type": "object" },
+      "query_params": { "type": "object" },
+      "body": { "type": ["object", "string"] }
+    },
+    "required": ["method", "url"]
+  },
+  "input_schema": {
+    "title": "HTTP Request Input",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "HTTP Request Output",
+    "type": "object",
+    "properties": {
+      "status_code": { "type": "integer" },
+      "headers": { "type": "object" },
+      "body": {}
+    },
+    "required": ["status_code", "headers", "body"]
+  },
+  "tests": [
+    {
+      "name": "GET request to JSONPlaceholder",
+      "description": "Tests a simple GET request to a public API.",
+      "config": {
+        "method": "GET",
+        "url": "https://jsonplaceholder.typicode.com/todos/1"
+      },
+      "input": {},
+      "expected_output": {
+        "status_code": 200,
+        "headers": { "content-type": "application/json; charset=utf-8" },
+        "body": {
+          "userId": 1,
+          "id": 1,
+          "title": "delectus aut autem",
+          "completed": false
+        }
+      }
+    }
+  ]
+}

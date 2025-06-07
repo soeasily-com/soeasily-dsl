@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP Request - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #0969da 0%, #218bff 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../index.html">SoEasily Schemas</a> / 
+                <a href="../index.html">Actions</a> / 
+                HTTP Request
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">HTTP Request</h1>
+            <p class="hero-subtitle">
+                Makes a customizable HTTP request to a specified URL and returns the full response, including status code, headers, and body.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The HTTP Request action is your gateway to integrating with external APIs and web services. It supports all major HTTP methods (GET, POST, PUT, PATCH, DELETE) and provides complete control over headers, query parameters, and request bodies. Perfect for REST API integrations, webhook calls, and data synchronization.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🌐 Universal Integration</h3>
+                    <p class="feature-desc">Connect to any REST API, webhook endpoint, or web service with full HTTP method support.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔧 Full Control</h3>
+                    <p class="feature-desc">Customize headers, query parameters, request bodies, and handle all response data.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Complete Response</h3>
+                    <p class="feature-desc">Access status codes, response headers, and body content for comprehensive API handling.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">http</span>
+                <span class="tag">https</span>
+                <span class="tag">api</span>
+                <span class="tag">rest</span>
+                <span class="tag">request</span>
+                <span class="tag">get</span>
+                <span class="tag">post</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure the HTTP Request with method, URL, headers, query parameters, and request body.
+            </p>
+            
+            <pre><code>{
+  "title": "HTTP Request Configuration",
+  "type": "object",
+  "properties": {
+    "method": {
+      "type": "string",
+      "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"],
+      "default": "GET"
+    },
+    "url": { 
+      "type": "string", 
+      "format": "uri" 
+    },
+    "headers": { 
+      "type": "object" 
+    },
+    "query_params": { 
+      "type": "object" 
+    },
+    "body": { 
+      "type": ["object", "string"] 
+    }
+  },
+  "required": ["method", "url"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Accepts any JSON object that can be used to dynamically populate request parameters.</p>
+                    <pre><code>{
+  "title": "HTTP Request Input",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">Returns the complete HTTP response with status code, headers, and body.</p>
+                    <pre><code>{
+  "title": "HTTP Request Output",
+  "type": "object",
+  "properties": {
+    "status_code": { "type": "integer" },
+    "headers": { "type": "object" },
+    "body": {}
+  },
+  "required": ["status_code", "headers", "body"]
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Cases Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Test Examples</h2>
+            <p class="section-desc">
+                Here are example configurations and expected outputs to help you understand how the HTTP Request action works.
+            </p>
+
+            <div class="test-case">
+                <h3 class="test-title">GET Request to JSONPlaceholder</h3>
+                <p class="test-desc">Tests a simple GET request to a public API.</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "method": "GET",
+  "url": "https://jsonplaceholder.typicode.com/todos/1"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Expected Output:</h4>
+                <pre><code>{
+  "status_code": 200,
+  "headers": { 
+    "content-type": "application/json; charset=utf-8" 
+  },
+  "body": {
+    "userId": 1,
+    "id": 1,
+    "title": "delectus aut autem",
+    "completed": false
+  }
+}</code></pre>
+            </div>
+
+            <div class="test-case">
+                <h3 class="test-title">POST Request with JSON Body</h3>
+                <p class="test-desc">Example of sending data to an API endpoint.</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "method": "POST",
+  "url": "https://api.example.com/users",
+  "headers": {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer token123"
+  },
+  "body": {
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+}</code></pre>
+            </div>
+
+            <div class="test-case">
+                <h3 class="test-title">GET Request with Query Parameters</h3>
+                <p class="test-desc">Example of adding query parameters to a request.</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "method": "GET",
+  "url": "https://api.example.com/search",
+  "query_params": {
+    "q": "workflow automation",
+    "limit": 10,
+    "sort": "date"
+  },
+  "headers": {
+    "Accept": "application/json"
+  }
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔗 API Integration</h3>
+                    <p class="feature-desc">Connect to third-party services like CRMs, payment processors, or data providers.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📡 Webhook Calls</h3>
+                    <p class="feature-desc">Send notifications or trigger actions in external systems.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Fetching</h3>
+                    <p class="feature-desc">Retrieve data from APIs for processing in your workflows.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Data Synchronization</h3>
+                    <p class="feature-desc">Keep systems in sync by pushing updates between services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/http_request</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Integration (Generic)</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Integrations</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.integrations.http@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

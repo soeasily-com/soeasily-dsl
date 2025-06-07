@@ -1,0 +1,62 @@
+{
+  "id": "soeasily/execute_command",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Execute Command",
+    "description": "Executes a shell command in the execution environment. Captures stdout, stderr, and the exit code.",
+    "category": "execution_scripting",
+    "tags": ["command", "shell", "execute", "cli", "bash"],
+    "collection": {
+      "name": "Execution",
+      "display_order": 1
+    },
+    "icon_svg_name": "terminal.svg"
+  },
+  "handler": "soeasily.execution.command@1",
+  "config_schema": {
+    "title": "Execute Command Configuration",
+    "type": "object",
+    "properties": {
+      "command": {
+        "type": "string",
+        "title": "Command",
+        "description": "The shell command to execute."
+      }
+    },
+    "required": ["command"]
+  },
+  "input_schema": {
+    "title": "Execute Command Input",
+    "description": "This action does not use input data directly, but data can be passed to the command via expressions in the 'command' config field.",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "Execute Command Output",
+    "type": "object",
+    "properties": {
+      "stdout": { "type": "string" },
+      "stderr": { "type": "string" },
+      "exit_code": { "type": "integer" }
+    },
+    "required": ["stdout", "stderr", "exit_code"]
+  },
+  "tests": [
+    {
+      "name": "Run echo command",
+      "description": "Tests a basic shell command and captures its output.",
+      "config": {
+        "command": "echo 'Hello, SoEasily!'"
+      },
+      "input": {},
+      "expected_output": {
+        "stdout": "Hello, SoEasily!\n",
+        "stderr": "",
+        "exit_code": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "id": "soeasily/agent_executor",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Agent Executor",
+    "description": "Executes a sequence of actions driven by a Large Language Model to achieve a high-level objective. The agent has access to a defined set of tools (other SoEasily actions).",
+    "category": "ai_llm",
+    "tags": ["agent", "ai", "llm", "reasoning", "tools", "autonomous"],
+    "collection": {
+      "name": "AI",
+      "display_order": 1
+    },
+    "icon_svg_name": "smart_toy.svg"
+  },
+  "handler": "soeasily.ai.agent@1",
+  "config_schema": {
+    "title": "Agent Executor Configuration",
+    "type": "object",
+    "properties": {
+      "objective": { "type": "string", "description": "The high-level goal for the agent to achieve." },
+      "tools": {
+        "type": "array",
+        "description": "A list of action IDs that this agent is allowed to use.",
+        "items": { "type": "string" }
+      }
+    },
+    "required": ["objective", "tools"]
+  },
+  "input_schema": {
+    "title": "Agent Executor Input",
+    "type": "object",
+    "properties": {
+      "input": { "type": "string", "description": "The initial input or query for the agent." }
+    },
+    "required": ["input"]
+  },
+  "output_schema": {
+    "title": "Agent Executor Output",
+    "type": "object",
+    "properties": {
+      "final_answer": { "type": "string", "description": "The final result or answer produced by the agent." }
+    },
+    "required": ["final_answer"]
+  },
+  "tests": [
+    {
+      "name": "Research and answer a question",
+      "description": "Tests a conceptual agent that uses an HTTP request tool.",
+      "config": {
+        "objective": "Research a topic and provide a summary.",
+        "tools": ["soeasily/http_request"]
+      },
+      "input": { "input": "What are the benefits of using a workflow automation platform?" },
+      "expected_output": {
+        "final_answer": "Workflow automation platforms improve efficiency by automating repetitive tasks, reduce human error, provide better visibility into processes, and allow for seamless integration between different software tools."
+      }
+    }
+  ]
+}

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoEasily Core Actions - Action Library</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #0969da 0%, #218bff 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 40px;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .action-card {
+            background: white;
+            border: 2px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .action-card:hover {
+            border-color: #0969da;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .action-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .action-desc {
+            color: #656d76;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .action-link {
+            color: #0969da;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../index.html">SoEasily Schemas</a> / Actions
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">SoEasily Core Actions</h1>
+            <p class="hero-subtitle">
+                Discover the complete library of SoEasily actions. Each action is a building block for creating powerful workflows.
+            </p>
+        </div>
+    </section>
+
+    <!-- Core Triggers Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Core Triggers</h2>
+            <p class="section-desc">Actions that start workflows and provide initial data</p>
+            <div class="actions-grid">
+                <a href="manual_trigger/index.html" class="action-card">
+                    <h3 class="action-title">Manual Trigger</h3>
+                    <p class="action-desc">Starts a workflow manually from the SoEasily UI with optional custom input forms</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="schedule_trigger/index.html" class="action-card">
+                    <h3 class="action-title">Schedule Trigger</h3>
+                    <p class="action-desc">Automatically starts workflows on a schedule using cron expressions</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="webhook_trigger/index.html" class="action-card">
+                    <h3 class="action-title">Webhook Trigger</h3>
+                    <p class="action-desc">Starts workflows when HTTP requests are received at a webhook URL</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Control Flow Section -->
+    <section class="section" style="background-color: #f6f8fa;">
+        <div class="container">
+            <h2 class="section-title">Control Flow</h2>
+            <p class="section-desc">Actions that control workflow execution paths and logic</p>
+            <div class="actions-grid">
+                <a href="conditional/index.html" class="action-card">
+                    <h3 class="action-title">Conditional</h3>
+                    <p class="action-desc">Simple if/then branching logic for workflow routing</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="switch/index.html" class="action-card">
+                    <h3 class="action-title">Switch</h3>
+                    <p class="action-desc">Multi-way branching based on input values</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="wait_state/index.html" class="action-card">
+                    <h3 class="action-title">Wait</h3>
+                    <p class="action-desc">Pauses workflow execution for a specified duration</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="merge_branches/index.html" class="action-card">
+                    <h3 class="action-title">Merge Branches</h3>
+                    <p class="action-desc">Combines multiple workflow branches back into a single path</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="execute_workflow/index.html" class="action-card">
+                    <h3 class="action-title">Execute Workflow</h3>
+                    <p class="action-desc">Runs another workflow as a sub-process</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="stop_workflow/index.html" class="action-card">
+                    <h3 class="action-title">Stop Workflow</h3>
+                    <p class="action-desc">Terminates workflow execution with optional status</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Operations Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Data Operations</h2>
+            <p class="section-desc">Actions for manipulating, transforming, and working with data</p>
+            <div class="actions-grid">
+                <a href="set_data/index.html" class="action-card">
+                    <h3 class="action-title">Set Data</h3>
+                    <p class="action-desc">Creates or modifies data values in the workflow</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="transform_data/index.html" class="action-card">
+                    <h3 class="action-title">Transform Data</h3>
+                    <p class="action-desc">Applies transformations to data using expressions</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="query_data/index.html" class="action-card">
+                    <h3 class="action-title">Query Data</h3>
+                    <p class="action-desc">Extracts specific data using query expressions</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="convert_data/index.html" class="action-card">
+                    <h3 class="action-title">Convert Data Format</h3>
+                    <p class="action-desc">Converts data between different formats (JSON, XML, CSV)</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Execution Section -->
+    <section class="section" style="background-color: #f6f8fa;">
+        <div class="container">
+            <h2 class="section-title">Execution</h2>
+            <p class="section-desc">Actions for executing code and running external commands</p>
+            <div class="actions-grid">
+                <a href="execute_code/index.html" class="action-card">
+                    <h3 class="action-title">Execute Code</h3>
+                    <p class="action-desc">Runs custom JavaScript code within the workflow</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="execute_command/index.html" class="action-card">
+                    <h3 class="action-title">Execute Command</h3>
+                    <p class="action-desc">Executes system commands and shell scripts</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Integrations</h2>
+            <p class="section-desc">Actions for connecting with external services and APIs</p>
+            <div class="actions-grid">
+                <a href="http_request/index.html" class="action-card">
+                    <h3 class="action-title">HTTP Request</h3>
+                    <p class="action-desc">Makes HTTP requests to external APIs and services</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="graphql_request/index.html" class="action-card">
+                    <h3 class="action-title">GraphQL Request</h3>
+                    <p class="action-desc">Executes GraphQL queries and mutations</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Section -->
+    <section class="section" style="background-color: #f6f8fa;">
+        <div class="container">
+            <h2 class="section-title">AI</h2>
+            <p class="section-desc">Actions for AI-powered automation and language model integration</p>
+            <div class="actions-grid">
+                <a href="llm_prompt/index.html" class="action-card">
+                    <h3 class="action-title">LLM Prompt</h3>
+                    <p class="action-desc">Sends prompts to language models and returns generated text</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="agent_executor/index.html" class="action-card">
+                    <h3 class="action-title">Agent Executor</h3>
+                    <p class="action-desc">Executes AI agents with tool access and reasoning capabilities</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Utilities Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Utilities</h2>
+            <p class="section-desc">Helper actions for debugging, logging, and workflow management</p>
+            <div class="actions-grid">
+                <a href="no_operation/index.html" class="action-card">
+                    <h3 class="action-title">No Operation</h3>
+                    <p class="action-desc">A placeholder action that does nothing but pass data through</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="debug_log/index.html" class="action-card">
+                    <h3 class="action-title">Debug Log</h3>
+                    <p class="action-desc">Logs data for debugging and monitoring workflow execution</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+                <a href="error_handler/index.html" class="action-card">
+                    <h3 class="action-title">Error Handler</h3>
+                    <p class="action-desc">Handles errors and exceptions in workflow execution</p>
+                    <span class="action-link">View Details →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

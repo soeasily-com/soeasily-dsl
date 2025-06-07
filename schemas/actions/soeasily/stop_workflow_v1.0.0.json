@@ -1,0 +1,60 @@
+{
+  "id": "soeasily/stop_workflow",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Stop Workflow",
+    "description": "Immediately halts the execution of the workflow and marks its final status as 'succeeded' or 'failed'.",
+    "category": "control_flow",
+    "tags": ["stop", "end", "terminate", "halt", "exit"],
+    "collection": {
+      "name": "Control Flow",
+      "display_order": 6
+    },
+    "icon_svg_name": "pan_tool.svg"
+  },
+  "handler": "soeasily.control.stop_workflow@1",
+  "config_schema": {
+    "title": "Stop Workflow Configuration",
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": ["succeeded", "failed"],
+        "description": "The final status to assign to the workflow run."
+      },
+      "message": {
+        "type": "string",
+        "description": "An optional message to record as the reason for stopping."
+      }
+    },
+    "required": ["status"]
+  },
+  "input_schema": {
+    "title": "Stop Workflow Input",
+    "description": "Accepts any data, which is discarded as the workflow halts.",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "Stop Workflow Output",
+    "description": "This action produces no output as it terminates the workflow.",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "tests": [
+    {
+      "name": "Stop with success",
+      "description": "Tests stopping the workflow with a success status.",
+      "config": {
+        "status": "succeeded",
+        "message": "Condition not met, stopping normally."
+      },
+      "input": { "data": "some value" },
+      "expected_output": {}
+    }
+  ]
+}

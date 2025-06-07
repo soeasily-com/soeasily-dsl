@@ -1,0 +1,67 @@
+{
+  "id": "soeasily/execute_code",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Execute Code",
+    "description": "Executes a snippet of code in a sandboxed environment. The input data is available within the script's scope, and the script's return value becomes the action's output.",
+    "category": "execution_scripting",
+    "tags": ["code", "script", "run", "execute", "javascript", "python"],
+    "collection": {
+      "name": "Execution",
+      "display_order": 0
+    },
+    "icon_svg_name": "code.svg"
+  },
+  "handler": "soeasily.execution.code@1",
+  "config_schema": {
+    "title": "Execute Code Configuration",
+    "type": "object",
+    "properties": {
+      "language": {
+        "type": "string",
+        "enum": ["javascript"],
+        "default": "javascript",
+        "description": "The programming language of the code snippet."
+      },
+      "code": {
+        "type": "string",
+        "title": "Code Snippet",
+        "description": "The code to execute. The input data is available as a variable named 'input'."
+      }
+    },
+    "required": ["language", "code"]
+  },
+  "input_schema": {
+    "title": "Execute Code Input",
+    "description": "Data made available to the script in a variable named 'input'.",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "Execute Code Output",
+    "type": "object",
+    "properties": {
+      "result": {
+        "description": "The value returned by the executed code."
+      }
+    },
+    "required": ["result"]
+  },
+  "tests": [
+    {
+      "name": "Run simple JavaScript",
+      "description": "Tests adding two numbers from the input object.",
+      "config": {
+        "language": "javascript",
+        "code": "return input.a + input.b;"
+      },
+      "input": { "a": 5, "b": 10 },
+      "expected_output": {
+        "result": 15
+      }
+    }
+  ]
+}

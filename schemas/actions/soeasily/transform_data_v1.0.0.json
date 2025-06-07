@@ -1,0 +1,57 @@
+{
+  "id": "soeasily/transform_data",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Transform Data",
+    "description": "Reshapes the input data into a completely new structure using a JSONata expression. Ideal for formatting data before sending it to an external API.",
+    "category": "data_operation",
+    "tags": ["transform", "map", "reshape", "format", "jsonata"],
+    "collection": {
+      "name": "Data Operations",
+      "display_order": 1
+    },
+    "icon_svg_name": "transform.svg"
+  },
+  "handler": "soeasily.data.transform@1",
+  "config_schema": {
+    "title": "Transform Data Configuration",
+    "type": "object",
+    "properties": {
+      "expression": {
+        "type": "string",
+        "title": "JSONata Expression",
+        "description": "A single JSONata expression that defines the entire new output object."
+      }
+    },
+    "required": ["expression"]
+  },
+  "input_schema": {
+    "title": "Transform Data Input",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "Transform Data Output",
+    "description": "The result of the JSONata transformation."
+  },
+  "tests": [
+    {
+      "name": "Restructure user data for API",
+      "description": "Tests transforming an internal user object to a specific API payload format.",
+      "config": {
+        "expression": "{ 'customer': { 'id': source.user_id, 'contact': source.email, 'tags': ['new-signup'] } }"
+      },
+      "input": { "user_id": "u-123", "email": "test@example.com" },
+      "expected_output": {
+        "customer": {
+          "id": "u-123",
+          "contact": "test@example.com",
+          "tags": ["new-signup"]
+        }
+      }
+    }
+  ]
+}

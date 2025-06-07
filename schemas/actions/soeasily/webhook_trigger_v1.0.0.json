@@ -1,0 +1,105 @@
+{
+  "id": "soeasily/webhook_trigger",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Webhook Trigger",
+    "description": "Creates a unique URL to start the workflow when an HTTP request is received. Captures the request method, headers, query parameters, and body to be used in subsequent actions.",
+    "category": "trigger",
+    "tags": ["webhook", "http", "api", "endpoint", "request", "post", "get"],
+    "collection": {
+      "name": "Core Triggers",
+      "display_order": 2
+    },
+    "icon_svg_name": "webhook.svg"
+  },
+  "handler": "soeasily.triggers.webhook@1",
+  "config_schema": {
+    "title": "Webhook Configuration",
+    "type": "object",
+    "properties": {
+      "authentication": {
+        "description": "Specify if any authentication is required to trigger the webhook.",
+        "type": "string",
+        "enum": ["none", "token"],
+        "default": "none"
+      }
+    },
+    "additionalProperties": false
+  },
+  "input_schema": {
+    "title": "Webhook Trigger Input",
+    "description": "This trigger does not accept input from other actions.",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "title": "Webhook Trigger Output",
+    "description": "The payload of the incoming HTTP request.",
+    "type": "object",
+    "properties": {
+      "method": {
+        "description": "The HTTP method of the request (e.g., 'GET', 'POST').",
+        "type": "string"
+      },
+      "headers": {
+        "description": "An object containing the request headers.",
+        "type": "object"
+      },
+      "query_params": {
+        "description": "An object containing the URL query parameters.",
+        "type": "object"
+      },
+      "body": {
+        "description": "The parsed request body. Can be JSON, a string, or null.",
+        "type": ["object", "array", "string", "null"]
+      }
+    },
+    "required": ["method", "headers", "query_params", "body"]
+  },
+  "tests": [
+    {
+      "name": "Simple POST with JSON Body",
+      "description": "Tests a basic POST request with a standard JSON body.",
+      "config": {},
+      "input": {},
+      "expected_output": {
+        "method": "POST",
+        "headers": { "content-type": "application/json" },
+        "query_params": {},
+        "body": { "message": "Hello, World!", "user_id": 123 }
+      }
+    },
+    {
+      "name": "GET with Query Parameters",
+      "description": "Tests a simple GET request with no body but with URL query parameters.",
+      "config": {},
+      "input": {},
+      "expected_output": {
+        "method": "GET",
+        "headers": {},
+        "query_params": { "status": "active", "id": "user-456" },
+        "body": null
+      }
+    },
+    {
+      "name": "Request with Custom Headers",
+      "description": "Tests a POST request that includes custom headers, such as an API key or trace ID.",
+      "config": {},
+      "input": {},
+      "expected_output": {
+        "method": "POST",
+        "headers": {
+          "content-type": "application/json",
+          "x-request-id": "trace-xyz-789"
+        },
+        "query_params": {},
+        "body": { "event": "item_updated" }
+      }
+    }
+  ]
+}

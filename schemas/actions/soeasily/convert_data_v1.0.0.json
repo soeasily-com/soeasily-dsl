@@ -1,0 +1,65 @@
+{
+  "id": "soeasily/convert_data",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Convert Data Format",
+    "description": "Converts a string of data from one format (e.g., JSON) to another (e.g., XML).",
+    "category": "data_operation",
+    "tags": ["convert", "parse", "format", "json", "xml", "csv"],
+    "collection": {
+      "name": "Data Operations",
+      "display_order": 3
+    },
+    "icon_svg_name": "sync_alt.svg"
+  },
+  "handler": "soeasily.data.convert@1",
+  "config_schema": {
+    "title": "Convert Data Format Configuration",
+    "type": "object",
+    "properties": {
+      "source_format": {
+        "type": "string",
+        "enum": ["json", "xml", "csv"]
+      },
+      "target_format": {
+        "type": "string",
+        "enum": ["json", "xml", "csv"]
+      }
+    },
+    "required": ["source_format", "target_format"]
+  },
+  "input_schema": {
+    "title": "Convert Data Input",
+    "type": "object",
+    "properties": {
+      "data": { "type": "string", "description": "The raw data string to be converted." }
+    },
+    "required": ["data"]
+  },
+  "output_schema": {
+    "title": "Convert Data Output",
+    "type": "object",
+    "properties": {
+      "data": { "type": "string", "description": "The data in the new format." }
+    },
+    "required": ["data"]
+  },
+  "tests": [
+    {
+      "name": "Convert JSON to XML",
+      "description": "Tests a standard JSON object string to XML conversion.",
+      "config": {
+        "source_format": "json",
+        "target_format": "xml"
+      },
+      "input": { "data": "{\"root\":{\"user\":{\"name\":\"John\"}}}" },
+      "expected_output": {
+        "data": "<root><user><name>John</name></user></root>"
+      }
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "id": "soeasily/execute_workflow",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Execute Workflow",
+    "description": "Executes another workflow (a 'sub-workflow') using the input data provided. The current workflow will wait for the sub-workflow to complete and will receive its final output.",
+    "category": "control_flow",
+    "tags": ["sub-workflow", "execute", "run", "child", "modular"],
+    "collection": {
+      "name": "Control Flow",
+      "display_order": 5
+    },
+    "icon_svg_name": "play_arrow.svg"
+  },
+  "handler": "soeasily.control.execute_workflow@1",
+  "config_schema": {
+    "title": "Execute Workflow Configuration",
+    "type": "object",
+    "properties": {
+      "workflow_id": {
+        "type": "string",
+        "title": "Workflow ID",
+        "description": "The ID of the SoEasily workflow to execute."
+      }
+    },
+    "required": ["workflow_id"]
+  },
+  "input_schema": {
+    "title": "Execute Workflow Input",
+    "description": "The data to pass as input to the trigger action of the sub-workflow.",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "Execute Workflow Output",
+    "description": "The final data output from the executed sub-workflow.",
+    "type": "object"
+  },
+  "tests": [
+    {
+      "name": "Execute a user processing workflow",
+      "description": "Tests passing a user ID to a sub-workflow and receiving the processed result.",
+      "config": {
+        "workflow_id": "wkf_user_enrichment_123"
+      },
+      "input": { "user_id": "usr_abc" },
+      "expected_output": {
+        "user_id": "usr_abc",
+        "email": "test@example.com",
+        "enriched": true
+      }
+    }
+  ]
+}

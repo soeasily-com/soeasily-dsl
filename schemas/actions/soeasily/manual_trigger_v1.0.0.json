@@ -1,0 +1,93 @@
+{
+  "id": "soeasily/manual_trigger",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Manual Trigger",
+    "description": "Starts a workflow manually from the SoEasily UI. This trigger can be configured with a custom JSON Schema to present a form for providing data when the workflow is run.",
+    "category": "trigger",
+    "tags": ["manual", "run", "start", "test", "input", "form"],
+    "collection": {
+      "name": "Core Triggers",
+      "display_order": 0
+    },
+    "icon_svg_name": "play_circle.svg"
+  },
+  "handler": "soeasily.triggers.manual@1",
+  "config_schema": {
+    "title": "Manual Trigger Configuration",
+    "type": "object",
+    "properties": {
+      "payload_schema": {
+        "title": "Input Form Schema",
+        "description": "A JSON Schema defining the input form presented to the user at runtime. The data provided will become the output of this trigger.",
+        "type": "object",
+        "default": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "input_schema": {
+    "title": "Manual Trigger Input",
+    "description": "This trigger does not accept input from other actions.",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "title": "Manual Trigger Output",
+    "description": "The output is dynamic and conforms to the structure defined in the 'Input Form Schema' configuration.",
+    "type": "object"
+  },
+  "tests": [
+    {
+      "name": "Simple Run with No Form",
+      "description": "Tests a basic manual run where no custom inputs are defined.",
+      "config": {},
+      "input": {},
+      "expected_output": {}
+    },
+    {
+      "name": "Run with a Simple Text Input",
+      "description": "Simulates a user providing a customer name in a custom form.",
+      "config": {
+        "payload_schema": {
+          "type": "object",
+          "title": "New User Form",
+          "properties": {
+            "customer_name": { "type": "string", "title": "Customer Name" }
+          },
+          "required": ["customer_name"]
+        }
+      },
+      "input": {},
+      "expected_output": {
+        "customer_name": "Jane Doe"
+      }
+    },
+    {
+      "name": "Run with Numeric and Boolean Inputs",
+      "description": "Simulates a user providing an order ID and specifying if it's a priority order.",
+      "config": {
+        "payload_schema": {
+          "type": "object",
+          "properties": {
+            "order_id": { "type": "integer" },
+            "is_priority": { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "input": {},
+      "expected_output": {
+        "order_id": 95821,
+        "is_priority": true
+      }
+    }
+  ]
+}

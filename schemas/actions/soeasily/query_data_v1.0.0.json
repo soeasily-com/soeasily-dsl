@@ -1,0 +1,64 @@
+{
+  "id": "soeasily/query_data",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Query Data",
+    "description": "Extracts a subset of data from the input object using a JSONata query. Useful for filtering arrays, selecting specific values, or checking for existence.",
+    "category": "data_operation",
+    "tags": ["query", "filter", "select", "find", "jsonata"],
+    "collection": {
+      "name": "Data Operations",
+      "display_order": 2
+    },
+    "icon_svg_name": "search.svg"
+  },
+  "handler": "soeasily.data.query@1",
+  "config_schema": {
+    "title": "Query Data Configuration",
+    "type": "object",
+    "properties": {
+      "expression": {
+        "type": "string",
+        "title": "JSONata Query",
+        "description": "A JSONata expression to query the input data."
+      }
+    },
+    "required": ["expression"]
+  },
+  "input_schema": {
+    "title": "Query Data Input",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "Query Data Output",
+    "properties": {
+      "result": {
+        "description": "The result of the JSONata query."
+      }
+    }
+  },
+  "tests": [
+    {
+      "name": "Filter an array of products",
+      "description": "Tests filtering an array to find items with a price greater than 100.",
+      "config": {
+        "expression": "source.products[price > 100]"
+      },
+      "input": {
+        "products": [
+          { "name": "Basic", "price": 50 },
+          { "name": "Pro", "price": 150 }
+        ]
+      },
+      "expected_output": {
+        "result": [
+          { "name": "Pro", "price": 150 }
+        ]
+      }
+    }
+  ]
+}

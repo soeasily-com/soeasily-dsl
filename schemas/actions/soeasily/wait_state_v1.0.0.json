@@ -1,0 +1,54 @@
+{
+  "id": "soeasily/wait_state",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Wait",
+    "description": "Pauses the workflow for a specified duration before proceeding. Useful for delays, rate limiting, or waiting for external processes.",
+    "category": "control_flow",
+    "tags": ["wait", "delay", "sleep", "pause", "timeout"],
+    "collection": {
+      "name": "Control Flow",
+      "display_order": 2
+    },
+    "icon_svg_name": "timer.svg"
+  },
+  "handler": "soeasily.control.wait@1",
+  "config_schema": {
+    "title": "Wait Configuration",
+    "type": "object",
+    "properties": {
+      "duration_milliseconds": {
+        "type": "integer",
+        "title": "Wait Duration (milliseconds)",
+        "description": "The number of seconds the workflow should pause.",
+        "minimum": 100
+      }
+    },
+    "required": ["duration_milliseconds"]
+  },
+  "input_schema": {
+    "title": "Wait Input",
+    "description": "Accepts any JSON object.",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "Wait Output",
+    "description": "Passes the input data through unchanged after the delay.",
+    "type": "object"
+  },
+  "tests": [
+    {
+      "name": "Wait for 5 seconds",
+      "description": "Tests that the action correctly passes data through after a configured delay.",
+      "config": {
+        "duration_milliseconds": 500
+      },
+      "input": { "process_id": "proc-xyz" },
+      "expected_output": { "process_id": "proc-xyz" }
+    }
+  ]
+}

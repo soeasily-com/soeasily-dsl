@@ -1,0 +1,52 @@
+{
+  "id": "soeasily/conditional",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Conditional",
+    "description": "Allows for simple 'if/then' branching in a workflow. The input data is passed through, and logic is applied to the outgoing connections' 'condition' fields to determine the execution path.",
+    "category": "control_flow",
+    "tags": ["if", "else", "branch", "condition", "logic", "route"],
+    "collection": {
+      "name": "Control Flow",
+      "display_order": 0
+    },
+    "icon_svg_name": "git_branch.svg"
+  },
+  "handler": "soeasily.control.conditional@1",
+  "config_schema": {
+    "title": "Conditional Configuration",
+    "type": "object",
+    "description": "This action requires no configuration. Branching logic is defined on its outgoing connections.",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "input_schema": {
+    "title": "Conditional Input",
+    "description": "Accepts any JSON object from a preceding action.",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "Conditional Output",
+    "description": "Passes the input data through unchanged to be used by the subsequent branch.",
+    "type": "object"
+  },
+  "tests": [
+    {
+      "name": "Pass-through Data",
+      "description": "Ensures the action correctly passes its input directly to its output without modification.",
+      "config": {},
+      "input": {
+        "user": { "id": 123, "status": "active" },
+        "order_value": 150
+      },
+      "expected_output": {
+        "user": { "id": 123, "status": "active" },
+        "order_value": 150
+      }
+    }
+  ]
+}

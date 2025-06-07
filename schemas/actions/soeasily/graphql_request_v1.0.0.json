@@ -1,0 +1,62 @@
+{
+  "id": "soeasily/graphql_request",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "GraphQL Request",
+    "description": "Sends a query or mutation to a GraphQL endpoint and returns the response.",
+    "category": "integration_generic",
+    "tags": ["graphql", "api", "query", "mutation", "request"],
+    "collection": {
+      "name": "Integrations",
+      "display_order": 1
+    },
+    "icon_svg_name": "graphql.svg"
+  },
+  "handler": "soeasily.integrations.graphql@1",
+  "config_schema": {
+    "title": "GraphQL Request Configuration",
+    "type": "object",
+    "properties": {
+      "endpoint": { "type": "string", "format": "uri" },
+      "query": { "type": "string" },
+      "variables": { "type": "object" },
+      "headers": { "type": "object" }
+    },
+    "required": ["endpoint", "query"]
+  },
+  "input_schema": {
+    "title": "GraphQL Request Input",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "GraphQL Request Output",
+    "type": "object",
+    "properties": {
+      "status_code": { "type": "integer" },
+      "data": { "type": "object" },
+      "errors": { "type": "array" }
+    },
+    "required": ["status_code", "data"]
+  },
+  "tests": [
+    {
+      "name": "Query a public GraphQL API",
+      "description": "Tests a simple query against a public countries API.",
+      "config": {
+        "endpoint": "https://countries.trevorblades.com/",
+        "query": "query { country(code: \"US\") { name capital } }"
+      },
+      "input": {},
+      "expected_output": {
+        "status_code": 200,
+        "data": {
+          "country": { "name": "United States", "capital": "Washington, D.C." }
+        }
+      }
+    }
+  ]
+}

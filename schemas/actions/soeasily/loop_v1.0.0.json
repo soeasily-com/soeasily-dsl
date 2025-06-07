@@ -1,0 +1,51 @@
+{
+  "id": "soeasily/switch",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Switch",
+    "description": "Routes the workflow down different branches based on the value of a specified input field. Define the routing rules in the 'condition' fields of the outgoing connections.",
+    "category": "control_flow",
+    "tags": ["switch", "case", "branch", "route", "multi-way"],
+    "collection": {
+      "name": "Control Flow",
+      "display_order": 1
+    },
+    "icon_svg_name": "git_compare.svg"
+  },
+  "handler": "soeasily.control.switch@1",
+  "config_schema": {
+    "title": "Switch Configuration",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "input_schema": {
+    "title": "Switch Input",
+    "description": "Accepts any JSON object. The 'condition' on outgoing connections will reference a field within this object.",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "Switch Output",
+    "description": "Passes the input data through unchanged to the chosen branch.",
+    "type": "object"
+  },
+  "tests": [
+    {
+      "name": "Route based on status field",
+      "description": "Ensures the input data is passed through correctly, ready for evaluation by outgoing connections.",
+      "config": {},
+      "input": {
+        "ticket": { "id": "tkt-456", "status": "pending_approval" },
+        "user": "user-abc"
+      },
+      "expected_output": {
+        "ticket": { "id": "tkt-456", "status": "pending_approval" },
+        "user": "user-abc"
+      }
+    }
+  ]
+}

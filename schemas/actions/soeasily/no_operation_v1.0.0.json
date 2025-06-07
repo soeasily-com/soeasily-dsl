@@ -1,0 +1,44 @@
+{
+  "id": "soeasily/no_operation",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "No Operation",
+    "description": "An action that performs no operation (a 'noop'). It simply passes its input directly to its output. Useful as a placeholder or for debugging workflow paths.",
+    "category": "utility",
+    "tags": ["noop", "pass", "placeholder", "empty", "utility"],
+    "collection": {
+      "name": "Utilities",
+      "display_order": 0
+    },
+    "icon_svg_name": "placeholder.svg"
+  },
+  "handler": "soeasily.utility.noop@1",
+  "config_schema": {
+    "title": "No Operation Configuration",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "input_schema": {
+    "title": "No Operation Input",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "No Operation Output",
+    "description": "The output is identical to the input.",
+    "type": "object"
+  },
+  "tests": [
+    {
+      "name": "Pass through data",
+      "description": "Ensures the action passes data through without modification.",
+      "config": {},
+      "input": { "status": "ok", "value": 42 },
+      "expected_output": { "status": "ok", "value": 42 }
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "id": "soeasily/llm_prompt",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "LLM Prompt",
+    "description": "Sends a prompt to a specified Large Language Model and returns the generated text.",
+    "category": "ai_llm",
+    "tags": ["llm", "ai", "prompt", "generate", "text", "openai", "anthropic"],
+    "collection": {
+      "name": "AI",
+      "display_order": 0
+    },
+    "icon_svg_name": "auto_awesome.svg"
+  },
+  "handler": "soeasily.ai.llm@1",
+  "config_schema": {
+    "title": "LLM Prompt Configuration",
+    "type": "object",
+    "properties": {
+      "model": { "type": "string", "description": "The identifier of the LLM to use (e.g., 'gpt-4-turbo')." },
+      "prompt": { "type": "string", "description": "The prompt to send to the model." },
+      "temperature": { "type": "number", "minimum": 0, "maximum": 2, "default": 0.7 }
+    },
+    "required": ["model", "prompt"]
+  },
+  "input_schema": {
+    "title": "LLM Prompt Input",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "LLM Prompt Output",
+    "type": "object",
+    "properties": {
+      "generated_text": { "type": "string" }
+    },
+    "required": ["generated_text"]
+  },
+  "tests": [
+    {
+      "name": "Ask a simple question",
+      "description": "Tests generating text from a simple prompt.",
+      "config": {
+        "model": "gpt-4-turbo",
+        "prompt": "What is the capital of France?"
+      },
+      "input": {},
+      "expected_output": {
+        "generated_text": "The capital of France is Paris."
+      }
+    }
+  ]
+}

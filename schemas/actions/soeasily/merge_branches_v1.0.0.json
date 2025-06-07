@@ -1,0 +1,51 @@
+{
+  "id": "soeasily/merge_branches",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Merge Branches",
+    "description": "Combines multiple execution paths back into one. Only passes through the data from the single branch that was executed.",
+    "category": "control_flow",
+    "tags": ["merge", "join", "combine", "end-if", "unify"],
+    "collection": {
+      "name": "Control Flow",
+      "display_order": 4
+    },
+    "icon_svg_name": "git_merge.svg"
+  },
+  "handler": "soeasily.control.merge@1",
+  "config_schema": {
+    "title": "Merge Branches Configuration",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "input_schema": {
+    "title": "Merge Branches Input",
+    "description": "Receives data from exactly one of the incoming branches.",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "Merge Branches Output",
+    "description": "Passes through the data it received from the executed branch.",
+    "type": "object"
+  },
+  "tests": [
+    {
+      "name": "Merge data from an incoming branch",
+      "description": "Ensures that whatever data it receives, it passes it through correctly.",
+      "config": {},
+      "input": {
+        "result": "Branch A was executed",
+        "timestamp": "2025-06-07T14:00:00Z"
+      },
+      "expected_output": {
+        "result": "Branch A was executed",
+        "timestamp": "2025-06-07T14:00:00Z"
+      }
+    }
+  ]
+}

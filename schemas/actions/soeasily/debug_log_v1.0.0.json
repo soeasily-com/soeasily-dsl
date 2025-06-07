@@ -1,0 +1,57 @@
+{
+  "id": "soeasily/debug_log",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Debug Log",
+    "description": "Logs the input data to the workflow's execution history with a custom message. This action is essential for debugging and passes data through without modification.",
+    "category": "utility",
+    "tags": ["debug", "log", "print", "inspect", "utility"],
+    "collection": {
+      "name": "Utilities",
+      "display_order": 1
+    },
+    "icon_svg_name": "bug_report.svg"
+  },
+  "handler": "soeasily.utility.debug@1",
+  "config_schema": {
+    "title": "Debug Log Configuration",
+    "type": "object",
+    "properties": {
+      "message": {
+        "type": "string",
+        "description": "A message to include with the log entry. Can contain expressions."
+      }
+    },
+    "required": ["message"]
+  },
+  "input_schema": {
+    "title": "Debug Log Input",
+    "type": "object"
+  },
+  "output_schema": {
+    "title": "Debug Log Output",
+    "description": "The output is identical to the input.",
+    "type": "object"
+  },
+  "tests": [
+    {
+      "name": "Log current user data",
+      "description": "Tests logging a message along with the current data payload.",
+      "config": {
+        "message": "Data after user lookup"
+      },
+      "input": {
+        "user_id": "usr-123",
+        "status": "active"
+      },
+      "expected_output": {
+        "user_id": "usr-123",
+        "status": "active"
+      }
+    }
+  ]
+}

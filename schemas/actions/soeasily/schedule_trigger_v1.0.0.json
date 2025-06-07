@@ -1,0 +1,76 @@
+{
+  "id": "soeasily/schedule_trigger",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "Schedule Trigger",
+    "description": "Starts a workflow automatically based on a defined schedule. Provide a standard CRON expression for precise, recurring execution.",
+    "category": "trigger",
+    "tags": ["schedule", "cron", "time", "interval", "automation", "timer"],
+    "collection": {
+      "name": "Core Triggers",
+      "display_order": 1
+    },
+    "icon_svg_name": "schedule.svg"
+  },
+  "handler": "soeasily.triggers.schedule@1",
+  "config_schema": {
+    "title": "Schedule Configuration",
+    "type": "object",
+    "properties": {
+      "cron_expression": {
+        "title": "CRON Expression",
+        "description": "A standard CRON expression to define the schedule (e.g., '0 9 * * MON-FRI').",
+        "type": "string",
+        "examples": ["0 * * * *"]
+      }
+    },
+    "required": ["cron_expression"]
+  },
+  "input_schema": {
+    "title": "Schedule Trigger Input",
+    "description": "This trigger does not accept input from other actions.",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "title": "Schedule Trigger Output",
+    "description": "Provides the timestamp of when the workflow was triggered.",
+    "type": "object",
+    "properties": {
+      "triggered_at": {
+        "description": "The ISO 8601 timestamp of the trigger execution time.",
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": ["triggered_at"]
+  },
+  "tests": [
+    {
+      "name": "Trigger Every Hour",
+      "description": "Tests a schedule that runs at the beginning of every hour.",
+      "config": { "cron_expression": "0 * * * *" },
+      "input": {},
+      "expected_output": { "triggered_at": "2025-06-07T11:00:00Z" }
+    },
+    {
+      "name": "Trigger Daily at 5:30 PM",
+      "description": "Tests a daily schedule for a specific time.",
+      "config": { "cron_expression": "30 17 * * *" },
+      "input": {},
+      "expected_output": { "triggered_at": "2025-06-07T17:30:00Z" }
+    },
+    {
+      "name": "Trigger on Weekdays at 9am",
+      "description": "Tests a schedule that runs once a day, only on weekdays.",
+      "config": { "cron_expression": "0 9 * * 1-5" },
+      "input": {},
+      "expected_output": { "triggered_at": "2025-06-09T09:00:00Z" }
+    }
+  ]
+}
