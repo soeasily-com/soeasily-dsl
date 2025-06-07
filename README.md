@@ -138,7 +138,7 @@ Deploy instantly, embed in your SaaS, or fine-tune with our visual editor. Multi
 
 ```json
 {
-  "id": "http_request",
+  "id": "soeasily/http_request",
   "version": "1.0.0",
   "author": {
     "name": "SoEasily",
