@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Execute Workflow - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .workflow-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .workflow-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .execution-flow {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+        }
+
+        .workflow-step {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #059669;
+        }
+
+        .sub-workflow {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 8px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .modular-diagram {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .workflow-box {
+            display: inline-block;
+            background: white;
+            border: 2px solid #059669;
+            border-radius: 8px;
+            padding: 12px 20px;
+            margin: 8px;
+            font-weight: 600;
+            color: #065f46;
+        }
+
+        .main-workflow {
+            background: #059669;
+            color: white;
+        }
+
+        .flow-arrow {
+            color: #059669;
+            font-size: 18px;
+            margin: 0 8px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../">SoEasily Schemas</a> / 
+                <a href="../">Actions</a> / 
+                Execute Workflow
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Execute Workflow</h1>
+            <p class="hero-subtitle">
+                Executes another workflow (a 'sub-workflow') using the input data provided. The current workflow will wait for the sub-workflow to complete and will receive its final output.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Execute Workflow action enables modular workflow design by allowing you to call other workflows as sub-processes. This powerful capability promotes reusability, maintainability, and clean architecture by breaking complex processes into smaller, focused workflows. Perfect for creating workflow libraries, implementing common business processes, and building scalable automation systems.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔧 Modular Design</h3>
+                    <p class="feature-desc">Break complex workflows into smaller, reusable components for better maintainability.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Workflow Reusability</h3>
+                    <p class="feature-desc">Create workflow libraries that can be called from multiple parent workflows.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Flow</h3>
+                    <p class="feature-desc">Pass data to sub-workflows and receive their output for continued processing.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">sub-workflow</span>
+                <span class="tag">execute</span>
+                <span class="tag">run</span>
+                <span class="tag">child</span>
+                <span class="tag">modular</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">How Execute Workflow Works</h2>
+            <p class="section-desc">
+                Execute Workflow creates a parent-child relationship between workflows, enabling modular execution patterns.
+            </p>
+            
+            <div class="modular-diagram">
+                <div style="margin-bottom: 16px; font-weight: 600; color: #065f46;">Workflow Execution Pattern</div>
+                <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
+                    <div class="workflow-box main-workflow">Main Workflow</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="workflow-box">Execute Workflow</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="workflow-box">Sub-Workflow</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="workflow-box">Return Result</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="workflow-box main-workflow">Continue Main</div>
+                </div>
+            </div>
+            
+            <div class="execution-flow">
+                <div class="workflow-step">1. Main workflow reaches Execute Workflow action</div>
+                <div class="workflow-step">2. Sub-workflow is started with provided input data</div>
+                <div class="workflow-step">3. Main workflow waits for sub-workflow completion</div>
+                <div class="workflow-step">4. Sub-workflow executes and produces output</div>
+                <div class="workflow-step">5. Output is returned to main workflow</div>
+                <div class="workflow-step">6. Main workflow continues with sub-workflow result</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Examples Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Workflow Examples</h2>
+            <p class="section-desc">
+                See how Execute Workflow enables modular workflow design and reusability.
+            </p>
+            
+            <div class="workflow-example">
+                <h3 class="workflow-title">User Enrichment Workflow</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Execute a reusable user data enrichment sub-workflow</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "workflow_id": "wkf_user_enrichment_v2"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input to Sub-Workflow:</h4>
+                <pre><code>{
+  "user_id": "usr_12345",
+  "email": "john.doe@company.com"
+}</code></pre>
+                
+                <div class="sub-workflow">
+                    <strong>Sub-Workflow Process:</strong>
+                    <br>1. Fetch user profile from database
+                    <br>2. Enrich with external data sources
+                    <br>3. Calculate user score and preferences
+                    <br>4. Return enriched user data
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output from Sub-Workflow:</h4>
+                <pre><code>{
+  "user_id": "usr_12345",
+  "email": "john.doe@company.com",
+  "profile": {
+    "name": "John Doe",
+    "department": "Engineering",
+    "role": "Senior Developer"
+  },
+  "enriched_data": {
+    "social_profiles": ["linkedin", "github"],
+    "skills": ["JavaScript", "Python", "React"],
+    "experience_years": 8
+  },
+  "user_score": 85,
+  "preferences": {
+    "communication": "email",
+    "timezone": "UTC-8"
+  },
+  "enriched": true,
+  "enriched_at": "2025-06-07T14:30:00Z"
+}</code></pre>
+            </div>
+
+            <div class="workflow-example">
+                <h3 class="workflow-title">Order Processing Pipeline</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Execute specialized workflows for different order types</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Main Workflow Structure:</h4>
+                <div class="execution-flow">
+                    <div class="workflow-step">Receive Order → Validate Order → Execute Workflow (Order Processing)</div>
+                    <div class="sub-workflow">
+                        <strong>Sub-Workflow Selection:</strong>
+                        <br>• Digital products: "wkf_digital_order_processing"
+                        <br>• Physical products: "wkf_physical_order_processing"
+                        <br>• Subscription: "wkf_subscription_processing"
+                    </div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input to Sub-Workflow:</h4>
+                <pre><code>{
+  "order_id": "ord_789",
+  "customer_id": "cust_456",
+  "items": [
+    {
+      "product_id": "prod_123",
+      "quantity": 2,
+      "price": 29.99
+    }
+  ],
+  "payment_method": "credit_card",
+  "shipping_address": {
+    "street": "123 Main St",
+    "city": "San Francisco",
+    "state": "CA",
+    "zip": "94105"
+  }
+}</code></pre>
+            </div>
+
+            <div class="workflow-example">
+                <h3 class="workflow-title">Document Processing Workflow</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Execute document-specific processing workflows</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "workflow_id": "wkf_pdf_document_processor"
+}</code></pre>
+                
+                <div class="sub-workflow">
+                    <strong>PDF Processing Sub-Workflow:</strong>
+                    <br>1. Extract text content from PDF
+                    <br>2. Analyze document structure
+                    <br>3. Extract key information (dates, amounts, entities)
+                    <br>4. Generate document summary
+                    <br>5. Return processed document data
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output from Sub-Workflow:</h4>
+                <pre><code>{
+  "document_id": "doc_456",
+  "type": "invoice",
+  "extracted_text": "Invoice #INV-2025-001...",
+  "key_data": {
+    "invoice_number": "INV-2025-001",
+    "date": "2025-06-07",
+    "amount": 1250.00,
+    "vendor": "Acme Corp"
+  },
+  "summary": "Invoice from Acme Corp for $1,250.00 dated June 7, 2025",
+  "confidence_score": 0.95,
+  "processed_at": "2025-06-07T14:35:00Z"
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure Execute Workflow with the ID of the workflow to execute as a sub-process.
+            </p>
+            
+            <pre><code>{
+  "title": "Execute Workflow Configuration",
+  "type": "object",
+  "properties": {
+    "workflow_id": {
+      "type": "string",
+      "title": "Workflow ID",
+      "description": "The ID of the SoEasily workflow to execute."
+    }
+  },
+  "required": ["workflow_id"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Data to pass as input to the trigger action of the sub-workflow.</p>
+                    <pre><code>{
+  "title": "Execute Workflow Input",
+  "description": "The data to pass as input to the trigger action of the sub-workflow.",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">The final data output from the executed sub-workflow.</p>
+                    <pre><code>{
+  "title": "Execute Workflow Output",
+  "description": "The final data output from the executed sub-workflow.",
+  "type": "object"
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Patterns Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Common Workflow Patterns</h2>
+            <p class="section-desc">
+                Design patterns that leverage Execute Workflow for modular and reusable automation.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Library Pattern</h3>
+                    <p class="feature-desc">
+                        Create reusable workflow libraries:
+                        <br>• User management workflows
+                        <br>• Data validation workflows
+                        <br>• Notification workflows
+                        <br>• Integration workflows
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Pipeline Pattern</h3>
+                    <p class="feature-desc">
+                        Chain specialized processing workflows:
+                        <br>• Data ingestion → Processing → Output
+                        <br>• Validation → Enrichment → Storage
+                        <br>• Extract → Transform → Load (ETL)
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Conditional Execution</h3>
+                    <p class="feature-desc">
+                        Execute different workflows based on conditions:
+                        <br>• Route by data type or category
+                        <br>• Execute based on business rules
+                        <br>• Handle different processing requirements
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Error Handling</h3>
+                    <p class="feature-desc">
+                        Implement robust error handling:
+                        <br>• Retry workflows with different parameters
+                        <br>• Execute fallback workflows on failure
+                        <br>• Implement circuit breaker patterns
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">👥 User Management</h3>
+                    <p class="feature-desc">Execute user onboarding, profile updates, and permission management workflows.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Processing</h3>
+                    <p class="feature-desc">Run specialized data transformation, validation, and enrichment workflows.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛒 Order Processing</h3>
+                    <p class="feature-desc">Execute order-specific workflows based on product types or business rules.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📄 Document Processing</h3>
+                    <p class="feature-desc">Run document-type-specific processing workflows for different file formats.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔗 Integration</h3>
+                    <p class="feature-desc">Execute system-specific integration workflows for different platforms and APIs.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📧 Notifications</h3>
+                    <p class="feature-desc">Run notification workflows for different channels and message types.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Single Responsibility</h3>
+                    <p class="feature-desc">
+                        Design focused sub-workflows:
+                        <br>• Each workflow should have a single, clear purpose
+                        <br>• Keep workflows small and manageable
+                        <br>• Avoid overly complex sub-workflows
+                        <br>• Use descriptive workflow names and IDs
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Contracts</h3>
+                    <p class="feature-desc">
+                        Define clear input/output contracts:
+                        <br>• Document expected input data structure
+                        <br>• Specify output data format
+                        <br>• Handle missing or invalid input gracefully
+                        <br>• Use consistent data naming conventions
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛡️ Error Handling</h3>
+                    <p class="feature-desc">
+                        Implement robust error handling:
+                        <br>• Handle sub-workflow failures gracefully
+                        <br>• Implement timeout handling
+                        <br>• Use Error Handler for failed executions
+                        <br>• Log execution details for debugging
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Version Management</h3>
+                    <p class="feature-desc">
+                        Manage workflow versions effectively:
+                        <br>• Use versioned workflow IDs
+                        <br>• Maintain backward compatibility
+                        <br>• Test sub-workflow changes thoroughly
+                        <br>• Document workflow dependencies
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/execute_workflow</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Control Flow</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Control Flow</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.control.execute_workflow@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

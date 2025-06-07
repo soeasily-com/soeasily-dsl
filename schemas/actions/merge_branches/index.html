@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge Branches - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .merge-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .merge-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .flow-diagram {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            text-align: center;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+        }
+
+        .branch-path {
+            display: inline-block;
+            background: white;
+            border: 1px solid #059669;
+            border-radius: 6px;
+            padding: 8px 16px;
+            margin: 4px 8px;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .merge-point {
+            background: #059669;
+            color: white;
+            border-radius: 6px;
+            padding: 8px 16px;
+            margin: 8px;
+            font-weight: 600;
+        }
+
+        .flow-arrow {
+            color: #059669;
+            font-size: 18px;
+            margin: 0 8px;
+        }
+
+        .visual-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 16px 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .visual-flow {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../">SoEasily Schemas</a> / 
+                <a href="../">Actions</a> / 
+                Merge Branches
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Merge Branches</h1>
+            <p class="hero-subtitle">
+                Combines multiple execution paths back into one. Only passes through the data from the single branch that was executed.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Merge Branches action is the essential counterpart to conditional branching in workflows. After your workflow splits into multiple paths using Conditional or Switch actions, Merge Branches brings those paths back together into a single execution flow. It acts as a convergence point where different branches reunite, ensuring your workflow continues with a unified path regardless of which branch was taken.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔀 Path Convergence</h3>
+                    <p class="feature-desc">Brings multiple workflow branches back together into a single execution path.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Preservation</h3>
+                    <p class="feature-desc">Passes through data from whichever branch was actually executed, maintaining data integrity.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Clean Architecture</h3>
+                    <p class="feature-desc">Creates clean, readable workflow structures by clearly defining where branches end.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">merge</span>
+                <span class="tag">join</span>
+                <span class="tag">combine</span>
+                <span class="tag">end-if</span>
+                <span class="tag">unify</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">How Merge Branches Works</h2>
+            <p class="section-desc">
+                Merge Branches waits for input from one of its connected branches and passes that data through unchanged.
+            </p>
+            
+            <div class="flow-diagram">
+                <div style="margin-bottom: 16px; font-weight: 600; color: #065f46;">Workflow Execution Flow</div>
+                <div class="visual-flow">
+                    <div class="branch-path">Branch A</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="merge-point">Merge Branches</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="branch-path">Continue Workflow</div>
+                </div>
+                <div style="margin: 8px 0; color: #065f46;">OR</div>
+                <div class="visual-flow">
+                    <div class="branch-path">Branch B</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="merge-point">Merge Branches</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="branch-path">Continue Workflow</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Merge Examples Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Merge Examples</h2>
+            <p class="section-desc">
+                See how Merge Branches handles data from different workflow paths.
+            </p>
+            
+            <div class="merge-example">
+                <h3 class="merge-title">User Approval Workflow</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Merge branches after approval or rejection processing</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Workflow Structure:</h4>
+                <div class="flow-diagram">
+                    <div class="visual-flow">
+                        <div class="branch-path">Conditional</div>
+                        <div class="flow-arrow">→</div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div class="branch-path" style="margin: 4px;">Approved Branch</div>
+                            <div class="branch-path" style="margin: 4px;">Rejected Branch</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="merge-point">Merge Branches</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="branch-path">Send Notification</div>
+                    </div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input from Approved Branch:</h4>
+                <pre><code>{
+  "request_id": "req-123",
+  "status": "approved",
+  "approved_by": "manager@company.com",
+  "approved_at": "2025-06-07T14:30:00Z",
+  "message": "Request approved for processing"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output (Passed Through):</h4>
+                <pre><code>{
+  "request_id": "req-123",
+  "status": "approved",
+  "approved_by": "manager@company.com",
+  "approved_at": "2025-06-07T14:30:00Z",
+  "message": "Request approved for processing"
+}</code></pre>
+            </div>
+
+            <div class="merge-example">
+                <h3 class="merge-title">Payment Processing Workflow</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Merge after different payment method processing</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Workflow Structure:</h4>
+                <div class="flow-diagram">
+                    <div class="visual-flow">
+                        <div class="branch-path">Switch</div>
+                        <div class="flow-arrow">→</div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div class="branch-path" style="margin: 2px;">Credit Card</div>
+                            <div class="branch-path" style="margin: 2px;">PayPal</div>
+                            <div class="branch-path" style="margin: 2px;">Bank Transfer</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="merge-point">Merge Branches</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="branch-path">Update Order</div>
+                    </div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input from PayPal Branch:</h4>
+                <pre><code>{
+  "order_id": "ord-456",
+  "payment_method": "paypal",
+  "transaction_id": "pp_txn_789",
+  "amount": 99.99,
+  "currency": "USD",
+  "status": "completed",
+  "processed_at": "2025-06-07T14:35:00Z"
+}</code></pre>
+            </div>
+
+            <div class="merge-example">
+                <h3 class="merge-title">Data Validation Workflow</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Merge after validation or error handling</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input from Error Handling Branch:</h4>
+                <pre><code>{
+  "data_id": "data-789",
+  "validation_status": "failed",
+  "errors": [
+    "Email format invalid",
+    "Phone number missing"
+  ],
+  "corrected_data": {
+    "email": "user@example.com",
+    "phone": "+1-555-0123"
+  },
+  "processed_at": "2025-06-07T14:40:00Z"
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Merge Branches requires no configuration - it automatically handles incoming data from any connected branch.
+            </p>
+            
+            <pre><code>{
+  "title": "Merge Branches Configuration",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Receives data from exactly one of the incoming branches that was executed.</p>
+                    <pre><code>{
+  "title": "Merge Branches Input",
+  "description": "Receives data from exactly one of the incoming branches.",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">Passes through the data it received from the executed branch unchanged.</p>
+                    <pre><code>{
+  "title": "Merge Branches Output",
+  "description": "Passes through the data it received from the executed branch.",
+  "type": "object"
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Patterns Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Common Workflow Patterns</h2>
+            <p class="section-desc">
+                Typical patterns where Merge Branches is used to reunify workflow execution paths.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">If-Then-Else Pattern</h3>
+                    <div class="flow-diagram">
+                        <div style="font-size: 12px; margin-bottom: 8px;">Conditional → Branch A / Branch B → Merge → Continue</div>
+                    </div>
+                    <p class="feature-desc">Classic conditional branching where different actions are taken based on conditions, then merged back together.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Switch-Case Pattern</h3>
+                    <div class="flow-diagram">
+                        <div style="font-size: 12px; margin-bottom: 8px;">Switch → Multiple Branches → Merge → Continue</div>
+                    </div>
+                    <p class="feature-desc">Multi-way branching where different paths are taken based on values, then unified at the merge point.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Error Handling Pattern</h3>
+                    <div class="flow-diagram">
+                        <div style="font-size: 12px; margin-bottom: 8px;">Try Action → Success / Error Handler → Merge → Continue</div>
+                    </div>
+                    <p class="feature-desc">Error handling where successful execution and error recovery paths merge back together.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Parallel Processing Pattern</h3>
+                    <div class="flow-diagram">
+                        <div style="font-size: 12px; margin-bottom: 8px;">Split → Process A / Process B → Merge → Combine Results</div>
+                    </div>
+                    <p class="feature-desc">When different processing paths need to be reunified for final processing or output.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">✅ Approval Workflows</h3>
+                    <p class="feature-desc">Merge approved and rejected paths back together for final notification or logging.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">💳 Payment Processing</h3>
+                    <p class="feature-desc">Unify different payment method processing paths before order completion.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Data Validation</h3>
+                    <p class="feature-desc">Merge validation success and error correction paths for consistent processing.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 User Routing</h3>
+                    <p class="feature-desc">Combine different user experience paths based on roles or preferences.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛡️ Error Recovery</h3>
+                    <p class="feature-desc">Merge successful execution and error handling paths for unified continuation.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Report Generation</h3>
+                    <p class="feature-desc">Unify different data processing branches before final report compilation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Clear Structure</h3>
+                    <p class="feature-desc">
+                        Design clear branching structures:
+                        <br>• Use Merge Branches for every branching point
+                        <br>• Keep branch logic simple and focused
+                        <br>• Document the purpose of each branch
+                        <br>• Ensure all branches lead to the merge point
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Consistency</h3>
+                    <p class="feature-desc">
+                        Maintain consistent data structures:
+                        <br>• Ensure all branches output compatible data
+                        <br>• Use consistent field names across branches
+                        <br>• Handle missing fields appropriately
+                        <br>• Document expected data formats
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Testing</h3>
+                    <p class="feature-desc">
+                        Test all branch paths:
+                        <br>• Verify each branch reaches the merge point
+                        <br>• Test with different input scenarios
+                        <br>• Validate data integrity through merges
+                        <br>• Check error handling paths
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Documentation</h3>
+                    <p class="feature-desc">
+                        Document workflow logic:
+                        <br>• Explain branching conditions clearly
+                        <br>• Document what each branch does
+                        <br>• Describe merge point expectations
+                        <br>• Include example data flows
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/merge_branches</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Control Flow</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Control Flow</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.control.merge@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

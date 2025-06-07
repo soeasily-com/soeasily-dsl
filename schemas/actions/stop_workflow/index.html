@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Workflow - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .stop-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .stop-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .termination-flow {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+        }
+
+        .stop-step {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #dc2626;
+        }
+
+        .success-stop {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+        }
+
+        .success-step {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #059669;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 0 8px;
+        }
+
+        .status-succeeded {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .status-failed {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../">SoEasily Schemas</a> / 
+                <a href="../">Actions</a> / 
+                Stop Workflow
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Stop Workflow</h1>
+            <p class="hero-subtitle">
+                Immediately halts the execution of the workflow and marks its final status as 'succeeded' or 'failed'. Provides controlled termination for conditional workflow completion.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Stop Workflow action provides controlled termination of workflow execution, allowing you to explicitly end a workflow with a specific status and message. Unlike natural workflow completion, Stop Workflow gives you precise control over when and how a workflow ends, making it perfect for conditional termination, early exits, and explicit success or failure scenarios.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🛑 Controlled Termination</h3>
+                    <p class="feature-desc">Explicitly stop workflow execution at any point with full control over the final status.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Status Control</h3>
+                    <p class="feature-desc">Set the workflow's final status as either 'succeeded' or 'failed' with optional messages.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Conditional Exits</h3>
+                    <p class="feature-desc">Enable early workflow termination based on business logic and conditions.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">stop</span>
+                <span class="tag">end</span>
+                <span class="tag">terminate</span>
+                <span class="tag">halt</span>
+                <span class="tag">exit</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">How Stop Workflow Works</h2>
+            <p class="section-desc">
+                Stop Workflow immediately terminates the current workflow execution and sets the final status.
+            </p>
+            
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin: 24px 0;">
+                <div style="text-align: center; margin: 16px;">
+                    <div class="status-indicator status-succeeded">SUCCEEDED</div>
+                    <div style="margin-top: 8px; color: #166534; font-size: 14px;">Workflow completed successfully</div>
+                </div>
+                <div style="text-align: center; margin: 16px;">
+                    <div class="status-indicator status-failed">FAILED</div>
+                    <div style="margin-top: 8px; color: #991b1b; font-size: 14px;">Workflow terminated with failure</div>
+                </div>
+            </div>
+            
+            <div class="termination-flow">
+                <div class="stop-step">1. Workflow reaches Stop Workflow action</div>
+                <div class="stop-step">2. Execution immediately halts</div>
+                <div class="stop-step">3. Final status is set (succeeded/failed)</div>
+                <div class="stop-step">4. Optional message is recorded</div>
+                <div class="stop-step">5. Workflow execution ends</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stop Examples Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Stop Examples</h2>
+            <p class="section-desc">
+                See how Stop Workflow provides controlled termination in different scenarios.
+            </p>
+            
+            <div class="stop-example">
+                <h3 class="stop-title">Conditional Success Termination</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Stop workflow early when conditions are already met</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "status": "succeeded",
+  "message": "User already exists, no action needed"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Workflow Context:</h4>
+                <div class="success-stop">
+                    <div class="success-step">Check if user exists → User found → Stop Workflow (succeeded)</div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Use Case:</h4>
+                <p style="color: #656d76; font-size: 14px;">
+                    In a user creation workflow, if the user already exists, there's no need to continue with the creation process. 
+                    The workflow can stop successfully since the desired end state (user exists) is already achieved.
+                </p>
+            </div>
+
+            <div class="stop-example">
+                <h3 class="stop-title">Validation Failure Termination</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Stop workflow when critical validation fails</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "status": "failed",
+  "message": "Invalid email format provided, cannot proceed with user registration"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Workflow Context:</h4>
+                <div class="termination-flow">
+                    <div class="stop-step">Validate email format → Invalid format detected → Stop Workflow (failed)</div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Use Case:</h4>
+                <p style="color: #656d76; font-size: 14px;">
+                    When processing user registration, if the email format is invalid, continuing the workflow would be pointless 
+                    and potentially harmful. Stop immediately with a clear failure message.
+                </p>
+            </div>
+
+            <div class="stop-example">
+                <h3 class="stop-title">Business Rule Enforcement</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Stop workflow when business rules prevent continuation</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "status": "failed",
+  "message": "Order amount exceeds customer credit limit ($5,000). Manual approval required."
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Workflow Context:</h4>
+                <div class="termination-flow">
+                    <div class="stop-step">Check credit limit → Amount exceeds limit → Stop Workflow (failed)</div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Use Case:</h4>
+                <p style="color: #656d76; font-size: 14px;">
+                    In an order processing workflow, if the order amount exceeds the customer's credit limit, 
+                    the automated workflow should stop and require manual intervention.
+                </p>
+            </div>
+
+            <div class="stop-example">
+                <h3 class="stop-title">Resource Availability Check</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Stop workflow when required resources are unavailable</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "status": "failed",
+  "message": "External API service is currently unavailable. Workflow cannot proceed."
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Workflow Context:</h4>
+                <div class="termination-flow">
+                    <div class="stop-step">Check API availability → Service down → Stop Workflow (failed)</div>
+                </div>
+            </div>
+
+            <div class="stop-example">
+                <h3 class="stop-title">Early Success Completion</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Stop workflow when objective is achieved early</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "status": "succeeded",
+  "message": "Data synchronization already up to date, no changes needed"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Workflow Context:</h4>
+                <div class="success-stop">
+                    <div class="success-step">Compare data timestamps → Already synchronized → Stop Workflow (succeeded)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure Stop Workflow with the desired final status and optional termination message.
+            </p>
+            
+            <pre><code>{
+  "title": "Stop Workflow Configuration",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["succeeded", "failed"],
+      "description": "The final status to assign to the workflow run."
+    },
+    "message": {
+      "type": "string",
+      "description": "An optional message to record as the reason for stopping."
+    }
+  },
+  "required": ["status"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Accepts any data, which is discarded as the workflow halts immediately.</p>
+                    <pre><code>{
+  "title": "Stop Workflow Input",
+  "description": "Accepts any data, which is discarded as the workflow halts.",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">Produces no output as it terminates the workflow execution.</p>
+                    <pre><code>{
+  "title": "Stop Workflow Output",
+  "description": "This action produces no output as it terminates the workflow.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Patterns Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Common Workflow Patterns</h2>
+            <p class="section-desc">
+                Typical patterns where Stop Workflow provides controlled termination.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Guard Clauses</h3>
+                    <p class="feature-desc">
+                        Early termination based on preconditions:
+                        <br>• Check prerequisites before processing
+                        <br>• Validate input data quality
+                        <br>• Verify resource availability
+                        <br>• Enforce business rules
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Conditional Success</h3>
+                    <p class="feature-desc">
+                        Stop when objectives are already met:
+                        <br>• Data already synchronized
+                        <br>• User already exists
+                        <br>• Process already completed
+                        <br>• No action required
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Error Boundaries</h3>
+                    <p class="feature-desc">
+                        Controlled failure handling:
+                        <br>• Critical validation failures
+                        <br>• Resource unavailability
+                        <br>• Security violations
+                        <br>• Business rule violations
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Circuit Breakers</h3>
+                    <p class="feature-desc">
+                        Prevent cascading failures:
+                        <br>• External service failures
+                        <br>• Rate limit exceeded
+                        <br>• System overload conditions
+                        <br>• Dependency failures
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">✅ Validation Gates</h3>
+                    <p class="feature-desc">Stop workflows when critical validation fails, preventing invalid data processing.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛡️ Security Enforcement</h3>
+                    <p class="feature-desc">Terminate workflows when security violations or unauthorized access is detected.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Business Rules</h3>
+                    <p class="feature-desc">Enforce business logic by stopping workflows when rules are violated.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Idempotency</h3>
+                    <p class="feature-desc">Stop successfully when operations are already completed to ensure idempotent behavior.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🚨 Emergency Stops</h3>
+                    <p class="feature-desc">Provide emergency termination when critical errors or dangerous conditions are detected.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">⚡ Resource Management</h3>
+                    <p class="feature-desc">Stop workflows when required resources are unavailable or limits are exceeded.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Clear Messages</h3>
+                    <p class="feature-desc">
+                        Provide informative termination messages:
+                        <br>• Explain why the workflow stopped
+                        <br>• Include relevant context and data
+                        <br>• Suggest next steps when appropriate
+                        <br>• Use consistent message formats
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Appropriate Status</h3>
+                    <p class="feature-desc">
+                        Choose the correct status for each scenario:
+                        <br>• Use 'succeeded' when objectives are met
+                        <br>• Use 'failed' for errors and violations
+                        <br>• Consider business context, not just technical success
+                        <br>• Document status decision criteria
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Early Placement</h3>
+                    <p class="feature-desc">
+                        Place Stop Workflow actions strategically:
+                        <br>• Check critical conditions early
+                        <br>• Validate before expensive operations
+                        <br>• Use after conditional branches
+                        <br>• Position for maximum efficiency
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Monitoring</h3>
+                    <p class="feature-desc">
+                        Monitor workflow terminations:
+                        <br>• Track stop reasons and frequency
+                        <br>• Alert on unexpected failure patterns
+                        <br>• Analyze termination messages
+                        <br>• Use data to improve workflows
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/stop_workflow</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Control Flow</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Control Flow</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.control.stop_workflow@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

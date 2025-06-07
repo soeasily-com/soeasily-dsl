@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Executor - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .agent-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .agent-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .agent-flow {
+            background: #faf5ff;
+            border: 1px solid #d8b4fe;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+        }
+
+        .agent-step {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #7c3aed;
+        }
+
+        .reasoning-box {
+            background: #f0f9ff;
+            border: 1px solid #7dd3fc;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .reasoning-title {
+            font-weight: 600;
+            color: #0c4a6e;
+            margin-bottom: 8px;
+        }
+
+        .reasoning-text {
+            color: #0c4a6e;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../">SoEasily Schemas</a> / 
+                <a href="../">Actions</a> / 
+                Agent Executor
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Agent Executor</h1>
+            <p class="hero-subtitle">
+                Executes a sequence of actions driven by a Large Language Model to achieve a high-level objective. The agent has access to a defined set of tools (other SoEasily actions).
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Agent Executor represents the cutting edge of AI-powered workflow automation. By combining Large Language Models with a curated set of tools, it can autonomously plan, reason, and execute complex multi-step tasks. Unlike traditional workflows that follow predefined paths, the Agent Executor dynamically determines the best sequence of actions to achieve your objectives, making it perfect for complex problem-solving, research tasks, and adaptive automation scenarios.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🧠 AI-Powered Reasoning</h3>
+                    <p class="feature-desc">Uses Large Language Models to plan and execute complex multi-step tasks autonomously.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛠️ Tool Integration</h3>
+                    <p class="feature-desc">Access to any SoEasily action as tools, enabling powerful combinations and workflows.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Goal-Oriented</h3>
+                    <p class="feature-desc">Focuses on achieving high-level objectives rather than following rigid step-by-step instructions.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">agent</span>
+                <span class="tag">ai</span>
+                <span class="tag">llm</span>
+                <span class="tag">reasoning</span>
+                <span class="tag">tools</span>
+                <span class="tag">autonomous</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">How Agent Executor Works</h2>
+            <p class="section-desc">
+                The Agent Executor follows a reasoning loop where it analyzes the objective, plans actions, executes tools, and evaluates results until the goal is achieved.
+            </p>
+            
+            <div class="agent-flow">
+                <div class="agent-step">1. Analyze Objective → Understand the high-level goal</div>
+                <div class="agent-step">2. Plan Actions → Determine which tools to use and in what order</div>
+                <div class="agent-step">3. Execute Tool → Run the selected SoEasily action</div>
+                <div class="agent-step">4. Evaluate Result → Assess if the goal is achieved or if more steps are needed</div>
+                <div class="agent-step">5. Repeat or Conclude → Continue the loop or provide final answer</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agent Examples Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Agent Examples</h2>
+            <p class="section-desc">
+                See how Agent Executor autonomously plans and executes complex tasks using available tools.
+            </p>
+            
+            <div class="agent-example">
+                <h3 class="agent-title">Research Assistant Agent</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Agent that researches topics and provides comprehensive summaries</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "objective": "Research a topic and provide a comprehensive summary with key insights",
+  "tools": [
+    "soeasily/http_request",
+    "soeasily/llm_prompt",
+    "soeasily/transform_data"
+  ]
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input:</h4>
+                <pre><code>{
+  "input": "What are the latest trends in AI workflow automation?"
+}</code></pre>
+                
+                <div class="reasoning-box">
+                    <div class="reasoning-title">Agent Reasoning Process:</div>
+                    <div class="reasoning-text">
+                        "I need to research AI workflow automation trends. Let me start by making HTTP requests to gather information from relevant sources, then use LLM prompts to analyze and synthesize the findings into a comprehensive summary."
+                    </div>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Agent Execution Flow:</h4>
+                <div class="agent-flow">
+                    <div class="agent-step">HTTP Request → Fetch data from AI research websites</div>
+                    <div class="agent-step">Transform Data → Extract relevant information from responses</div>
+                    <div class="agent-step">LLM Prompt → Analyze trends and generate insights</div>
+                    <div class="agent-step">LLM Prompt → Create comprehensive summary</div>
+                </div>
+            </div>
+
+            <div class="agent-example">
+                <h3 class="agent-title">Data Processing Agent</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Agent that processes and analyzes data from multiple sources</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "objective": "Process customer data and generate actionable insights",
+  "tools": [
+    "soeasily/query_data",
+    "soeasily/transform_data",
+    "soeasily/convert_data",
+    "soeasily/llm_prompt"
+  ]
+}</code></pre>
+                
+                <div class="reasoning-box">
+                    <div class="reasoning-title">Agent Reasoning Process:</div>
+                    <div class="reasoning-text">
+                        "I need to analyze customer data. First, I'll query the data to extract relevant information, then transform it into a suitable format, and finally use AI to generate insights and recommendations."
+                    </div>
+                </div>
+            </div>
+
+            <div class="agent-example">
+                <h3 class="agent-title">Content Creation Agent</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Agent that creates content based on research and guidelines</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "objective": "Create high-quality content based on research and brand guidelines",
+  "tools": [
+    "soeasily/http_request",
+    "soeasily/llm_prompt",
+    "soeasily/transform_data",
+    "soeasily/query_data"
+  ]
+}</code></pre>
+                
+                <div class="reasoning-box">
+                    <div class="reasoning-title">Agent Reasoning Process:</div>
+                    <div class="reasoning-text">
+                        "To create quality content, I need to research the topic, understand the brand guidelines, and then generate content that aligns with both the research findings and brand requirements."
+                    </div>
+                </div>
+            </div>
+
+            <div class="agent-example">
+                <h3 class="agent-title">System Integration Agent</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Agent that integrates data between different systems</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "objective": "Synchronize data between CRM and marketing automation platform",
+  "tools": [
+    "soeasily/http_request",
+    "soeasily/graphql_request",
+    "soeasily/transform_data",
+    "soeasily/conditional",
+    "soeasily/error_handler"
+  ]
+}</code></pre>
+                
+                <div class="reasoning-box">
+                    <div class="reasoning-title">Agent Reasoning Process:</div>
+                    <div class="reasoning-text">
+                        "I need to fetch data from the CRM, transform it to match the marketing platform's format, then push it via their API. I should also handle any errors and validate the sync was successful."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure the Agent Executor with an objective and the tools it can use to achieve that goal.
+            </p>
+            
+            <pre><code>{
+  "title": "Agent Executor Configuration",
+  "type": "object",
+  "properties": {
+    "objective": {
+      "type": "string",
+      "description": "The high-level goal for the agent to achieve."
+    },
+    "tools": {
+      "type": "array",
+      "description": "A list of action IDs that this agent is allowed to use.",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["objective", "tools"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Provide the initial input or query for the agent to work with.</p>
+                    <pre><code>{
+  "title": "Agent Executor Input",
+  "type": "object",
+  "properties": {
+    "input": {
+      "type": "string",
+      "description": "The initial input or query for the agent."
+    }
+  },
+  "required": ["input"]
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">Returns the final result or answer produced by the agent's reasoning and tool execution.</p>
+                    <pre><code>{
+  "title": "Agent Executor Output",
+  "type": "object",
+  "properties": {
+    "final_answer": {
+      "type": "string",
+      "description": "The final result or answer produced by the agent."
+    }
+  },
+  "required": ["final_answer"]
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Categories Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Recommended Tool Categories</h2>
+            <p class="section-desc">
+                Different types of tools that work well with Agent Executor for various use cases.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Research Tools</h3>
+                    <p class="feature-desc">
+                        <strong>Tools:</strong> HTTP Request, GraphQL Request
+                        <br><strong>Use for:</strong> Gathering information from APIs, websites, and external data sources
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🧠 AI Tools</h3>
+                    <p class="feature-desc">
+                        <strong>Tools:</strong> LLM Prompt
+                        <br><strong>Use for:</strong> Text generation, analysis, summarization, and reasoning tasks
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Tools</h3>
+                    <p class="feature-desc">
+                        <strong>Tools:</strong> Transform Data, Query Data, Convert Data, Set Data
+                        <br><strong>Use for:</strong> Data manipulation, filtering, format conversion, and processing
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Control Tools</h3>
+                    <p class="feature-desc">
+                        <strong>Tools:</strong> Conditional, Switch, Wait
+                        <br><strong>Use for:</strong> Decision making, flow control, and timing management
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛠️ Execution Tools</h3>
+                    <p class="feature-desc">
+                        <strong>Tools:</strong> Execute Code, Execute Command
+                        <br><strong>Use for:</strong> Running custom logic, system operations, and complex computations
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔧 Utility Tools</h3>
+                    <p class="feature-desc">
+                        <strong>Tools:</strong> Debug Log, Error Handler, No Operation
+                        <br><strong>Use for:</strong> Debugging, error handling, and workflow management
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔬 Research & Analysis</h3>
+                    <p class="feature-desc">Autonomous research on topics, competitive analysis, market research, and data gathering from multiple sources.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Content Creation</h3>
+                    <p class="feature-desc">Generate articles, reports, summaries, and documentation based on research and guidelines.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Processing</h3>
+                    <p class="feature-desc">Complex data analysis, transformation, and insight generation from multiple data sources.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔗 System Integration</h3>
+                    <p class="feature-desc">Intelligent data synchronization and integration between different systems and platforms.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Problem Solving</h3>
+                    <p class="feature-desc">Complex problem-solving tasks that require reasoning, planning, and adaptive execution.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🤖 Intelligent Automation</h3>
+                    <p class="feature-desc">Adaptive workflows that can handle variations and make decisions based on context.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Clear Objectives</h3>
+                    <p class="feature-desc">
+                        Define clear, specific objectives:
+                        <br>• Be specific about desired outcomes
+                        <br>• Include success criteria when possible
+                        <br>• Provide context and constraints
+                        <br>• Avoid overly broad or vague goals
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛠️ Tool Selection</h3>
+                    <p class="feature-desc">
+                        Choose appropriate tools for the task:
+                        <br>• Include tools that complement each other
+                        <br>• Provide both data and AI tools when needed
+                        <br>• Include error handling tools for robustness
+                        <br>• Don't overwhelm with too many options
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Input Quality</h3>
+                    <p class="feature-desc">
+                        Provide high-quality input:
+                        <br>• Include relevant context and background
+                        <br>• Specify any constraints or requirements
+                        <br>• Provide examples when helpful
+                        <br>• Be clear about expected output format
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Monitoring</h3>
+                    <p class="feature-desc">
+                        Monitor agent execution:
+                        <br>• Include Debug Log tools for visibility
+                        <br>• Set reasonable execution limits
+                        <br>• Review agent reasoning and decisions
+                        <br>• Iterate on objectives based on results
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/agent_executor</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">AI & LLM</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">AI</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.ai.agent@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
