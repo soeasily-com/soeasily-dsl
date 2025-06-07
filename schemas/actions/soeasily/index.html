@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Action Schemas - SoEasily</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #656d76;
+            margin-bottom: 32px;
+        }
+
+        .category-section {
+            margin-bottom: 48px;
+        }
+
+        .category-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #24292f;
+            border-bottom: 2px solid #d1d9e0;
+            padding-bottom: 8px;
+        }
+
+        .schemas-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d1d9e0;
+            margin-bottom: 32px;
+        }
+
+        .schemas-table th {
+            background-color: #f6f8fa;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #24292f;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .schemas-table td {
+            padding: 16px;
+            border-bottom: 1px solid #f6f8fa;
+            vertical-align: top;
+        }
+
+        .schemas-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .schemas-table tr:hover {
+            background-color: #f6f8fa;
+        }
+
+        .action-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #24292f;
+            margin-bottom: 4px;
+        }
+
+        .action-description {
+            font-size: 14px;
+            color: #656d76;
+            line-height: 1.4;
+        }
+
+        .json-link {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: #0969da;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .json-link:hover {
+            color: #0550ae;
+        }
+
+        .json-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            background: #24292f;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+            
+            .title {
+                font-size: 28px;
+            }
+            
+            .schemas-table {
+                font-size: 14px;
+            }
+            
+            .schemas-table th,
+            .schemas-table td {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="title">Core Action Schemas</h1>
+            <p class="subtitle">JSON Schema definitions for all SoEasily core actions</p>
+        </div>
+
+        <!-- Triggers -->
+        <div class="category-section">
+            <h2 class="category-title">Triggers</h2>
+            <table class="schemas-table">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Description</th>
+                        <th>Schema</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="action-title">Manual Trigger</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Starts a workflow manually from the SoEasily UI. Can be configured with a custom JSON Schema to present a form for providing data when the workflow is run.</div>
+                        </td>
+                        <td>
+                            <a href="manual_trigger_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Schedule Trigger</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Automatically starts a workflow based on a CRON schedule. Supports complex scheduling patterns and timezone configurations.</div>
+                        </td>
+                        <td>
+                            <a href="schedule_trigger_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Webhook Trigger</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Starts a workflow when an HTTP request is received at a specific endpoint. Supports various HTTP methods and authentication options.</div>
+                        </td>
+                        <td>
+                            <a href="webhook_trigger_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Control Flow -->
+        <div class="category-section">
+            <h2 class="category-title">Control Flow</h2>
+            <table class="schemas-table">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Description</th>
+                        <th>Schema</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="action-title">Conditional</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Routes the workflow down different branches based on a condition. Supports complex logical expressions and data comparisons.</div>
+                        </td>
+                        <td>
+                            <a href="conditional_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Switch</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Routes the workflow down different branches based on the value of a specified input field. Define routing rules in the outgoing connections.</div>
+                        </td>
+                        <td>
+                            <a href="switch_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Loop</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Repeats a sequence of actions for each item in an array or until a condition is met. Supports iteration control and data aggregation.</div>
+                        </td>
+                        <td>
+                            <a href="loop_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Merge Branches</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Combines multiple execution paths back into one. Only passes through the data from the single branch that was executed.</div>
+                        </td>
+                        <td>
+                            <a href="merge_branches_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Wait State</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Pauses workflow execution for a specified duration or until a specific time. Supports various delay formats and scheduling options.</div>
+                        </td>
+                        <td>
+                            <a href="wait_state_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Execute Workflow</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Executes another workflow (a 'sub-workflow') using the input data provided. The current workflow waits for completion and receives the output.</div>
+                        </td>
+                        <td>
+                            <a href="execute_workflow_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Stop Workflow</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Immediately halts the execution of the workflow and marks its final status as 'succeeded' or 'failed'.</div>
+                        </td>
+                        <td>
+                            <a href="stop_workflow_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Error Handler</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Catches and handles errors from previous actions in the workflow. Provides error recovery and alternative execution paths.</div>
+                        </td>
+                        <td>
+                            <a href="error_handler_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Data Operations -->
+        <div class="category-section">
+            <h2 class="category-title">Data Operations</h2>
+            <table class="schemas-table">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Description</th>
+                        <th>Schema</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="action-title">Set Data</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Creates or modifies data objects by setting specific fields to static values or expressions. Useful for data initialization and transformation.</div>
+                        </td>
+                        <td>
+                            <a href="set_data_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Transform Data</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Transforms input data using JSONata expressions. Supports complex data manipulation, filtering, and restructuring operations.</div>
+                        </td>
+                        <td>
+                            <a href="transform_data_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Query Data</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Extracts specific data from the input using JSONata queries. Perfect for filtering, selecting, and extracting subsets of data.</div>
+                        </td>
+                        <td>
+                            <a href="query_data_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Convert Data</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Converts data between different formats (JSON, XML, CSV, etc.). Supports various encoding and transformation options.</div>
+                        </td>
+                        <td>
+                            <a href="convert_data_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Execution -->
+        <div class="category-section">
+            <h2 class="category-title">Execution</h2>
+            <table class="schemas-table">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Description</th>
+                        <th>Schema</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="action-title">Execute Code</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Executes custom JavaScript code in a sandboxed environment. Provides access to input data and allows custom logic implementation.</div>
+                        </td>
+                        <td>
+                            <a href="execute_code_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Execute Command</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Executes shell commands and system operations. Captures output, handles errors, and supports various execution environments.</div>
+                        </td>
+                        <td>
+                            <a href="execute_command_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Integration -->
+        <div class="category-section">
+            <h2 class="category-title">Integration</h2>
+            <table class="schemas-table">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Description</th>
+                        <th>Schema</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="action-title">HTTP Request</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Makes HTTP requests to external APIs and services. Supports all HTTP methods, authentication, headers, and response handling.</div>
+                        </td>
+                        <td>
+                            <a href="http_request_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">GraphQL Request</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Executes GraphQL queries and mutations against GraphQL endpoints. Supports variables, fragments, and error handling.</div>
+                        </td>
+                        <td>
+                            <a href="graphql_request_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- AI & LLM -->
+        <div class="category-section">
+            <h2 class="category-title">AI & LLM</h2>
+            <table class="schemas-table">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Description</th>
+                        <th>Schema</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="action-title">LLM Prompt</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Sends prompts to Large Language Models and retrieves generated text responses. Supports various AI providers and model configurations.</div>
+                        </td>
+                        <td>
+                            <a href="llm_prompt_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">Agent Executor</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Executes a sequence of actions driven by a Large Language Model to achieve a high-level objective. The agent has access to defined tools.</div>
+                        </td>
+                        <td>
+                            <a href="agent_executor_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Utilities -->
+        <div class="category-section">
+            <h2 class="category-title">Utilities</h2>
+            <table class="schemas-table">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Description</th>
+                        <th>Schema</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="action-title">Debug Log</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Logs data for debugging and monitoring purposes. Outputs structured log entries with configurable levels and formatting.</div>
+                        </td>
+                        <td>
+                            <a href="debug_log_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="action-title">No Operation</div>
+                        </td>
+                        <td>
+                            <div class="action-description">Passes input data through unchanged. Useful for testing, placeholders, and workflow structure during development.</div>
+                        </td>
+                        <td>
+                            <a href="no_operation_v1.0.0.json" class="json-link">
+                                <span class="json-icon">JSON</span>                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
