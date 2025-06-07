@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.soeasily.com/v1/soeasily-action.json",
+  "title": "Action Definition",
+  "description": "Schema for defining a SoEasily platform action, its properties, author, inputs, outputs, and documentation.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "A globally unique identifier for the SoEasily action, including a namespace. Uses snake_case.",
+      "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+)+$",
+      "examples": [
+        "soeasily.core.http_request",
+        "github.actions.get_issue"
+      ]
+    },
+    "version": {
+      "type": "string",
+      "description": "The semantic version of this action definition.",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+      "examples": [
+        "1.0.0",
+        "2.1.0-beta.1"
+      ]
+    },
+    "author": {
+      "type": "object",
+      "description": "Details about the author of the action. External actions are identified by an author other than 'SoEasily'.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the author or organization.",
+          "default": "SoEasily"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "A URL to the author's website.",
+          "default": "https://soeasily.com"
+        },
+        "documentation_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "An optional link to the author's specific documentation for this action or collection."
+        },
+        "support_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "An optional link to the author's support page or help desk."
+        }
+      },
+      "required": ["name", "url"]
+    },
+    "documentation": {
+      "type": "object",
+      "description": "Content for generating public-facing documentation.",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "A user-friendly title for the action, used in UIs and documentation headings."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed explanation of the action's function. Supports Markdown."
+        },
+        "category": {
+          "type": "string",
+          "description": "The primary, high-level category for UI organization.",
+          "enum": ["trigger", "control_flow", "data_operation", "execution_scripting", "integration_generic", "ai_llm", "utility"]
+        },
+        "tags": {
+          "type": "array",
+          "description": "A list of keywords for SEO and global platform search.",
+          "items": { "type": "string" }
+        },
+        "collection": {
+          "type": "object",
+          "description": "Metadata for grouping and displaying the action within its author's set.",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The name of the author-specific collection this action belongs to.",
+              "examples": ["User Management", "File Operations"]
+            },
+            "display_order": {
+              "type": "integer",
+              "description": "The sort order of this action within its collection.",
+              "minimum": 0,
+              "default": 99
+            }
+          },
+          "required": ["name"]
+        },
+        "icon_svg_name": {
+          "type": "string",
+          "description": "The filename of the SVG icon associated with this action."
+        },
+        "base_locale": {
+          "type": "string",
+          "description": "The base language for this documentation file.",
+          "default": "en-US"
+        },
+        "localized_versions": {
+          "type": "array",
+          "description": "References to localized versions of this action definition."
+        }
+      },
+      "required": ["title", "description", "category", "collection"]
+    },
+    "handler": {
+      "type": "string",
+      "description": "A pointer to the execution logic. For an external action, this could be the API endpoint URL to which the platform will proxy the request.",
+      "examples": [
+        "soeasily.actions.http_handler@1",
+        "https://api.github.com/v3/issues"
+      ]
+    },
+    "config_schema": {
+      "$ref": "http://json-schema.org/draft-07/schema#",
+      "description": "A JSON Schema defining the configurable properties of the action."
+    },
+    "input_schema": {
+      "$ref": "http://json-schema.org/draft-07/schema#",
+      "description": "A JSON Schema defining the expected data input for the action."
+    },
+    "output_schema": {
+      "$ref": "http://json-schema.org/draft-07/schema#",
+      "description": "A JSON Schema defining the data output by the action."
+    },
+    "credentials_schema": {
+      "$ref": "http://json-schema.org/draft-07/schema#",
+      "description": "An optional JSON Schema defining any required credentials."
+    },
+    "tests": {
+      "type": "array",
+      "description": "Named tests demonstrating the action's behavior.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "config": { "type": "object" },
+          "input": { "type": "object" },
+          "expected_output": { "type": "object" }
+        },
+        "required": ["name", "input", "expected_output"]
+      }
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "author",
+    "documentation",
+    "handler",
+    "config_schema",
+    "input_schema",
+    "output_schema",
+    "tests"
+  ]
+}

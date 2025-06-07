@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.soeasily.com/v1/soeasily-dsl.json",
   "title": "SoEasily DSL v1",
   "type": "object",
   "properties": {
