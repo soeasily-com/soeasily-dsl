@@ -13,7 +13,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "A unique identifier for this specific workflow instance.",
+          "description": "A unique identifier for this specific workflow instance."
         },
         "title": {
           "type": "string",
@@ -32,22 +32,40 @@
           "type": "array",
           "description": "Keywords to help categorize and search for the workflow.",
           "items": { "type": "string" }
+        },
+        "prompt": {
+          "type": "string",
+          "description": "An optional prompt or instruction text for the workflow."
         }
       },
       "required": ["id", "title", "version"]
     },
 
-    "actions": {
+    "config_schema": {
+      "$ref": "http://json-schema.org/draft-07/schema#",
+      "description": "A JSON Schema defining the configurable properties of the action."
+    },
+    "input_schema": {},
+    "output_schema": {
+      "$ref": "http://json-schema.org/draft-07/schema#",
+      "description": "A JSON Schema defining the data output by the action."
+    },
+    "credentials_schema": {
+      "$ref": "http://json-schema.org/draft-07/schema#",
+      "description": "An optional JSON Schema defining any required credentials."
+    },
+
+    "steps": {
       "type": "array",
       "description": "The list of all action nodes that make up this workflow.",
       "items": {
         "type": "object",
         "properties": {
-          "instance_id": {
+          "id": {
             "type": "string",
-            "description": "A unique identifier for this specific instance of an action within the workflow, e.g., 'manual_trigger_1', 'http_request_5'.",
+            "description": "A unique identifier for this specific instance of an action within the workflow, e.g., 'manual_trigger_1', 'http_request_5'."
           },
-          "action_id": {
+          "action": {
             "type": "string",
             "description": "The globally unique ID of the action definition this instance is based on (e.g., 'soeasily.core.http_request')."
           },
@@ -56,7 +74,7 @@
             "description": "The specific configuration for this action instance, which must conform to the 'config_schema' in the corresponding action definition file."
           }
         },
-        "required": ["instance_id", "action_id"]
+        "required": ["id", "action"]
       }
     },
 
@@ -66,6 +84,10 @@
       "items": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "A unique identifier for this specific instance of a connection within the workflow, e.g., 'manual_trigger_1', 'http_request_5'."
+          },
           "source_action": {
             "type": "string",
             "description": "The 'instance_id' of the action that is providing the output."
@@ -90,7 +112,7 @@
              "description": "An optional JSONata expression that must evaluate to true for this connection to be followed. Used for branching logic."
           }
         },
-        "required": ["source_action", "target_action"]
+        "required": ["id", "source_action", "target_action"]
       }
     },
 
@@ -110,7 +132,23 @@
           }
         }
       }
+    },
+
+    "tests": {
+      "type": "array",
+      "description": "Named tests demonstrating the workflow's behavior.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "config": { "type": "object" },
+          "input": { "type": "object" },
+          "expected_output": { "type": "object" }
+        },
+        "required": ["name", "input", "expected_output"]
+      }
     }
   },
-  "required": ["header", "actions", "connections"]
+  "required": ["header", "config_schema", "input_schema", "output_schema", "actions", "connections"]
 }
