@@ -28,4 +28,5 @@ jobs:
           cd $GITHUB_WORKSPACE
           AWS_MAX_ATTEMPTS=10
           aws s3 sync $GITHUB_WORKSPACE/schemas s3://schemas.soeasily.com --delete
+          aws s3 sync $GITHUB_WORKSPACE s3://schemas.soeasily.com
           aws cloudfront create-invalidation --distribution-id EKIN3C6VYRPEI --paths "/*"

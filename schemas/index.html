@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoEasily Schemas - Home of Schema Definitions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+        }
+
+        button.btn-green {
+            background-color: #22c55e !important;
+            color: white !important;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #0969da 0%, #218bff 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 32px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            background-color: #22c55e;
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #16a34a;
+            transform: translateY(-2px);
+        }
+
+        .features-section {
+            padding: 80px 0;
+            background-color: #f6f8fa;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+            color: #24292f;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d1d9e0;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.6;
+        }
+
+        .schema-section {
+            padding: 80px 0;
+        }
+
+        .schema-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .schema-card {
+            background: white;
+            border: 2px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .schema-card:hover {
+            border-color: #0969da;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .schema-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .schema-version {
+            color: #656d76;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .schema-link {
+            color: #0969da;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .schema-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            background-color: #24292f;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-text {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">SoEasily Schemas</h1>
+            <p class="hero-subtitle">
+                You've reached the home of the schema definitions for the SoEasily workflow platform. 
+                SoEasily turns natural language into powerful workflows with AI-powered automation and visual flow building.
+            </p>
+            <a href="#schemas" class="btn-primary">Explore Schemas</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why SoEasily?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Typed DSL with Schema Validation</h3>
+                    <p class="feature-desc">
+                        SaaS-ready embedding with comprehensive schema validation.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Real-time Execution</h3>
+                    <p class="feature-desc">
+                        Less complexity, more AI-powered automation with real-time execution and monitoring.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">AI-Powered Agents</h3>
+                    <p class="feature-desc">
+                        Build flows that integrate OpenAI, summarize, classify, and route intelligently with AI-powered agents and conditionals.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schema Section -->
+    <section class="schema-section" id="schemas">
+        <div class="container">
+            <h2 class="section-title">Available Schemas</h2>
+            <div class="schema-grid">
+                <div class="schema-card">
+                    <h3 class="schema-title">SoEasily DSL</h3>
+                    <p class="schema-version">Version 1.0</p>
+                    <p class="schema-version">The actions and rules schema for defining workflows</p>
+                    <a target="_blank" href="v1/soeasily-dsl.json" class="schema-link">View Schema →</a>
+                </div>
+                <div class="schema-card">
+                    <h3 class="schema-title">SoEasily Actions</h3>
+                    <p class="schema-version">Version 1.0</p>
+                    <p class="schema-version">The cornerstone for integrating external platforms</p>
+                    <a target="_blank" href="v1/soeasily-action.json" class="schema-link">View Schema →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Use Cases</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Internal Operations</h3>
+                    <p class="feature-desc">
+                        Automate onboarding, invoice approvals, and team workflows with natural language descriptions.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Customer-Facing</h3>
+                    <p class="feature-desc">
+                        Let users build workflows directly in your product with our embeddable visual editor.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">AI Agents</h3>
+                    <p class="feature-desc">
+                        Build intelligent flows that integrate with AI services for summarization, classification, and smart routing.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">
+                SoEasily - Powering the next generation of workflow automation
+            </p>
+            <p class="footer-text">
+                &copy; 
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+
+                <a target="_blank" href="https://soeasily.com" class="schema-link" style="color: white; font-weight: bold;">SoEasily</a>. All rights reserved. 
+                
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
