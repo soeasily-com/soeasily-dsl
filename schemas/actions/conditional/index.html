@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LLM Prompt - SoEasily Core Actions</title>
+    <title>Conditional - SoEasily Core Actions</title>
     <link
         href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
         rel="stylesheet"
@@ -33,7 +33,7 @@
         }
 
         .hero-section {
-            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
             color: white;
             padding: 60px 0;
             text-align: center;
@@ -169,6 +169,21 @@
             font-size: 14px;
         }
 
+        .workflow-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .workflow-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 32px;
@@ -191,7 +206,7 @@
             <nav class="breadcrumb-nav">
                 <a href="../../index.html">SoEasily Schemas</a> / 
                 <a href="../index.html">Actions</a> / 
-                LLM Prompt
+                Conditional
             </nav>
         </div>
     </div>
@@ -200,9 +215,9 @@
     <section class="hero-section">
         <div class="container">
             <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
-            <h1 class="hero-title">LLM Prompt</h1>
+            <h1 class="hero-title">Conditional</h1>
             <p class="hero-subtitle">
-                Sends a prompt to a specified Large Language Model and returns the generated text.
+                Allows for simple 'if/then' branching in a workflow. The input data is passed through, and logic is applied to the outgoing connections' 'condition' fields to determine the execution path.
             </p>
         </div>
     </section>
@@ -212,93 +227,134 @@
         <div class="container">
             <h2 class="section-title">Overview</h2>
             <p class="section-desc">
-                The LLM Prompt action brings the power of Large Language Models directly into your workflows. Connect to models like GPT-4, Claude, or other LLMs to generate text, analyze content, answer questions, or perform complex reasoning tasks. Perfect for content generation, data analysis, customer support automation, and intelligent decision-making.
+                The Conditional action is the foundation of intelligent workflow routing. It acts as a decision point that evaluates data and directs workflow execution down different paths based on conditions. Unlike complex branching logic, the Conditional action keeps things simple by passing data through unchanged while letting you define conditions on the connections themselves.
             </p>
             
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h3 class="feature-title">🤖 AI-Powered Generation</h3>
-                    <p class="feature-desc">Generate human-like text, analyze content, answer questions, and perform complex reasoning tasks.</p>
+                    <h3 class="feature-title">🔀 Smart Routing</h3>
+                    <p class="feature-desc">Route workflow execution based on data values, user properties, or any conditional logic.</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="feature-title">🎛️ Configurable Parameters</h3>
-                    <p class="feature-desc">Control creativity with temperature settings and choose from various model providers and versions.</p>
+                    <h3 class="feature-title">📊 Data Preservation</h3>
+                    <p class="feature-desc">Passes input data through unchanged, maintaining data integrity across branches.</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="feature-title">🔗 Workflow Integration</h3>
-                    <p class="feature-desc">Seamlessly integrate AI capabilities into any workflow step for intelligent automation.</p>
+                    <h3 class="feature-title">⚡ Zero Configuration</h3>
+                    <p class="feature-desc">No setup required - all logic is defined on the outgoing connections for maximum flexibility.</p>
                 </div>
             </div>
 
             <div style="margin-top: 32px;">
                 <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
-                <span class="tag">llm</span>
-                <span class="tag">ai</span>
-                <span class="tag">prompt</span>
-                <span class="tag">generate</span>
-                <span class="tag">text</span>
-                <span class="tag">openai</span>
-                <span class="tag">anthropic</span>
+                <span class="tag">if</span>
+                <span class="tag">else</span>
+                <span class="tag">branch</span>
+                <span class="tag">condition</span>
+                <span class="tag">logic</span>
+                <span class="tag">route</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-desc">
+                The Conditional action works by evaluating conditions defined on its outgoing connections. When data flows into the action, it's passed through unchanged, but the workflow engine evaluates each connection's condition to determine which path(s) to follow.
+            </p>
+            
+            <div class="workflow-example">
+                <h3 class="workflow-title">Example: User Age Verification</h3>
+                <pre><code>{
+  "connections": [
+    {
+      "source_action": "conditional_1",
+      "target_action": "send_adult_content",
+      "condition": "user.age >= 18",
+      "data_mapping": {
+        "user_data": "source.user"
+      }
+    },
+    {
+      "source_action": "conditional_1", 
+      "target_action": "request_parental_consent",
+      "condition": "user.age < 18",
+      "data_mapping": {
+        "user_data": "source.user"
+      }
+    }
+  ]
+}</code></pre>
+            </div>
+
+            <div class="workflow-example">
+                <h3 class="workflow-title">Example: Order Value Routing</h3>
+                <pre><code>{
+  "connections": [
+    {
+      "source_action": "conditional_1",
+      "target_action": "auto_approve",
+      "condition": "order.value <= 100",
+      "data_mapping": {
+        "order": "source.order"
+      }
+    },
+    {
+      "source_action": "conditional_1",
+      "target_action": "manual_review",
+      "condition": "order.value > 100",
+      "data_mapping": {
+        "order": "source.order"
+      }
+    }
+  ]
+}</code></pre>
             </div>
         </div>
     </section>
 
     <!-- Configuration Section -->
-    <section class="section schema-section">
+    <section class="section">
         <div class="container">
             <h2 class="section-title">Configuration Schema</h2>
             <p class="section-desc">
-                Configure the LLM Prompt with model selection, prompt text, and generation parameters.
+                The Conditional action requires no configuration. All branching logic is defined on the outgoing connections.
             </p>
             
             <pre><code>{
-  "title": "LLM Prompt Configuration",
+  "title": "Conditional Configuration",
   "type": "object",
-  "properties": {
-    "model": { 
-      "type": "string", 
-      "description": "The identifier of the LLM to use (e.g., 'gpt-4-turbo')." 
-    },
-    "prompt": { 
-      "type": "string", 
-      "description": "The prompt to send to the model." 
-    },
-    "temperature": { 
-      "type": "number", 
-      "minimum": 0, 
-      "maximum": 2, 
-      "default": 0.7 
-    }
-  },
-  "required": ["model", "prompt"]
+  "description": "This action requires no configuration. Branching logic is defined on its outgoing connections.",
+  "properties": {},
+  "additionalProperties": false
 }</code></pre>
         </div>
     </section>
 
     <!-- Input/Output Section -->
-    <section class="section">
+    <section class="section schema-section">
         <div class="container">
             <h2 class="section-title">Input & Output</h2>
             
             <div class="feature-grid">
                 <div class="feature-card">
                     <h3 class="feature-title">Input Schema</h3>
-                    <p class="feature-desc">Accepts any JSON object that can be used to dynamically populate the prompt.</p>
+                    <p class="feature-desc">Accepts any JSON object from a preceding action.</p>
                     <pre><code>{
-  "title": "LLM Prompt Input",
+  "title": "Conditional Input",
+  "description": "Accepts any JSON object from a preceding action.",
   "type": "object"
 }</code></pre>
                 </div>
                 <div class="feature-card">
                     <h3 class="feature-title">Output Schema</h3>
-                    <p class="feature-desc">Returns the generated text from the language model.</p>
+                    <p class="feature-desc">Passes the input data through unchanged to be used by the subsequent branch.</p>
                     <pre><code>{
-  "title": "LLM Prompt Output",
-  "type": "object",
-  "properties": {
-    "generated_text": { "type": "string" }
-  },
-  "required": ["generated_text"]
+  "title": "Conditional Output",
+  "description": "Passes the input data through unchanged to be used by the subsequent branch.",
+  "type": "object"
 }</code></pre>
                 </div>
             </div>
@@ -306,141 +362,115 @@
     </section>
 
     <!-- Test Cases Section -->
-    <section class="section schema-section">
+    <section class="section">
         <div class="container">
             <h2 class="section-title">Test Examples</h2>
             <p class="section-desc">
-                Here are example configurations and expected outputs to help you understand how the LLM Prompt action works.
+                Here are example configurations and expected outputs to help you understand how the Conditional action works.
             </p>
 
             <div class="test-case">
-                <h3 class="test-title">Ask a Simple Question</h3>
-                <p class="test-desc">Tests generating text from a simple prompt.</p>
+                <h3 class="test-title">Pass-through Data</h3>
+                <p class="test-desc">Ensures the action correctly passes its input directly to its output without modification.</p>
                 
                 <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input:</h4>
                 <pre><code>{
-  "model": "gpt-4-turbo",
-  "prompt": "What is the capital of France?"
+  "user": { "id": 123, "status": "active" },
+  "order_value": 150
 }</code></pre>
                 
                 <h4 style="margin: 16px 0 8px 0; color: #24292f;">Expected Output:</h4>
                 <pre><code>{
-  "generated_text": "The capital of France is Paris."
-}</code></pre>
-            </div>
-
-            <div class="test-case">
-                <h3 class="test-title">Content Generation with Temperature</h3>
-                <p class="test-desc">Generate creative content with higher temperature for more creativity.</p>
-                
-                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
-                <pre><code>{
-  "model": "gpt-4-turbo",
-  "prompt": "Write a creative tagline for a workflow automation platform",
-  "temperature": 1.2
-}</code></pre>
-                
-                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Example Output:</h4>
-                <pre><code>{
-  "generated_text": "Transform chaos into choreography with intelligent automation that thinks ahead."
-}</code></pre>
-            </div>
-
-            <div class="test-case">
-                <h3 class="test-title">Data Analysis Prompt</h3>
-                <p class="test-desc">Use AI to analyze and summarize data or content.</p>
-                
-                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
-                <pre><code>{
-  "model": "gpt-4-turbo",
-  "prompt": "Analyze this customer feedback and provide a sentiment score (1-10) and key themes: 'The product is amazing but the support response time could be better. Love the features!'",
-  "temperature": 0.3
-}</code></pre>
-                
-                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Example Output:</h4>
-                <pre><code>{
-  "generated_text": "Sentiment Score: 7/10\n\nKey Themes:\n- Product satisfaction: High (positive feedback on features)\n- Support concerns: Moderate (response time issues)\n- Overall experience: Positive with room for improvement\n\nRecommendation: Focus on improving support response times while maintaining product quality."
+  "user": { "id": 123, "status": "active" },
+  "order_value": 150
 }</code></pre>
             </div>
         </div>
     </section>
 
     <!-- Use Cases Section -->
-    <section class="section">
+    <section class="section schema-section">
         <div class="container">
             <h2 class="section-title">Common Use Cases</h2>
             
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h3 class="feature-title">📝 Content Generation</h3>
-                    <p class="feature-desc">Generate marketing copy, product descriptions, emails, and documentation automatically.</p>
+                    <h3 class="feature-title">👤 User Segmentation</h3>
+                    <p class="feature-desc">Route users based on subscription level, location, or account status for personalized experiences.</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="feature-title">📊 Data Analysis</h3>
-                    <p class="feature-desc">Analyze customer feedback, summarize reports, and extract insights from text data.</p>
+                    <h3 class="feature-title">💰 Order Processing</h3>
+                    <p class="feature-desc">Direct orders to different approval processes based on value, customer type, or payment method.</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="feature-title">🎯 Smart Routing</h3>
-                    <p class="feature-desc">Classify and route content, tickets, or requests based on AI understanding.</p>
+                    <h3 class="feature-title">🎯 Content Filtering</h3>
+                    <p class="feature-desc">Show different content or features based on user permissions, age, or preferences.</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="feature-title">💬 Customer Support</h3>
-                    <p class="feature-desc">Generate personalized responses, FAQ answers, and support ticket summaries.</p>
+                    <h3 class="feature-title">⚠️ Error Handling</h3>
+                    <p class="feature-desc">Route to different error handling paths based on error type or severity level.</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="feature-title">🔍 Information Extraction</h3>
-                    <p class="feature-desc">Extract structured data from unstructured text, documents, and communications.</p>
+                    <h3 class="feature-title">📊 Data Validation</h3>
+                    <p class="feature-desc">Send valid data to processing and invalid data to correction or notification flows.</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="feature-title">🧠 Decision Support</h3>
-                    <p class="feature-desc">Get AI recommendations and analysis to support business decision-making.</p>
+                    <h3 class="feature-title">🕐 Time-based Logic</h3>
+                    <p class="feature-desc">Route workflows differently based on time of day, day of week, or business hours.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Model Support Section -->
-    <section class="section schema-section">
+    <!-- Condition Expressions Section -->
+    <section class="section">
         <div class="container">
-            <h2 class="section-title">Supported Models</h2>
+            <h2 class="section-title">Condition Expressions</h2>
             <p class="section-desc">
-                SoEasily supports a wide range of language models from leading providers.
+                Conditions are evaluated using JMESPath or JSONata expressions. Here are common patterns:
             </p>
             
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h3 class="feature-title">OpenAI Models</h3>
-                    <p class="feature-desc">
-                        <code>gpt-4-turbo</code>, <code>gpt-4</code>, <code>gpt-3.5-turbo</code>
-                    </p>
+                    <h3 class="feature-title">Numeric Comparisons</h3>
+                    <pre><code>user.age >= 18
+order.total > 100
+score <= 85</code></pre>
                 </div>
                 <div class="feature-card">
-                    <h3 class="feature-title">Anthropic Models</h3>
-                    <p class="feature-desc">
-                        <code>claude-3-opus</code>, <code>claude-3-sonnet</code>, <code>claude-3-haiku</code>
-                    </p>
+                    <h3 class="feature-title">String Matching</h3>
+                    <pre><code>user.status == 'premium'
+country == 'US'
+email.endsWith('@company.com')</code></pre>
                 </div>
                 <div class="feature-card">
-                    <h3 class="feature-title">Temperature Control</h3>
-                    <p class="feature-desc">
-                        <strong>0.0-0.3:</strong> Focused, deterministic<br>
-                        <strong>0.4-0.7:</strong> Balanced creativity<br>
-                        <strong>0.8-2.0:</strong> Highly creative
-                    </p>
+                    <h3 class="feature-title">Boolean Logic</h3>
+                    <pre><code>user.verified && user.active
+status == 'pending' || status == 'review'
+!user.blocked</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Array Operations</h3>
+                    <pre><code>tags.includes('urgent')
+permissions.length > 0
+roles.contains('admin')</code></pre>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Technical Details Section -->
-    <section class="section">
+    <section class="section schema-section">
         <div class="container">
             <h2 class="section-title">Technical Details</h2>
             
             <div class="feature-grid">
                 <div class="feature-card">
                     <h3 class="feature-title">Action ID</h3>
-                    <p class="feature-desc"><code>soeasily/llm_prompt</code></p>
+                    <p class="feature-desc"><code>soeasily/conditional</code></p>
                 </div>
                 <div class="feature-card">
                     <h3 class="feature-title">Version</h3>
@@ -448,15 +478,15 @@
                 </div>
                 <div class="feature-card">
                     <h3 class="feature-title">Category</h3>
-                    <p class="feature-desc">AI & LLM</p>
+                    <p class="feature-desc">Control Flow</p>
                 </div>
                 <div class="feature-card">
                     <h3 class="feature-title">Collection</h3>
-                    <p class="feature-desc">AI</p>
+                    <p class="feature-desc">Control Flow</p>
                 </div>
                 <div class="feature-card">
                     <h3 class="feature-title">Handler</h3>
-                    <p class="feature-desc"><code>soeasily.ai.llm@1</code></p>
+                    <p class="feature-desc"><code>soeasily.control.conditional@1</code></p>
                 </div>
                 <div class="feature-card">
                     <h3 class="feature-title">Author</h3>
