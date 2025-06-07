@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GraphQL Request - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .graphql-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .graphql-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .graphql-query {
+            background: #fdf2f8;
+            border: 1px solid #f9a8d4;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+            color: #be185d;
+            margin: 8px 0;
+        }
+
+        .graphql-response {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+            color: #059669;
+            margin: 8px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #d1d9e0;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+            color: #24292f;
+        }
+
+        .comparison-table td {
+            color: #656d76;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../index.html">SoEasily Schemas</a> / 
+                <a href="../index.html">Actions</a> / 
+                GraphQL Request
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">GraphQL Request</h1>
+            <p class="hero-subtitle">
+                Sends a query or mutation to a GraphQL endpoint and returns the response. Perfect for modern API integrations with precise data fetching.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The GraphQL Request action enables seamless integration with GraphQL APIs, offering precise data fetching with queries and data modification with mutations. Unlike REST APIs that require multiple endpoints, GraphQL allows you to request exactly the data you need in a single request, making it perfect for efficient API integrations and reducing over-fetching of data.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Precise Data Fetching</h3>
+                    <p class="feature-desc">Request exactly the data you need with GraphQL queries, reducing bandwidth and improving performance.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Queries & Mutations</h3>
+                    <p class="feature-desc">Support for both data fetching (queries) and data modification (mutations) operations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛠️ Flexible Configuration</h3>
+                    <p class="feature-desc">Configure endpoints, variables, headers, and complex nested queries with ease.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">graphql</span>
+                <span class="tag">api</span>
+                <span class="tag">query</span>
+                <span class="tag">mutation</span>
+                <span class="tag">request</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- GraphQL vs REST Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">GraphQL vs REST</h2>
+            <p class="section-desc">
+                Understanding the key differences between GraphQL and REST API approaches.
+            </p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>GraphQL</th>
+                        <th>REST</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Data Fetching</strong></td>
+                        <td>Request exactly what you need</td>
+                        <td>Fixed data structure per endpoint</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Endpoints</strong></td>
+                        <td>Single endpoint for all operations</td>
+                        <td>Multiple endpoints for different resources</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Over/Under-fetching</strong></td>
+                        <td>Eliminated by design</td>
+                        <td>Common issue with fixed responses</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Versioning</strong></td>
+                        <td>Schema evolution without versioning</td>
+                        <td>API versioning required for changes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Real-time</strong></td>
+                        <td>Built-in subscriptions support</td>
+                        <td>Requires additional technologies</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Caching</strong></td>
+                        <td>More complex due to dynamic queries</td>
+                        <td>Simple HTTP caching</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- GraphQL Examples Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">GraphQL Examples</h2>
+            <p class="section-desc">
+                See how GraphQL Request handles different types of queries and mutations.
+            </p>
+            
+            <div class="graphql-example">
+                <h3 class="graphql-title">Simple Query</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Fetch specific country information</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "endpoint": "https://countries.trevorblades.com/",
+  "query": "query { country(code: \"US\") { name capital currency } }"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">GraphQL Query:</h4>
+                <div class="graphql-query">query {
+  country(code: "US") {
+    name
+    capital
+    currency
+  }
+}</div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Response:</h4>
+                <div class="graphql-response">{
+  "status_code": 200,
+  "data": {
+    "country": {
+      "name": "United States",
+      "capital": "Washington, D.C.",
+      "currency": "USD"
+    }
+  }
+}</div>
+            </div>
+
+            <div class="graphql-example">
+                <h3 class="graphql-title">Query with Variables</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Use variables for dynamic queries</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "endpoint": "https://api.github.com/graphql",
+  "query": "query($owner: String!, $name: String!) { repository(owner: $owner, name: $name) { name description stargazerCount } }",
+  "variables": {
+    "owner": "facebook",
+    "name": "react"
+  },
+  "headers": {
+    "Authorization": "Bearer YOUR_TOKEN"
+  }
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">GraphQL Query:</h4>
+                <div class="graphql-query">query($owner: String!, $name: String!) {
+  repository(owner: $owner, name: $name) {
+    name
+    description
+    stargazerCount
+  }
+}</div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Variables:</h4>
+                <div class="graphql-query">{
+  "owner": "facebook",
+  "name": "react"
+}</div>
+            </div>
+
+            <div class="graphql-example">
+                <h3 class="graphql-title">Mutation Example</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Create or update data with mutations</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "endpoint": "https://api.example.com/graphql",
+  "query": "mutation($input: CreateUserInput!) { createUser(input: $input) { id name email } }",
+  "variables": {
+    "input": {
+      "name": "John Doe",
+      "email": "john@example.com"
+    }
+  }
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">GraphQL Mutation:</h4>
+                <div class="graphql-query">mutation($input: CreateUserInput!) {
+  createUser(input: $input) {
+    id
+    name
+    email
+  }
+}</div>
+            </div>
+
+            <div class="graphql-example">
+                <h3 class="graphql-title">Complex Nested Query</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Fetch related data in a single request</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">GraphQL Query:</h4>
+                <div class="graphql-query">query {
+  user(id: "123") {
+    name
+    email
+    posts {
+      title
+      content
+      comments {
+        author
+        text
+        createdAt
+      }
+    }
+    followers {
+      name
+      avatar
+    }
+  }
+}</div>
+                
+                <p style="color: #656d76; font-size: 14px; margin-top: 16px;">
+                    <strong>Benefit:</strong> This single request replaces what would require multiple REST API calls (user details, posts, comments, followers).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure the GraphQL Request action with endpoint, query, variables, and headers.
+            </p>
+            
+            <pre><code>{
+  "title": "GraphQL Request Configuration",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "query": {
+      "type": "string"
+    },
+    "variables": {
+      "type": "object"
+    },
+    "headers": {
+      "type": "object"
+    }
+  },
+  "required": ["endpoint", "query"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Input data can be referenced in queries and variables using expressions.</p>
+                    <pre><code>{
+  "title": "GraphQL Request Input",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">Returns the GraphQL response with status code, data, and any errors.</p>
+                    <pre><code>{
+  "title": "GraphQL Request Output",
+  "type": "object",
+  "properties": {
+    "status_code": { "type": "integer" },
+    "data": { "type": "object" },
+    "errors": { "type": "array" }
+  },
+  "required": ["status_code", "data"]
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Common Patterns Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Common GraphQL Patterns</h2>
+            <p class="section-desc">
+                Useful patterns for different GraphQL operations and use cases.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Basic Query</h3>
+                    <pre><code># Simple field selection
+query {
+  user(id: "123") {
+    name
+    email
+  }
+}
+
+# With arguments
+query {
+  posts(limit: 10, offset: 0) {
+    title
+    author
+  }
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Query with Variables</h3>
+                    <pre><code># Define variables
+query GetUser($userId: ID!, $includeEmail: Boolean!) {
+  user(id: $userId) {
+    name
+    email @include(if: $includeEmail)
+  }
+}
+
+# Variables object
+{
+  "userId": "123",
+  "includeEmail": true
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Mutations</h3>
+                    <pre><code># Create operation
+mutation CreatePost($input: PostInput!) {
+  createPost(input: $input) {
+    id
+    title
+    createdAt
+  }
+}
+
+# Update operation
+mutation UpdateUser($id: ID!, $data: UserUpdateInput!) {
+  updateUser(id: $id, data: $data) {
+    id
+    name
+    updatedAt
+  }
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Fragments</h3>
+                    <pre><code># Define reusable fragments
+fragment UserInfo on User {
+  id
+  name
+  email
+  avatar
+}
+
+# Use in queries
+query {
+  currentUser {
+    ...UserInfo
+  }
+  friends {
+    ...UserInfo
+  }
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Aliases</h3>
+                    <pre><code># Use aliases for multiple calls
+query {
+  firstUser: user(id: "1") {
+    name
+  }
+  secondUser: user(id: "2") {
+    name
+  }
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Pagination</h3>
+                    <pre><code># Cursor-based pagination
+query GetPosts($first: Int!, $after: String) {
+  posts(first: $first, after: $after) {
+    edges {
+      node {
+        id
+        title
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Data Fetching</h3>
+                    <p class="feature-desc">Retrieve specific data from APIs with precise field selection and nested relationships.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Content Management</h3>
+                    <p class="feature-desc">Create, update, and delete content through GraphQL mutations in CMS systems.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">👥 User Management</h3>
+                    <p class="feature-desc">Handle user authentication, profile updates, and user-related operations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Analytics & Reporting</h3>
+                    <p class="feature-desc">Fetch analytics data with custom date ranges, filters, and aggregations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛒 E-commerce</h3>
+                    <p class="feature-desc">Manage products, orders, inventory, and customer data through GraphQL APIs.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔗 API Aggregation</h3>
+                    <p class="feature-desc">Combine data from multiple sources through a unified GraphQL interface.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Query Optimization</h3>
+                    <p class="feature-desc">
+                        Write efficient queries:
+                        <br>• Request only needed fields
+                        <br>• Use fragments for reusable selections
+                        <br>• Implement proper pagination
+                        <br>• Avoid deeply nested queries
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔐 Authentication</h3>
+                    <p class="feature-desc">
+                        Handle authentication properly:
+                        <br>• Use Authorization headers for tokens
+                        <br>• Implement proper token refresh
+                        <br>• Handle authentication errors gracefully
+                        <br>• Store credentials securely
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛡️ Error Handling</h3>
+                    <p class="feature-desc">
+                        Handle GraphQL errors effectively:
+                        <br>• Check both HTTP status and GraphQL errors
+                        <br>• Parse error messages for user feedback
+                        <br>• Implement retry logic for network errors
+                        <br>• Log errors for debugging
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Performance</h3>
+                    <p class="feature-desc">
+                        Optimize for performance:
+                        <br>• Use variables instead of string interpolation
+                        <br>• Implement query complexity limits
+                        <br>• Cache responses when appropriate
+                        <br>• Monitor query performance
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/graphql_request</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Integration & Generic</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Integrations</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.integrations.graphql@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
