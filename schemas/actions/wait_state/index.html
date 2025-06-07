@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wait - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .duration-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .duration-value {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 16px;
+            color: #0c4a6e;
+            margin: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../index.html">SoEasily Schemas</a> / 
+                <a href="../index.html">Actions</a> / 
+                Wait
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Wait</h1>
+            <p class="hero-subtitle">
+                Pauses the workflow for a specified duration before proceeding. Useful for delays, rate limiting, or waiting for external processes.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Wait action introduces controlled delays into your workflows. Whether you need to respect API rate limits, allow time for external processes to complete, implement retry delays, or simply pace your workflow execution, the Wait action provides precise timing control while preserving your data flow.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">⏱️ Precise Timing</h3>
+                    <p class="feature-desc">Configure exact wait durations in milliseconds for precise workflow timing control.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Preservation</h3>
+                    <p class="feature-desc">Passes input data through unchanged after the delay, maintaining data integrity.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Flow Control</h3>
+                    <p class="feature-desc">Essential for rate limiting, retry logic, and coordinating with external systems.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">wait</span>
+                <span class="tag">delay</span>
+                <span class="tag">sleep</span>
+                <span class="tag">pause</span>
+                <span class="tag">timeout</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Duration Examples Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Duration Examples</h2>
+            <p class="section-desc">
+                Common wait durations for different use cases. All durations are specified in milliseconds.
+            </p>
+            
+            <div class="duration-example">
+                <h3 class="test-title">Short Delay (100ms)</h3>
+                <p class="test-desc">Minimal delay for quick pacing or avoiding rapid-fire requests</p>
+                <div class="duration-value">100</div>
+            </div>
+
+            <div class="duration-example">
+                <h3 class="test-title">Half Second (500ms)</h3>
+                <p class="test-desc">Brief pause for user experience or light rate limiting</p>
+                <div class="duration-value">500</div>
+            </div>
+
+            <div class="duration-example">
+                <h3 class="test-title">One Second (1000ms)</h3>
+                <p class="test-desc">Standard delay for API rate limiting or user feedback</p>
+                <div class="duration-value">1000</div>
+            </div>
+
+            <div class="duration-example">
+                <h3 class="test-title">Five Seconds (5000ms)</h3>
+                <p class="test-desc">Moderate delay for external process completion</p>
+                <div class="duration-value">5000</div>
+            </div>
+
+            <div class="duration-example">
+                <h3 class="test-title">Thirty Seconds (30000ms)</h3>
+                <p class="test-desc">Longer delay for batch processing or system cooldown</p>
+                <div class="duration-value">30000</div>
+            </div>
+
+            <div class="duration-example">
+                <h3 class="test-title">One Minute (60000ms)</h3>
+                <p class="test-desc">Extended delay for scheduled intervals or retry backoff</p>
+                <div class="duration-value">60000</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure the Wait action with the duration in milliseconds.
+            </p>
+            
+            <pre><code>{
+  "title": "Wait Configuration",
+  "type": "object",
+  "properties": {
+    "duration_milliseconds": {
+      "type": "integer",
+      "title": "Wait Duration (milliseconds)",
+      "description": "The number of seconds the workflow should pause.",
+      "minimum": 100
+    }
+  },
+  "required": ["duration_milliseconds"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Accepts any JSON object to be passed through after the delay.</p>
+                    <pre><code>{
+  "title": "Wait Input",
+  "description": "Accepts any JSON object.",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">Passes the input data through unchanged after the delay.</p>
+                    <pre><code>{
+  "title": "Wait Output",
+  "description": "Passes the input data through unchanged after the delay.",
+  "type": "object"
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Cases Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Test Examples</h2>
+            <p class="section-desc">
+                Example configurations showing how the Wait action preserves data while introducing delays.
+            </p>
+
+            <div class="test-case">
+                <h3 class="test-title">Wait for 5 Seconds</h3>
+                <p class="test-desc">Tests that the action correctly passes data through after a configured delay.</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "duration_milliseconds": 5000
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input:</h4>
+                <pre><code>{
+  "process_id": "proc-xyz",
+  "status": "processing"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output (after 5 seconds):</h4>
+                <pre><code>{
+  "process_id": "proc-xyz",
+  "status": "processing"
+}</code></pre>
+            </div>
+
+            <div class="test-case">
+                <h3 class="test-title">Rate Limiting Delay</h3>
+                <p class="test-desc">Example of using Wait for API rate limiting between requests.</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "duration_milliseconds": 1000
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Use Case:</h4>
+                <p style="color: #656d76; font-size: 14px;">Insert between API calls to respect rate limits of 1 request per second.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🚦 Rate Limiting</h3>
+                    <p class="feature-desc">Respect API rate limits by adding delays between requests to external services.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Retry Logic</h3>
+                    <p class="feature-desc">Implement exponential backoff or fixed delays in retry mechanisms.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">⏳ External Process Wait</h3>
+                    <p class="feature-desc">Allow time for external systems to process data before continuing.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Batch Processing</h3>
+                    <p class="feature-desc">Pace batch operations to avoid overwhelming systems or databases.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎭 User Experience</h3>
+                    <p class="feature-desc">Add deliberate delays for better user experience or progress indication.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔧 System Coordination</h3>
+                    <p class="feature-desc">Coordinate timing between different workflow branches or external dependencies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">⚡ Minimum Duration</h3>
+                    <p class="feature-desc">
+                        The minimum wait duration is 100ms. Use this for minimal delays that don't significantly impact workflow performance.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📈 Exponential Backoff</h3>
+                    <p class="feature-desc">
+                        For retry scenarios, consider increasing wait times: 1s, 2s, 4s, 8s to reduce load on failing systems.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Purpose-Driven Timing</h3>
+                    <p class="feature-desc">
+                        Choose wait durations based on your specific use case:
+                        <br>• Rate limiting: 1-2 seconds
+                        <br>• External processing: 5-30 seconds
+                        <br>• Batch intervals: 1-5 minutes
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Workflow Impact</h3>
+                    <p class="feature-desc">
+                        Consider the cumulative effect of multiple Wait actions in your workflow and their impact on total execution time.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/wait_state</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Control Flow</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Control Flow</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.control.wait@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
