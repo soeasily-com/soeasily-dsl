@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Trigger - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .cron-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .cron-expression {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 16px;
+            color: #0c4a6e;
+            margin: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../index.html">SoEasily Schemas</a> / 
+                <a href="../index.html">Actions</a> / 
+                Schedule Trigger
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Schedule Trigger</h1>
+            <p class="hero-subtitle">
+                Starts a workflow automatically based on a defined schedule. Provide a standard CRON expression for precise, recurring execution.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Schedule Trigger enables time-based workflow automation using CRON expressions. Whether you need to run reports daily, send reminders weekly, or perform maintenance tasks monthly, this trigger provides precise scheduling capabilities. Perfect for recurring tasks, batch processing, and automated maintenance workflows.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">⏰ Precise Scheduling</h3>
+                    <p class="feature-desc">Use standard CRON expressions for exact timing control down to the minute.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Recurring Automation</h3>
+                    <p class="feature-desc">Set up workflows that run automatically on your schedule without manual intervention.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📅 Flexible Patterns</h3>
+                    <p class="feature-desc">Support for complex schedules including weekdays only, specific dates, and custom intervals.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">schedule</span>
+                <span class="tag">cron</span>
+                <span class="tag">time</span>
+                <span class="tag">interval</span>
+                <span class="tag">automation</span>
+                <span class="tag">timer</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CRON Examples Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">CRON Expression Examples</h2>
+            <p class="section-desc">
+                Common CRON patterns for different scheduling needs. CRON format: minute hour day month day-of-week
+            </p>
+            
+            <div class="cron-example">
+                <h3 class="test-title">Every Hour</h3>
+                <p class="test-desc">Runs at the beginning of every hour (e.g., 1:00, 2:00, 3:00)</p>
+                <div class="cron-expression">0 * * * *</div>
+            </div>
+
+            <div class="cron-example">
+                <h3 class="test-title">Daily at 9:00 AM</h3>
+                <p class="test-desc">Runs once per day at 9:00 AM</p>
+                <div class="cron-expression">0 9 * * *</div>
+            </div>
+
+            <div class="cron-example">
+                <h3 class="test-title">Weekdays at 5:30 PM</h3>
+                <p class="test-desc">Runs Monday through Friday at 5:30 PM</p>
+                <div class="cron-expression">30 17 * * 1-5</div>
+            </div>
+
+            <div class="cron-example">
+                <h3 class="test-title">Weekly on Sundays at Midnight</h3>
+                <p class="test-desc">Runs every Sunday at 12:00 AM</p>
+                <div class="cron-expression">0 0 * * 0</div>
+            </div>
+
+            <div class="cron-example">
+                <h3 class="test-title">Monthly on the 1st at 6:00 AM</h3>
+                <p class="test-desc">Runs on the first day of every month at 6:00 AM</p>
+                <div class="cron-expression">0 6 1 * *</div>
+            </div>
+
+            <div class="cron-example">
+                <h3 class="test-title">Every 15 Minutes</h3>
+                <p class="test-desc">Runs every 15 minutes (e.g., :00, :15, :30, :45)</p>
+                <div class="cron-expression">*/15 * * * *</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure the Schedule Trigger with a CRON expression that defines when the workflow should run.
+            </p>
+            
+            <pre><code>{
+  "title": "Schedule Configuration",
+  "type": "object",
+  "properties": {
+    "cron_expression": {
+      "title": "CRON Expression",
+      "description": "A standard CRON expression to define the schedule (e.g., '0 9 * * MON-FRI').",
+      "type": "string",
+      "examples": ["0 * * * *"]
+    }
+  },
+  "required": ["cron_expression"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">This trigger does not accept input from other actions as it's designed to start workflows.</p>
+                    <pre><code>{
+  "title": "Schedule Trigger Input",
+  "description": "This trigger does not accept input from other actions.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">Provides the timestamp of when the workflow was triggered.</p>
+                    <pre><code>{
+  "title": "Schedule Trigger Output",
+  "type": "object",
+  "properties": {
+    "triggered_at": {
+      "description": "The ISO 8601 timestamp of the trigger execution time.",
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["triggered_at"]
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Cases Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Test Examples</h2>
+            <p class="section-desc">
+                Here are example configurations and expected outputs for different scheduling scenarios.
+            </p>
+
+            <div class="test-case">
+                <h3 class="test-title">Trigger Every Hour</h3>
+                <p class="test-desc">Tests a schedule that runs at the beginning of every hour.</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "cron_expression": "0 * * * *"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Expected Output:</h4>
+                <pre><code>{
+  "triggered_at": "2025-06-07T11:00:00Z"
+}</code></pre>
+            </div>
+
+            <div class="test-case">
+                <h3 class="test-title">Trigger Daily at 5:30 PM</h3>
+                <p class="test-desc">Tests a daily schedule for a specific time.</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "cron_expression": "30 17 * * *"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Expected Output:</h4>
+                <pre><code>{
+  "triggered_at": "2025-06-07T17:30:00Z"
+}</code></pre>
+            </div>
+
+            <div class="test-case">
+                <h3 class="test-title">Trigger on Weekdays at 9am</h3>
+                <p class="test-desc">Tests a schedule that runs once a day, only on weekdays.</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "cron_expression": "0 9 * * 1-5"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Expected Output:</h4>
+                <pre><code>{
+  "triggered_at": "2025-06-09T09:00:00Z"
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- CRON Reference Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">CRON Expression Reference</h2>
+            <p class="section-desc">
+                Understanding CRON expression format and special characters.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Field Format</h3>
+                    <pre><code>* * * * *
+│ │ │ │ │
+│ │ │ │ └─ Day of Week (0-7, Sun=0/7)
+│ │ │ └─── Month (1-12)
+│ │ └───── Day of Month (1-31)
+│ └─────── Hour (0-23)
+└───────── Minute (0-59)</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Special Characters</h3>
+                    <pre><code>*     Any value
+,     Value list separator
+-     Range of values
+/     Step values
+0-6   Sunday to Saturday
+1-12  January to December</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Common Patterns</h3>
+                    <pre><code>*/5   Every 5 units
+0-5   Range from 0 to 5
+1,3,5 On 1st, 3rd, and 5th
+MON-FRI Weekdays
+SUN   Sunday only</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Daily Reports</h3>
+                    <p class="feature-desc">Generate and send daily, weekly, or monthly reports automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🧹 Data Cleanup</h3>
+                    <p class="feature-desc">Run maintenance tasks like cleaning up old files or archiving data.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Data Synchronization</h3>
+                    <p class="feature-desc">Sync data between systems on a regular schedule.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📧 Reminder Notifications</h3>
+                    <p class="feature-desc">Send scheduled reminders, alerts, or notifications to users.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">💾 Backup Operations</h3>
+                    <p class="feature-desc">Automate backup processes for databases, files, or configurations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Health Checks</h3>
+                    <p class="feature-desc">Regularly monitor system health and performance metrics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/schedule_trigger</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Trigger</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Core Triggers</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.triggers.schedule@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
