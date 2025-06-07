@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Switch - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .switch-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .switch-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .route-diagram {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+        }
+
+        .route-path {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #059669;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../index.html">SoEasily Schemas</a> / 
+                <a href="../index.html">Actions</a> / 
+                Switch
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Switch</h1>
+            <p class="hero-subtitle">
+                Routes the workflow down different branches based on the value of a specified input field. Define the routing rules in the 'condition' fields of the outgoing connections.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Switch action provides multi-way branching for your workflows, similar to a switch statement in programming. Unlike the Conditional action which handles simple if/then logic, Switch excels at routing data down multiple different paths based on specific field values. Perfect for status-based routing, category handling, priority levels, and any scenario where you need to direct workflow execution based on discrete values.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔀 Multi-way Routing</h3>
+                    <p class="feature-desc">Route workflows down multiple different paths based on field values or conditions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Preservation</h3>
+                    <p class="feature-desc">Passes input data through unchanged to the selected branch, maintaining data integrity.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">⚡ Zero Configuration</h3>
+                    <p class="feature-desc">No setup required - all routing logic is defined on the outgoing connections.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">switch</span>
+                <span class="tag">case</span>
+                <span class="tag">branch</span>
+                <span class="tag">route</span>
+                <span class="tag">multi-way</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Switch Examples Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Switch Routing Examples</h2>
+            <p class="section-desc">
+                See how Switch routes data down different paths based on field values.
+            </p>
+            
+            <div class="switch-example">
+                <h3 class="switch-title">Ticket Status Routing</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Route support tickets based on their status</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input Data:</h4>
+                <pre><code>{
+  "ticket": {
+    "id": "tkt-456",
+    "status": "pending_approval",
+    "priority": "high"
+  },
+  "user": "user-abc"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Connection Conditions:</h4>
+                <div class="route-diagram">
+                    <div class="route-path">ticket.status == "new" → new_ticket_handler</div>
+                    <div class="route-path">ticket.status == "pending_approval" → approval_workflow</div>
+                    <div class="route-path">ticket.status == "in_progress" → progress_tracker</div>
+                    <div class="route-path">ticket.status == "resolved" → resolution_handler</div>
+                    <div class="route-path">ticket.status == "closed" → archive_ticket</div>
+                </div>
+                
+                <p style="color: #656d76; font-size: 14px; margin-top: 16px;">
+                    <strong>Result:</strong> Data flows to <code>approval_workflow</code> because status is "pending_approval"
+                </p>
+            </div>
+
+            <div class="switch-example">
+                <h3 class="switch-title">User Role-Based Access</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Direct users to different workflows based on their role</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Connection Conditions:</h4>
+                <div class="route-diagram">
+                    <div class="route-path">user.role == "admin" → admin_dashboard</div>
+                    <div class="route-path">user.role == "manager" → manager_tools</div>
+                    <div class="route-path">user.role == "employee" → employee_portal</div>
+                    <div class="route-path">user.role == "guest" → public_access</div>
+                </div>
+            </div>
+
+            <div class="switch-example">
+                <h3 class="switch-title">Order Priority Processing</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Route orders to different processing queues based on priority</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Connection Conditions:</h4>
+                <div class="route-diagram">
+                    <div class="route-path">order.priority == "urgent" → express_processing</div>
+                    <div class="route-path">order.priority == "high" → priority_queue</div>
+                    <div class="route-path">order.priority == "normal" → standard_processing</div>
+                    <div class="route-path">order.priority == "low" → batch_processing</div>
+                </div>
+            </div>
+
+            <div class="switch-example">
+                <h3 class="switch-title">Payment Method Handling</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Process payments differently based on payment method</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Connection Conditions:</h4>
+                <div class="route-diagram">
+                    <div class="route-path">payment.method == "credit_card" → stripe_processor</div>
+                    <div class="route-path">payment.method == "paypal" → paypal_processor</div>
+                    <div class="route-path">payment.method == "bank_transfer" → bank_processor</div>
+                    <div class="route-path">payment.method == "crypto" → crypto_processor</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                The Switch action requires no configuration. All routing logic is defined on the outgoing connections.
+            </p>
+            
+            <pre><code>{
+  "title": "Switch Configuration",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Accepts any JSON object. Connection conditions will reference fields within this object.</p>
+                    <pre><code>{
+  "title": "Switch Input",
+  "description": "Accepts any JSON object. The 'condition' on outgoing connections will reference a field within this object.",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">Passes the input data through unchanged to the chosen branch.</p>
+                    <pre><code>{
+  "title": "Switch Output",
+  "description": "Passes the input data through unchanged to the chosen branch.",
+  "type": "object"
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Condition Patterns Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Condition Patterns</h2>
+            <p class="section-desc">
+                Typical patterns for defining switch conditions on connections.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Exact Value Matching</h3>
+                    <pre><code>// String values
+status == "pending"
+category == "electronics"
+type == "premium"
+
+// Numeric values
+priority == 1
+level == 5</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Multiple Value Matching</h3>
+                    <pre><code>// OR conditions
+status == "new" || status == "pending"
+
+// Array inclusion
+["admin", "manager"].includes(role)
+
+// Range matching
+priority >= 1 && priority <= 3</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Nested Field Access</h3>
+                    <pre><code>// Object properties
+user.subscription.tier == "premium"
+order.shipping.method == "express"
+product.category.name == "books"</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Default/Fallback Routes</h3>
+                    <pre><code>// Catch-all condition
+true
+
+// Null/undefined handling
+status == null || status == undefined
+
+// Default for unmatched values
+!["new", "pending", "approved"].includes(status)</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">📋 Status-Based Routing</h3>
+                    <p class="feature-desc">Route items based on their current status: new, pending, approved, rejected, completed.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">👥 Role-Based Access</h3>
+                    <p class="feature-desc">Direct users to different workflows based on their role or permission level.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🏷️ Category Processing</h3>
+                    <p class="feature-desc">Handle different product categories, content types, or data classifications differently.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">⚡ Priority Handling</h3>
+                    <p class="feature-desc">Route high-priority items to express processing and normal items to standard queues.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🌍 Geographic Routing</h3>
+                    <p class="feature-desc">Direct requests to region-specific processing based on location or timezone.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">💳 Payment Processing</h3>
+                    <p class="feature-desc">Route to different payment processors based on payment method or currency.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Explicit Conditions</h3>
+                    <p class="feature-desc">
+                        Use explicit value matching for clarity:
+                        <br>• <code>status == "approved"</code> instead of <code>status</code>
+                        <br>• <code>priority == 1</code> instead of <code>priority</code>
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛡️ Default Routes</h3>
+                    <p class="feature-desc">
+                        Always include a default/fallback route:
+                        <br>• Use <code>true</code> as the last condition
+                        <br>• Handle unexpected or null values
+                        <br>• Log unmatched cases for debugging
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Descriptive Connections</h3>
+                    <p class="feature-desc">
+                        Name your connections clearly:
+                        <br>• "approved_orders" instead of "connection1"
+                        <br>• "high_priority_queue" instead of "queue_a"
+                        <br>• "admin_workflow" instead of "admin"
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Condition Order</h3>
+                    <p class="feature-desc">
+                        Order conditions by specificity:
+                        <br>• Most specific conditions first
+                        <br>• General conditions in the middle
+                        <br>• Default/fallback condition last
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/switch</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Control Flow</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Control Flow</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.control.switch@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
