@@ -195,9 +195,13 @@ The schemas are hosted at:
 
 ---
 
-## 🔐 License
+## 📜 License
 
-MIT — see [`LICENSE`](./LICENSE)
+The schemas published here are licensed under the [Apache 2.0 License](./LICENSE).
+
+You are free to use, modify, and integrate the schema into your own tools or services.
+
+> Note: This license applies to the schema definitions only. Other aspects of the platform are proprietary and licensed separately. See [soeasily.com](https://soeasily.com).
 
 ---
 
