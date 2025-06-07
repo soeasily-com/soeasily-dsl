@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Log - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .log-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .log-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .log-output {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+            margin: 12px 0;
+        }
+
+        .log-timestamp {
+            color: #9ca3af;
+        }
+
+        .log-level {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        .log-message {
+            color: #f9fafb;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../index.html">SoEasily Schemas</a> / 
+                <a href="../index.html">Actions</a> / 
+                Debug Log
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Debug Log</h1>
+            <p class="hero-subtitle">
+                Logs the input data to the workflow's execution history with a custom message. This action is essential for debugging and passes data through without modification.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Debug Log action is your essential debugging companion for workflow development and troubleshooting. It captures snapshots of your data at any point in the workflow execution, logs them with custom messages, and passes the data through unchanged. Perfect for understanding data flow, diagnosing issues, monitoring workflow execution, and validating transformations.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Data Inspection</h3>
+                    <p class="feature-desc">Capture and examine data at any point in your workflow execution.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Custom Messages</h3>
+                    <p class="feature-desc">Add descriptive messages to provide context for each log entry.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Transparent Pass-through</h3>
+                    <p class="feature-desc">Data flows through unchanged, making it safe to add anywhere in your workflow.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">debug</span>
+                <span class="tag">log</span>
+                <span class="tag">print</span>
+                <span class="tag">inspect</span>
+                <span class="tag">utility</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Debug Examples Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Debug Log Examples</h2>
+            <p class="section-desc">
+                See how Debug Log helps you understand and troubleshoot your workflows.
+            </p>
+            
+            <div class="log-example">
+                <h3 class="log-title">Basic Data Inspection</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Log user data after a lookup operation</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "message": "User data after lookup"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input Data:</h4>
+                <pre><code>{
+  "user_id": "usr-123",
+  "name": "John Doe",
+  "email": "john@example.com",
+  "status": "active"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Log Output:</h4>
+                <div class="log-output">
+<span class="log-timestamp">2025-01-07T14:30:15.123Z</span> <span class="log-level">[DEBUG]</span> <span class="log-message">User data after lookup</span><br>
+{<br>
+  "user_id": "usr-123",<br>
+  "name": "John Doe",<br>
+  "email": "john@example.com",<br>
+  "status": "active"<br>
+}
+                </div>
+            </div>
+
+            <div class="log-example">
+                <h3 class="log-title">Transformation Validation</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Verify data after a transformation step</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "message": "Order data after tax calculation"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Log Output:</h4>
+                <div class="log-output">
+<span class="log-timestamp">2025-01-07T14:30:16.456Z</span> <span class="log-level">[DEBUG]</span> <span class="log-message">Order data after tax calculation</span><br>
+{<br>
+  "order_id": "ord-789",<br>
+  "subtotal": 100.00,<br>
+  "tax": 8.00,<br>
+  "total": 108.00<br>
+}
+                </div>
+            </div>
+
+            <div class="log-example">
+                <h3 class="log-title">Conditional Branch Tracking</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Track which branch of a conditional was taken</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "message": "Entering adult user processing branch"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Log Output:</h4>
+                <div class="log-output">
+<span class="log-timestamp">2025-01-07T14:30:17.789Z</span> <span class="log-level">[DEBUG]</span> <span class="log-message">Entering adult user processing branch</span><br>
+{<br>
+  "user": {<br>
+    "age": 25,<br>
+    "verified": true<br>
+  }<br>
+}
+                </div>
+            </div>
+
+            <div class="log-example">
+                <h3 class="log-title">API Response Inspection</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Examine data received from external APIs</p>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "message": "Payment API response received"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Log Output:</h4>
+                <div class="log-output">
+<span class="log-timestamp">2025-01-07T14:30:18.012Z</span> <span class="log-level">[DEBUG]</span> <span class="log-message">Payment API response received</span><br>
+{<br>
+  "transaction_id": "txn_abc123",<br>
+  "status": "completed",<br>
+  "amount": 108.00,<br>
+  "currency": "USD"<br>
+}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure the Debug Log action with a descriptive message for the log entry.
+            </p>
+            
+            <pre><code>{
+  "title": "Debug Log Configuration",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "A message to include with the log entry. Can contain expressions."
+    }
+  },
+  "required": ["message"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Accepts any JSON object to be logged and passed through.</p>
+                    <pre><code>{
+  "title": "Debug Log Input",
+  "type": "object"
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">The output is identical to the input - data passes through unchanged.</p>
+                    <pre><code>{
+  "title": "Debug Log Output",
+  "description": "The output is identical to the input.",
+  "type": "object"
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🐛 Workflow Debugging</h3>
+                    <p class="feature-desc">Identify where workflows fail or produce unexpected results by logging data at key points.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔍 Data Flow Analysis</h3>
+                    <p class="feature-desc">Understand how data changes as it moves through different workflow actions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">✅ Transformation Validation</h3>
+                    <p class="feature-desc">Verify that data transformations produce the expected results.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Performance Monitoring</h3>
+                    <p class="feature-desc">Track workflow execution and identify bottlenecks or issues.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Integration Testing</h3>
+                    <p class="feature-desc">Verify data exchange between different systems and APIs.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📝 Audit Trails</h3>
+                    <p class="feature-desc">Create detailed logs for compliance, auditing, or troubleshooting purposes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">📍 Strategic Placement</h3>
+                    <p class="feature-desc">
+                        Place Debug Log actions at key workflow points:
+                        <br>• After data transformations
+                        <br>• Before/after API calls
+                        <br>• At conditional branch points
+                        <br>• After error-prone operations
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">💬 Descriptive Messages</h3>
+                    <p class="feature-desc">
+                        Use clear, descriptive messages that explain:
+                        <br>• What operation just completed
+                        <br>• What the data represents
+                        <br>• Which workflow branch was taken
+                        <br>• Expected vs actual results
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🏷️ Consistent Naming</h3>
+                    <p class="feature-desc">
+                        Use consistent message patterns:
+                        <br>• "Before [operation]"
+                        <br>• "After [operation]"
+                        <br>• "[Action] completed"
+                        <br>• "[Branch] path taken"
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🧹 Production Cleanup</h3>
+                    <p class="feature-desc">
+                        Remove or disable Debug Log actions in production workflows to:
+                        <br>• Improve performance
+                        <br>• Reduce log volume
+                        <br>• Protect sensitive data
+                        <br>• Minimize storage costs
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/debug_log</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Utility</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Utilities</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.utility.debug@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
