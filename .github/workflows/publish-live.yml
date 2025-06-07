@@ -1,0 +1,31 @@
+# Deploy the project to toco-gotoco bucket
+
+name: Publish Live (schemas.soeasily.com)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+          matrix:
+            node-version: [16.x]
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+      - name: Build and deploy to S3
+        run: |
+          cd $GITHUB_WORKSPACE
+          AWS_MAX_ATTEMPTS=10
+          aws s3 sync $GITHUB_WORKSPACE/schemas s3://schemas.soeasily.com --delete
+          aws cloudfront create-invalidation --distribution-id EKIN3C6VYRPEI --paths "/*"
