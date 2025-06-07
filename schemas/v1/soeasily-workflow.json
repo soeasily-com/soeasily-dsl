@@ -76,8 +76,8 @@
           },
           "data_mapping": {
             "type": "object",
-            "description": "JMESPath or JSONata expressions to transform and map data from the source output to the target input. The keys are the target input fields, and the values are the mapping expressions.",
-            "additionalProperties": { "type": "string" },
+            "description": "JSONata expressions to transform and map data from the source output to the target input. The keys are the target input fields, and the values are the mapping expressions.",
+            "additionalProperties": true,
             "examples": [
               {
                 "url": "source.body.request_url",
@@ -87,10 +87,10 @@
           },
           "condition": {
              "type": "string",
-             "description": "An optional JMESPath or JSONata expression that must evaluate to true for this connection to be followed. Used for branching logic."
+             "description": "An optional JSONata expression that must evaluate to true for this connection to be followed. Used for branching logic."
           }
         },
-        "required": ["source_action", "target_action", "data_mapping"]
+        "required": ["source_action", "target_action"]
       }
     },
 
@@ -106,7 +106,7 @@
           "type": "object",
           "properties": {
             "max_attempts": { "type": "integer", "minimum": 1, "default": 1 },
-            "delay_seconds": { "type": "integer", "minimum": 1, "default": 60 }
+            "delay_milliseconds": { "type": "integer", "minimum": 250, "maximum": 30000, "default": 1000 }
           }
         }
       }
