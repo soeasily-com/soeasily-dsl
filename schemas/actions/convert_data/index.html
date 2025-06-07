@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert Data Format - SoEasily Core Actions</title>
+    <link
+        href="https://unpkg.com/browse/@primer/react-brand@latest/lib/css/main.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            font-family: "Mona Sans","MonaSansFallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        code, pre, .monospace {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #d1d9e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: #656d76;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .feature-desc {
+            color: #656d76;
+            line-height: 1.5;
+        }
+
+        .breadcrumb {
+            background-color: #f6f8fa;
+            padding: 16px 0;
+            border-bottom: 1px solid #d1d9e0;
+        }
+
+        .breadcrumb-nav {
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f6f8fa;
+            color: #656d76;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .schema-section {
+            background-color: #f6f8fa;
+        }
+
+        .test-case {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292f;
+        }
+
+        .test-desc {
+            color: #656d76;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .conversion-example {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .conversion-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #24292f;
+        }
+
+        .format-flow {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            text-align: center;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+        }
+
+        .format-step {
+            display: inline-block;
+            background: white;
+            border: 1px solid #ea580c;
+            border-radius: 6px;
+            padding: 8px 16px;
+            margin: 0 8px;
+            color: #9a3412;
+            font-weight: 600;
+        }
+
+        .format-arrow {
+            color: #ea580c;
+            font-size: 18px;
+            margin: 0 16px;
+        }
+
+        .format-matrix {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .format-cell {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .format-cell.header {
+            background: #f6f8fa;
+            font-weight: 600;
+            color: #24292f;
+        }
+
+        .format-cell.supported {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #059669;
+        }
+
+        .format-cell.same {
+            background: #fef3c7;
+            border-color: #fcd34d;
+            color: #92400e;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .format-matrix {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="../../index.html">SoEasily Schemas</a> / 
+                <a href="../index.html">Actions</a> / 
+                Convert Data Format
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="../../../public/assets/logo.png" alt="SoEasily Logo" class="logo">
+            <h1 class="hero-title">Convert Data Format</h1>
+            <p class="hero-subtitle">
+                Converts a string of data from one format (e.g., JSON) to another (e.g., XML). Essential for data integration and system interoperability.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-desc">
+                The Convert Data Format action bridges the gap between different data formats, enabling seamless integration between systems that speak different data languages. Whether you're receiving JSON from an API and need to send XML to a legacy system, or converting CSV data for processing, this action handles the transformation reliably and efficiently.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Multi-Format Support</h3>
+                    <p class="feature-desc">Convert between JSON, XML, and CSV formats with automatic parsing and generation.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛡️ Reliable Conversion</h3>
+                    <p class="feature-desc">Robust parsing and error handling ensure data integrity during format conversion.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">⚡ System Integration</h3>
+                    <p class="feature-desc">Enable communication between systems with different data format requirements.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; color: #24292f;">Tags</h3>
+                <span class="tag">convert</span>
+                <span class="tag">parse</span>
+                <span class="tag">format</span>
+                <span class="tag">json</span>
+                <span class="tag">xml</span>
+                <span class="tag">csv</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supported Conversions Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Supported Conversions</h2>
+            <p class="section-desc">
+                Matrix showing all supported format conversions. Green indicates supported conversions, yellow indicates same format (no conversion needed).
+            </p>
+            
+            <div class="format-matrix">
+                <div class="format-cell header">From / To</div>
+                <div class="format-cell header">JSON</div>
+                <div class="format-cell header">XML</div>
+                <div class="format-cell header">CSV</div>
+                
+                <div class="format-cell header">JSON</div>
+                <div class="format-cell same">Same Format</div>
+                <div class="format-cell supported">✓ Supported</div>
+                <div class="format-cell supported">✓ Supported</div>
+                
+                <div class="format-cell header">XML</div>
+                <div class="format-cell supported">✓ Supported</div>
+                <div class="format-cell same">Same Format</div>
+                <div class="format-cell supported">✓ Supported</div>
+                
+                <div class="format-cell header">CSV</div>
+                <div class="format-cell supported">✓ Supported</div>
+                <div class="format-cell supported">✓ Supported</div>
+                <div class="format-cell same">Same Format</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conversion Examples Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Conversion Examples</h2>
+            <p class="section-desc">
+                See how Convert Data Format transforms data between different formats.
+            </p>
+            
+            <div class="conversion-example">
+                <h3 class="conversion-title">JSON to XML Conversion</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Convert structured JSON data to XML format</p>
+                
+                <div class="format-flow">
+                    <span class="format-step">JSON</span>
+                    <span class="format-arrow">→</span>
+                    <span class="format-step">XML</span>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "source_format": "json",
+  "target_format": "xml"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input Data:</h4>
+                <pre><code>{
+  "data": "{\"user\":{\"id\":123,\"name\":\"John Doe\",\"email\":\"john@example.com\",\"active\":true}}"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output Data:</h4>
+                <pre><code>{
+  "data": "<user><id>123</id><name>John Doe</name><email>john@example.com</email><active>true</active></user>"
+}</code></pre>
+            </div>
+
+            <div class="conversion-example">
+                <h3 class="conversion-title">CSV to JSON Conversion</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Transform CSV data into structured JSON format</p>
+                
+                <div class="format-flow">
+                    <span class="format-step">CSV</span>
+                    <span class="format-arrow">→</span>
+                    <span class="format-step">JSON</span>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "source_format": "csv",
+  "target_format": "json"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input Data:</h4>
+                <pre><code>{
+  "data": "name,age,city\nAlice,30,New York\nBob,25,San Francisco\nCharlie,35,Chicago"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output Data:</h4>
+                <pre><code>{
+  "data": "[{\"name\":\"Alice\",\"age\":\"30\",\"city\":\"New York\"},{\"name\":\"Bob\",\"age\":\"25\",\"city\":\"San Francisco\"},{\"name\":\"Charlie\",\"age\":\"35\",\"city\":\"Chicago\"}]"
+}</code></pre>
+            </div>
+
+            <div class="conversion-example">
+                <h3 class="conversion-title">XML to JSON Conversion</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Parse XML data and convert to JSON structure</p>
+                
+                <div class="format-flow">
+                    <span class="format-step">XML</span>
+                    <span class="format-arrow">→</span>
+                    <span class="format-step">JSON</span>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "source_format": "xml",
+  "target_format": "json"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input Data:</h4>
+                <pre><code>{
+  "data": "<product><id>456</id><name>Laptop</name><price>999.99</price><category>Electronics</category></product>"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output Data:</h4>
+                <pre><code>{
+  "data": "{\"product\":{\"id\":\"456\",\"name\":\"Laptop\",\"price\":\"999.99\",\"category\":\"Electronics\"}}"
+}</code></pre>
+            </div>
+
+            <div class="conversion-example">
+                <h3 class="conversion-title">JSON to CSV Conversion</h3>
+                <p style="color: #656d76; margin-bottom: 16px;">Flatten JSON array data into CSV format</p>
+                
+                <div class="format-flow">
+                    <span class="format-step">JSON</span>
+                    <span class="format-arrow">→</span>
+                    <span class="format-step">CSV</span>
+                </div>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Configuration:</h4>
+                <pre><code>{
+  "source_format": "json",
+  "target_format": "csv"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Input Data:</h4>
+                <pre><code>{
+  "data": "[{\"name\":\"Product A\",\"price\":100,\"stock\":50},{\"name\":\"Product B\",\"price\":200,\"stock\":25}]"
+}</code></pre>
+                
+                <h4 style="margin: 16px 0 8px 0; color: #24292f;">Output Data:</h4>
+                <pre><code>{
+  "data": "name,price,stock\nProduct A,100,50\nProduct B,200,25"
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Configuration Schema</h2>
+            <p class="section-desc">
+                Configure the Convert Data Format action by specifying source and target formats.
+            </p>
+            
+            <pre><code>{
+  "title": "Convert Data Format Configuration",
+  "type": "object",
+  "properties": {
+    "source_format": {
+      "type": "string",
+      "enum": ["json", "xml", "csv"]
+    },
+    "target_format": {
+      "type": "string",
+      "enum": ["json", "xml", "csv"]
+    }
+  },
+  "required": ["source_format", "target_format"]
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Input/Output Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Input & Output</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Input Schema</h3>
+                    <p class="feature-desc">Accepts a data string in the source format for conversion.</p>
+                    <pre><code>{
+  "title": "Convert Data Input",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "string",
+      "description": "The raw data string to be converted."
+    }
+  },
+  "required": ["data"]
+}</code></pre>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Output Schema</h3>
+                    <p class="feature-desc">Returns the converted data string in the target format.</p>
+                    <pre><code>{
+  "title": "Convert Data Output",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "string",
+      "description": "The data in the new format."
+    }
+  },
+  "required": ["data"]
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Format Details Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Format Details</h2>
+            <p class="section-desc">
+                Understanding the characteristics and use cases of each supported format.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">📄 JSON (JavaScript Object Notation)</h3>
+                    <p class="feature-desc">
+                        <strong>Best for:</strong> APIs, web applications, configuration files
+                        <br><strong>Characteristics:</strong> Lightweight, human-readable, widely supported
+                        <br><strong>Structure:</strong> Key-value pairs, arrays, nested objects
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🏷️ XML (eXtensible Markup Language)</h3>
+                    <p class="feature-desc">
+                        <strong>Best for:</strong> Enterprise systems, SOAP APIs, document markup
+                        <br><strong>Characteristics:</strong> Self-describing, schema validation, namespaces
+                        <br><strong>Structure:</strong> Hierarchical tags, attributes, text content
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 CSV (Comma-Separated Values)</h3>
+                    <p class="feature-desc">
+                        <strong>Best for:</strong> Spreadsheets, data exports, tabular data
+                        <br><strong>Characteristics:</strong> Simple, compact, universally supported
+                        <br><strong>Structure:</strong> Rows and columns, header row, delimited values
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Common Use Cases</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🔗 API Integration</h3>
+                    <p class="feature-desc">Convert between JSON and XML when integrating modern APIs with legacy systems.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Export/Import</h3>
+                    <p class="feature-desc">Transform data for spreadsheet applications or database imports using CSV format.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🏢 Enterprise Integration</h3>
+                    <p class="feature-desc">Bridge different enterprise systems that require specific data formats.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📄 Document Processing</h3>
+                    <p class="feature-desc">Convert structured data for document generation or content management systems.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔄 Data Migration</h3>
+                    <p class="feature-desc">Transform data formats during system migrations or data warehouse operations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📡 Message Transformation</h3>
+                    <p class="feature-desc">Convert message formats in integration platforms and message queues.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="section schema-section">
+        <div class="container">
+            <h2 class="section-title">Best Practices</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">✅ Data Validation</h3>
+                    <p class="feature-desc">
+                        Validate input data before conversion:
+                        <br>• Check for well-formed JSON/XML
+                        <br>• Verify CSV structure and headers
+                        <br>• Handle special characters properly
+                        <br>• Test with edge cases and empty data
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🛡️ Error Handling</h3>
+                    <p class="feature-desc">
+                        Implement robust error handling:
+                        <br>• Use Error Handler for conversion failures
+                        <br>• Validate source format matches configuration
+                        <br>• Handle malformed or incomplete data
+                        <br>• Provide meaningful error messages
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">📊 Data Structure</h3>
+                    <p class="feature-desc">
+                        Consider data structure implications:
+                        <br>• JSON arrays convert well to CSV
+                        <br>• XML attributes may be lost in conversion
+                        <br>• Nested structures flatten in CSV
+                        <br>• Preserve data types where possible
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">⚡ Performance</h3>
+                    <p class="feature-desc">
+                        Optimize for performance:
+                        <br>• Consider data size limitations
+                        <br>• Use streaming for large datasets
+                        <br>• Cache conversion results when appropriate
+                        <br>• Monitor memory usage with large files
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Details</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Action ID</h3>
+                    <p class="feature-desc"><code>soeasily/convert_data</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Version</h3>
+                    <p class="feature-desc"><code>1.0.0</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Category</h3>
+                    <p class="feature-desc">Data Operation</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Collection</h3>
+                    <p class="feature-desc">Data Operations</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Handler</h3>
+                    <p class="feature-desc"><code>soeasily.data.convert@1</code></p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Author</h3>
+                    <p class="feature-desc">SoEasily (<a href="https://soeasily.com" target="_blank">https://soeasily.com</a>)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
