@@ -1,178 +1,219 @@
-# SoEasily DSL
+# SoEasily Schemas
 
-The **SoEasily DSL** is a developer-first, AI-friendly rule definition format that compiles to `json-rules-engine` and extends it with powerful schema validation, explainability, and structured automation.
+**SoEasily Schemas** - You've reached the home of the schema definitions for the SoEasily workflow platform. SoEasily turns natural language into powerful workflows with AI-powered automation and visual flow building.
 
-> 🔧 Write rules in plain English, validate against JSON Schema, and execute across cloud or local environments.
+> 🚀 Perfect for SaaS teams who need instant workflow creation without the complexity of traditional tools.
 
-## ✨ Key Features
+## ✨ Why SoEasily?
 
-- ✅ Compatible with [`json-rules-engine`](https://github.com/CacheControl/json-rules-engine)
-- ⚡ AI-Generated via OpenAI + JSON Schema awareness
-- 🧩 Proprietary extensions: `when`, `expr`, `lookup`, `response_template`
-- 📄 Self-documenting: `tags`, `description`, `test_cases`
-- 🔐 Built for teams, workflows, and compliance
-
----
-
-## 📘 Basic Examples
-
-### 1. Basic `expr` Shortcut
-```json
-{
-  "name": "approve_if_over_18",
-  "expr": "user.age >= 18",
-  "event": { "type": "approve" }
-}
-```
-
-### 2. `when` / `then` Rule (Compiles to conditions + event)
-```json
-{
-  "name": "vip_discount",
-  "when": "customer.status == 'VIP' && order.total > 500",
-  "then": {
-    "type": "apply_discount",
-    "params": { "percentage": 20 }
-  }
-}
-```
+- **Typed DSL with Schema Validation** - SaaS-ready embedding with comprehensive schema validation
+- **Real-time Execution** - Less complexity, more AI-powered automation with real-time execution and monitoring  
+- **Multi-tenant Ready** - Typed DSL, custom UI extensions, agentic workflows with multi-tenant isolation for SaaS
+- **AI-Powered Agents** - Build flows that integrate OpenAI, summarize, classify, and route intelligently with AI-powered agents and conditionals
 
 ---
 
-## 🧩 Proprietary Extensions (DSL v1)
+## 📋 Available Schemas
 
-### 🔹 `expr`
-Shorthand for a logical expression instead of verbose condition trees.
+### 🔹 SoEasily Workflow Schema (v1.0)
+**File:** [`schemas/v1/soeasily-workflow.json`](./schemas/v1/soeasily-workflow.json)
 
-- ✅ Easier to read/write
-- ✨ Used in AI-generated rules
-- 🔁 Internally compiles to `conditions`
+The workflow schema defines the structure for creating complete SoEasily workflows. A workflow consists of:
 
----
+- **Header** - Metadata including ID, title, description, version, and tags
+- **Actions** - Array of action instances with unique instance IDs and configurations
+- **Connections** - Defines execution flow between actions with data mapping and conditional logic
+- **Error Handling** - Global error handling strategy with retry policies
 
-### 🔹 `when` + `then`
-Alternative to `conditions` + `event`. Makes rules clearer for business logic.
+**Key Features:**
+- JMESPath/JSONata expressions for data transformation
+- Conditional branching logic
+- Global error handling and retry mechanisms
+- Version control and tagging system
 
-```json
-{
-  "when": "fact.value > 100",
-  "then": { "type": "trigger_alert" }
-}
-```
+### 🔹 SoEasily Action Schema (v1.0)
+**File:** [`schemas/v1/soeasily-action.json`](./schemas/v1/soeasily-action.json)
 
----
+The action schema defines individual action definitions that can be used within workflows. Each action includes:
 
-### 🔹 `extends`
-Reference other rules or rule modules.
+- **Identification** - Globally unique ID with namespace (e.g., `http_request`)
+- **Author Information** - Details about the action creator and support resources
+- **Documentation** - User-friendly titles, descriptions, categories, and localization
+- **Schemas** - JSON Schema definitions for configuration, input, output, and credentials
+- **Testing** - Built-in test cases for validation
 
-```json
-{
-  "extends": ["core/kyc_rules"],
-  "expr": "user.age > 21",
-  "event": { "type": "grant_access" }
-}
-```
-
----
-
-### 🔹 `tags`, `description`
-For filtering, searching, and documenting rules.
-
-```json
-{
-  "tags": ["compliance", "kyc"],
-  "description": "Ensures KYC compliance for age"
-}
-```
+**Categories:**
+- `trigger` - Workflow initiators
+- `control_flow` - Conditional and branching logic
+- `data_operation` - Data transformation and manipulation
+- `execution_scripting` - Code execution and scripting
+- `integration_generic` - Third-party service integrations
+- `ai_llm` - AI and language model operations
+- `utility` - Helper and utility functions
 
 ---
 
-### 🔹 `test_cases`
-Inline unit tests for rules (run during CI or UI).
+## 🎯 Use Cases
 
-```json
-{
-  "test_cases": [
-    {
-      "input": { "user": { "age": 22 } },
-      "expect": { "type": "approve" }
-    }
-  ]
-}
-```
+### Internal Operations
+Automate onboarding, invoice approvals, and team workflows with natural language descriptions.
+
+### Customer-Facing
+Let users build workflows directly in your product with our embeddable visual editor.
+
+### AI Agents
+Build intelligent flows that integrate with AI services for summarization, classification, and smart routing.
 
 ---
 
-### 🔹 `lookup`
-Reference dynamic data like SoEasily Sheets or config tables.
+## 🚀 How It Works
 
-```json
-{
-  "conditions": {
-    "all": [
-      {
-        "fact": "region",
-        "operator": "in",
-        "value": { "$lookup": "regions.eu" }
-      }
-    ]
-  }
-}
-```
+### 1. Type a Workflow
+Describe your automation in plain English: "If user signs up and is under 18, notify support team. Otherwise, send welcome email."
 
----
+### 2. AI Turns it into Logic
+SoEasily converts your prompt into a typed JSON DSL with schema validation and visual flow representation.
 
-### 🔹 `settings`
-Control execution logic, logging, and failure modes.
-
-```json
-{
-  "settings": {
-    "execution": "first_match",
-    "fail_fast": true,
-    "log_level": "trace"
-  }
-}
-```
-
----
-
-### 🔹 `response_template`
-Shape output result with merged fields or custom format.
-
-```json
-{
-  "response_template": {
-    "status": "approved",
-    "details": { "$merge": ["input", "event.params"] }
-  }
-}
-```
+### 3. Run or Customize
+Deploy instantly, embed in your SaaS, or fine-tune with our visual editor. Multi-tenant ready with real-time execution.
 
 ---
 
 ## 📦 Installation
 
 ```bash
-npm install @soeasily/rules
+npm install @soeasily/schemas
 ```
 
-## ✅ Validate a Rule File (CLI)
+## ✅ Validate Schema Files
 
 ```bash
-node tools/validate.js examples/rule_basic.json
+node tools/validate.js schemas/v1/soeasily-workflow.json
+node tools/validate.js schemas/v1/soeasily-action.json
 ```
 
 ---
 
-## 📚 Full Schema
+## 📚 Example Workflow Structure
 
-View [`schemas/soeasily-dsl-v1.schema.json`](./schemas/soeasily-dsl-v1.schema.json)
+```json
+{
+  "header": {
+    "id": "user_onboarding_flow",
+    "title": "User Onboarding Workflow",
+    "description": "Automated user onboarding with age verification",
+    "version": 1,
+    "tags": ["onboarding", "user-management"]
+  },
+  "actions": [
+    {
+      "instance_id": "age_check_1",
+      "action": "soeasily/condition@1",
+      "config": {
+        "expression": "user.age >= 18"
+      }
+    },
+    {
+      "instance_id": "send_welcome_email_1",
+      "action": "soeasily/email@1",
+      "config": {
+        "template": "welcome_adult"
+      }
+    },
+    {
+      "instance_id": "notify_support_1",
+      "action": "soeasily/notification@1",
+      "config": {
+        "message": "Minor user registration requires review"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "source_action": "age_check_1",
+      "target_action": "send_welcome_email_1",
+      "condition": "source.result == true",
+      "data_mapping": {
+        "user_email": "source.input.user.email"
+      }
+    },
+    {
+      "source_action": "age_check_1", 
+      "target_action": "notify_support_1",
+      "condition": "source.result == false",
+      "data_mapping": {
+        "user_data": "source.input.user"
+      }
+    }
+  ]
+}
+```
+
+## 📚 Example Action Definition
+
+```json
+{
+  "id": "http_request",
+  "version": "1.0.0",
+  "author": {
+    "name": "SoEasily",
+    "url": "https://soeasily.com"
+  },
+  "documentation": {
+    "title": "HTTP Request",
+    "description": "Make HTTP requests to external APIs",
+    "category": "integration_generic",
+    "collection": {
+      "name": "Core Actions"
+    }
+  },
+  "handler": "soeasily.actions.http_handler@1",
+  "config_schema": {
+    "type": "object",
+    "properties": {
+      "method": {
+        "type": "string",
+        "enum": ["GET", "POST", "PUT", "DELETE"]
+      },
+      "url": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "required": ["method", "url"]
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "headers": { "type": "object" },
+      "body": { "type": "object" }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "status": { "type": "integer" },
+      "body": { "type": "object" },
+      "headers": { "type": "object" }
+    }
+  }
+}
+```
+
+---
+
+## 🌐 Schema URLs
+
+The schemas are hosted at:
+- **Workflow Schema:** `https://schemas.soeasily.com/v1/soeasily-workflow.json`
+- **Action Schema:** `https://schemas.soeasily.com/v1/soeasily-action.json`
+
+---
 
 ## 🔐 License
 
 MIT — see [`LICENSE`](./LICENSE)
 
-## 🤝 Contributing
+---
 
-Please read [`CONTRIBUTING.md`](./CONTRIBUTING.md) to get started.
+**SoEasily** - Powering the next generation of workflow automation

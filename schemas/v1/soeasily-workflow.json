@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.soeasily.com/v1/soeasily-workflow.json",
+  "title": "SoEasily Workflow DSL v1",
+  "description": "Schema for defining a SoEasily workflow, which consists of a series of connected actions.",
+  "version": "1.0.0",
+  "type": "object",
+
+  "properties": {
+    "header": {
+      "type": "object",
+      "description": "Contains metadata about the workflow itself.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier for this specific workflow instance.",
+        },
+        "title": {
+          "type": "string",
+          "description": "A user-friendly name for the workflow."
+        },
+        "description": {
+          "type": "string",
+          "description": "An optional, more detailed explanation of what the workflow does."
+        },
+        "version": {
+          "type": "integer",
+          "description": "The version number of this workflow, incremented on each save.",
+          "minimum": 1
+        },
+        "tags": {
+          "type": "array",
+          "description": "Keywords to help categorize and search for the workflow.",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["id", "title", "version"]
+    },
+
+    "actions": {
+      "type": "array",
+      "description": "The list of all action nodes that make up this workflow.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "type": "string",
+            "description": "A unique identifier for this specific instance of an action within the workflow, e.g., 'manual_trigger_1', 'http_request_5'.",
+          },
+          "action_id": {
+            "type": "string",
+            "description": "The globally unique ID of the action definition this instance is based on (e.g., 'soeasily.core.http_request')."
+          },
+          "config": {
+            "type": "object",
+            "description": "The specific configuration for this action instance, which must conform to the 'config_schema' in the corresponding action definition file."
+          }
+        },
+        "required": ["instance_id", "action_id"]
+      }
+    },
+
+    "connections": {
+      "type": "array",
+      "description": "Defines the execution flow by connecting the output of one action to the input of another.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_action": {
+            "type": "string",
+            "description": "The 'instance_id' of the action that is providing the output."
+          },
+          "target_action": {
+            "type": "string",
+            "description": "The 'instance_id' of the action that is receiving the input."
+          },
+          "data_mapping": {
+            "type": "object",
+            "description": "JMESPath or JSONata expressions to transform and map data from the source output to the target input. The keys are the target input fields, and the values are the mapping expressions.",
+            "additionalProperties": { "type": "string" },
+            "examples": [
+              {
+                "url": "source.body.request_url",
+                "user_id": "source.headers.'x-user-id'"
+              }
+            ]
+          },
+          "condition": {
+             "type": "string",
+             "description": "An optional JMESPath or JSONata expression that must evaluate to true for this connection to be followed. Used for branching logic."
+          }
+        },
+        "required": ["source_action", "target_action", "data_mapping"]
+      }
+    },
+
+    "error_handling": {
+      "type": "object",
+      "description": "Defines a global strategy for handling errors that occur during workflow execution.",
+      "properties": {
+        "on_error_action": {
+          "type": "string",
+          "description": "The 'instance_id' of an action to execute if any other action in the workflow fails (e.g., a notification action)."
+        },
+        "retry_policy": {
+          "type": "object",
+          "properties": {
+            "max_attempts": { "type": "integer", "minimum": 1, "default": 1 },
+            "delay_seconds": { "type": "integer", "minimum": 1, "default": 60 }
+          }
+        }
+      }
+    }
+  },
+  "required": ["header", "actions", "connections"]
+}

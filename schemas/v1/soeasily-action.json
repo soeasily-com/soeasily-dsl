@@ -3,6 +3,7 @@
   "$id": "https://schemas.soeasily.com/v1/soeasily-action.json",
   "title": "Action Definition",
   "description": "Schema for defining a SoEasily platform action, its properties, author, inputs, outputs, and documentation.",
+  "version": "1.0.0",
   "type": "object",
   "properties": {
     "id": {
