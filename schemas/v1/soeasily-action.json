@@ -9,10 +9,10 @@
     "id": {
       "type": "string",
       "description": "A globally unique identifier for the SoEasily action, including a namespace. Uses snake_case.",
-      "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+)+$",
+      "pattern": "^[a-z0-9_/@]+(\\.[a-z0-9_/@]+)+$",
       "examples": [
-        "soeasily.core.http_request",
-        "github.actions.get_issue"
+        "soeasily/http_request",
+        "slack/message"
       ]
     },
     "version": {
@@ -50,7 +50,10 @@
           "description": "An optional link to the author's support page or help desk."
         }
       },
-      "required": ["name", "url"]
+      "required": [
+        "name",
+        "url"
+      ]
     },
     "documentation": {
       "type": "object",
@@ -67,12 +70,22 @@
         "category": {
           "type": "string",
           "description": "The primary, high-level category for UI organization.",
-          "enum": ["trigger", "control_flow", "data_operation", "execution_scripting", "integration_generic", "ai_llm", "utility"]
+          "enum": [
+            "trigger",
+            "control_flow",
+            "data_operation",
+            "execution_scripting",
+            "integration_generic",
+            "ai_llm",
+            "utility"
+          ]
         },
         "tags": {
           "type": "array",
           "description": "A list of keywords for SEO and global platform search.",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "collection": {
           "type": "object",
@@ -81,7 +94,10 @@
             "name": {
               "type": "string",
               "description": "The name of the author-specific collection this action belongs to.",
-              "examples": ["User Management", "File Operations"]
+              "examples": [
+                "User Management",
+                "File Operations"
+              ]
             },
             "display_order": {
               "type": "integer",
@@ -90,7 +106,9 @@
               "default": 99
             }
           },
-          "required": ["name"]
+          "required": [
+            "name"
+          ]
         },
         "icon_svg_name": {
           "type": "string",
@@ -106,7 +124,12 @@
           "description": "References to localized versions of this action definition."
         }
       },
-      "required": ["title", "description", "category", "collection"]
+      "required": [
+        "title",
+        "description",
+        "category",
+        "collection"
+      ]
     },
     "handler": {
       "type": "string",
@@ -138,13 +161,27 @@
       "items": {
         "type": "object",
         "properties": {
-          "name": { "type": "string" },
-          "description": { "type": "string" },
-          "config": { "type": "object" },
-          "input": { "type": "object" },
-          "expected_output": { "type": "object" }
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "config": {
+            "type": "object"
+          },
+          "input": {
+            "type": "object"
+          },
+          "expected_output": {
+            "type": "object"
+          }
         },
-        "required": ["name", "input", "expected_output"]
+        "required": [
+          "name",
+          "input",
+          "expected_output"
+        ]
       }
     }
   },
