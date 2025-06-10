@@ -55,9 +55,9 @@
       "description": "An optional JSON Schema defining any required credentials."
     },
 
-    "steps": {
+    "nodes": {
       "type": "array",
-      "description": "The list of all action nodes that make up this workflow.",
+      "description": "The list of all nodes that make up this workflow.",
       "items": {
         "type": "object",
         "properties": {
@@ -67,7 +67,7 @@
           },
           "action": {
             "type": "string",
-            "description": "The globally unique ID of the action definition this instance is based on (e.g., 'soeasily.core.http_request')."
+            "description": "The globally unique ID of the action definition this instance is based on (e.g., 'soeasily/http_request')."
           },
           "config": {
             "type": "object",
